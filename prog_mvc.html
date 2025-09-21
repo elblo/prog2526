@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Patrón MVC</title>
+
+		<meta name="description" content="Patrón MVC">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Patrón MVC</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				  <!-- Índice -->
+				  <section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Ventajas</li>
+						<li>Ejemplo básico con una clase base</li>
+						<li>Ejemplo completo con varias clases base</li>
+						<li>Consideraciones finales</li>
+						<li>Ejercicios</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>El patrón <strong>Modelo-Vista-Controlador (MVC)</strong> es una arquitectura de software que separa la lógica de la aplicación en tres componentes principales:</p>
+					<ul>
+						<li><em>Modelo (Model)</em>: Representa los datos y la lógica de negocio.</li>
+						<li><em>Vista (View)</em>: Muestra la información al usuario.</li>
+						<li><em>Controlador (Controller)</em>: Maneja la interacción entre el modelo y la vista.</li>
+					</ul>
+				</section>
+				
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p><img src="img/prog_mvc.webp" alt="Diagrama MVC" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Ventajas</li>
+						<li>Ejemplo básico con una clase base</li>
+						<li>Ejemplo completo con varias clases base</li>
+						<li>Consideraciones finales</li>
+						<li>Ejercicios</li>
+					</ol>
+				</section>
+
+				<!-- Ventajas -->
+				<section>
+					<h2>Ventajas</h2>
+					<ul>
+						<li><strong>Separación de responsabilidades</strong>: Cada componente tiene una función específica, facilitando la organización del código.</li>
+						<li><strong>Facilidad de mantenimiento</strong>: Separar la lógica de negocio, la presentación y la gestión de la interacción permite modificar o mejorar cada parte sin afectar a las demás.</li>
+						<li><strong>Reutilización de código</strong>: La vista y el modelo pueden reutilizarse en diferentes partes del programa o incluso en otros proyectos.</li>
+						</ul>
+				</section>
+
+				<!-- Ventajas -->
+				<section>
+					<h2>Ventajas</h2>
+					<ul>
+						<li><strong>Escalabilidad</strong>: Al estar bien estructurado, es más fácil añadir nuevas funcionalidades sin afectar el sistema en su conjunto.</li>
+						<li><strong>Facilita la colaboración</strong>: Diferentes desarrolladores pueden trabajar simultáneamente en distintas partes del código sin interferencias.</li>
+						<li><strong>Mejor prueba y depuración</strong>: Permite realizar pruebas unitarias más eficaces, ya que la lógica de negocio está separada de la interfaz gráfica.</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ventajas</li>
+						<li class="fragment highlight-blue">Ejemplo básico con una clase base</li>
+						<li>Ejemplo completo con varias clases base</li>
+						<li>Consideraciones finales</li>
+						<li>Ejercicios</li>
+					</ol>
+				</section>
+
+				<!-- Ejemplo básico con una clase base -->
+				<section>
+					<h2>Ejemplo básico con una clase base</h2>
+					<p><strong>1. Modelo</strong>: Define los datos y la lógica de negocio.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							class Estudiante {
+								private String nombre;
+								private int edad;
+								
+								public Estudiante(String nombre, int edad) {
+									this.nombre = nombre;
+									this.edad = edad;
+								}
+								
+								public String getNombre() {
+									return nombre;
+								}
+								
+								public void setNombre(String nombre) {
+									this.nombre = nombre;
+								}
+								
+								public int getEdad() {
+									return edad;
+								}
+								
+								public void setEdad(int edad) {
+									this.edad = edad;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo básico con una clase base -->
+				<section>
+					<h2>Ejemplo básico con una clase base</h2>
+					<p><strong>2. Vista</strong>: Muestra información al usuario.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							class EstudianteVista {
+								public void mostrarEstudiante(String nombre, int edad) {
+									System.out.println("Estudiante: ");
+									System.out.println("Nombre: " + nombre);
+									System.out.println("Edad: " + edad);
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo básico con una clase base -->
+				<section>
+					<h2>Ejemplo básico con una clase base</h2>
+					<p><strong>3. Controlador</strong>: Gestiona la relación entre el modelo y vista.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							class EstudianteControlador {
+								private Estudiante modelo;
+								private EstudianteVista vista;
+								
+								public EstudianteControlador(Estudiante modelo, EstudianteVista vista) {
+									this.modelo = modelo;
+									this.vista = vista;
+								}
+								
+								public void setNombreEstudiante(String nombre) {
+									modelo.setNombre(nombre);
+								}
+								
+								public String getNombreEstudiante() {
+									return modelo.getNombre();
+								}
+								
+								public void setEdadEstudiante(int edad) {
+									modelo.setEdad(edad);
+								}
+								
+								public int getEdadEstudiante() {
+									return modelo.getEdad();
+								}
+								
+								public void actualizarVista() {
+									vista.mostrarEstudiante(modelo.getNombre(), modelo.getEdad());
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo básico con una clase base -->
+				<section>
+					<h2>Ejemplo básico con una clase base</h2>
+					<p><strong>4. Programa principal</strong>: Conectamos los componentes y probamos el patrón MVC.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class EstudianteApp {
+								public static void main(String[] args) {
+									// Crear modelo
+									Estudiante modelo = new Estudiante("Juan Perez", 20);
+									
+									// Crear vista
+									EstudianteVista vista = new EstudianteVista();
+									
+									// Crear controlador
+									EstudianteControlador controlador = new EstudianteControlador(modelo, vista);
+									
+									// Actualizar vista inicial
+									controlador.actualizarVista();
+									
+									// Modificar el modelo a través del controlador
+									controlador.setNombreEstudiante("Ana Gómez");
+									controlador.setEdadEstudiante(22);
+									
+									// Actualizar vista con nuevos datos
+									controlador.actualizarVista();
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo básico con una clase base -->
+				<section>
+					<h2>Ejemplo básico con una clase base</h2>
+					<p><strong>4. Programa principal</strong>: Si necesitamos un menú e interactuar con el usuario pidiéndole datos, también iría en esta clase.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class EstudianteApp {
+								public static void main(String[] args) {
+									Scanner scanner = new Scanner(System.in);
+							
+									// Pedir datos iniciales del estudiante
+									System.out.print("Introduce el nombre del estudiante: ");
+									String nombre = scanner.nextLine();
+									
+									System.out.print("Introduce la edad del estudiante: ");
+									int edad = Integer.parseInt(scanner.nextLine());
+							
+									// Crear modelo, vista y controlador
+									Estudiante modelo = new Estudiante(nombre, edad);
+									EstudianteVista vista = new EstudianteVista();
+									EstudianteControlador controlador = new EstudianteControlador(modelo, vista);
+							
+									int opcion;
+									do {
+										System.out.println("\n--- MENÚ ---");
+										System.out.println("1. Mostrar estudiante");
+										System.out.println("2. Modificar nombre");
+										System.out.println("3. Modificar edad");
+										System.out.println("4. Salir");
+										System.out.print("Seleccione una opción: ");
+										opcion = Integer.parseInt(scanner.nextLine());
+							
+										switch (opcion) {
+											case 1:
+												controlador.actualizarVista();
+												break;
+											case 2:
+												System.out.print("Nuevo nombre: ");
+												String nuevoNombre = scanner.nextLine();
+												controlador.setNombreEstudiante(nuevoNombre);
+												break;
+											case 3:
+												System.out.print("Nueva edad: ");
+												int nuevaEdad = Integer.parseInt(scanner.nextLine());
+												controlador.setEdadEstudiante(nuevaEdad);
+												break;
+											case 4:
+												System.out.println("Saliendo...");
+												break;
+											default:
+												System.out.println("Opción no válida. Intente de nuevo.");
+										}
+									} while (opcion != 4);
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ventajas</li>
+						<li>Ejemplo básico con una clase base</li>
+						<li class="fragment highlight-blue">Ejemplo completo con varias clases base</li>
+						<li>Consideraciones finales</li>
+						<li>Ejercicios</li>
+					</ol>
+				</section>
+
+				<!-- Ejemplo completo con varias clases base -->
+				<section>
+					<h2>Ejemplo completo con varias clases base</h2>
+					<p>Vamos a implementar un ejemplo de MVC donde gestionamos la información de un <strong>estudiante que puede cursar muchas asignaturas</strong>.</p>
+				</section>
+
+				<!-- Ejemplo completo con varias clases base -->
+				<section>
+					<h2>Ejemplo completo con varias clases base</h2>
+					<p><strong>1. Modelo</strong>: Define los datos y la lógica de negocio.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							// Archivo Asignatura.java
+							class Asignatura {
+								private String nombre;
+								private int creditos;
+								
+								public Asignatura(String nombre, int creditos) {
+									this.nombre = nombre;
+									this.creditos = creditos;
+								}
+								
+								public String getNombre() {
+									return nombre;
+								}
+								
+								public int getCreditos() {
+									return creditos;
+								}
+							}
+							
+							// Archivo Estudiante.java
+							class Estudiante {
+								private String nombre;
+								private int edad;
+								private Asignatura[] asignaturas;
+								private int numAsignaturas;
+								
+								public Estudiante(String nombre, int edad, int maxAsignaturas) {
+									this.nombre = nombre;
+									this.edad = edad;
+									this.asignaturas = new Asignatura[maxAsignaturas];
+									this.numAsignaturas = 0;
+								}
+								
+								public String getNombre() {
+									return nombre;
+								}
+								
+								public void setNombre(String nombre) {
+									this.nombre = nombre;
+								}
+								
+								public int getEdad() {
+									return edad;
+								}
+								
+								public void setEdad(int edad) {
+									this.edad = edad;
+								}
+								
+								public void agregarAsignatura(Asignatura asignatura) {
+									if (numAsignaturas < asignaturas.length) {
+										asignaturas[numAsignaturas++] = asignatura;
+									}
+								}
+								
+								public Asignatura[] getAsignaturas() {
+									return asignaturas;
+								}
+								
+								public int getNumAsignaturas() {
+									return numAsignaturas;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo completo con varias clases base -->
+				<section>
+					<h2>Ejemplo completo con varias clases base</h2>
+					<p><strong>2. Vista</strong>: Muestra información al usuario.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							class EstudianteVista {
+								public void mostrarEstudiante(String nombre, int edad, Asignatura[] asignaturas, int numAsignaturas) {
+									System.out.println("Estudiante: ");
+									System.out.println("Nombre: " + nombre);
+									System.out.println("Edad: " + edad);
+									System.out.println("Asignaturas: ");
+									for (int i = 0; i < numAsignaturas; i++) {
+										System.out.println("- " + asignaturas[i].getNombre() + " (" + asignaturas[i].getCreditos() + " créditos)");
+									}
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo completo con varias clases base -->
+				<section>
+					<h2>Ejemplo completo con varias clases base</h2>
+					<p><strong>3. Controlador</strong>: Gestiona la relación entre el modelo y vista.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							class EstudianteControlador {
+								private Estudiante modelo;
+								private EstudianteVista vista;
+								
+								public EstudianteControlador(Estudiante modelo, EstudianteVista vista) {
+									this.modelo = modelo;
+									this.vista = vista;
+								}
+								
+								public void setNombreEstudiante(String nombre) {
+									modelo.setNombre(nombre);
+								}
+								
+								public String getNombreEstudiante() {
+									return modelo.getNombre();
+								}
+								
+								public void setEdadEstudiante(int edad) {
+									modelo.setEdad(edad);
+								}
+								
+								public int getEdadEstudiante() {
+									return modelo.getEdad();
+								}
+								
+								public void agregarAsignaturaEstudiante(Asignatura asignatura) {
+									modelo.agregarAsignatura(asignatura);
+								}
+								
+								public void actualizarVista() {
+									vista.mostrarEstudiante(modelo.getNombre(), modelo.getEdad(), modelo.getAsignaturas(), modelo.getNumAsignaturas());
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo completo con varias clases base -->
+				<section>
+					<h2>Ejemplo completo con varias clases base</h2>
+					<p><strong>4. Programa principal</strong>: Conectamos los componentes y probamos el patrón MVC.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class EstudianteApp {
+								public static void main(String[] args) {
+									// Crear modelo (simulando su recuperación de BD)
+									Estudiante modelo = getEstudianteFromDB();
+									
+									// Crear vista
+									EstudianteVista vista = new EstudianteVista();
+									
+									// Crear controlador
+									EstudianteControlador controlador = new EstudianteControlador(modelo, vista);
+									
+									// Agregar asignaturas
+									controlador.agregarAsignaturaEstudiante(new Asignatura("Matemáticas", 6));
+									controlador.agregarAsignaturaEstudiante(new Asignatura("Historia", 4));
+									
+									// Actualizar vista inicial
+									controlador.actualizarVista();
+									
+									// Modificar el modelo a través del controlador
+									controlador.setNombreEstudiante("Ana Gómez");
+									controlador.setEdadEstudiante(22);
+									controlador.agregarAsignaturaEstudiante(new Asignatura("Programación", 8));
+									
+									// Actualizar vista con nuevos datos
+									controlador.actualizarVista();
+								}
+
+								private static Estudiante getEstudianteFromDB(){
+									Estudiante estudiante = new Estudiante("Juan Perez", 20, 5);
+									return estudiante;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo completo con varias clases base -->
+				<section>
+					<h2>Ejemplo completo con varias clases base</h2>
+					<h3>Ejercicio: Ampliación</h3>
+					<p>Modifica la clase <em>EstudianteApp</em> para interactuar con el usuario mediante un menú. Fíjate en el ejemplo del caso con una clase base.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class EstudianteApp {
+								public static void main(String[] args) {
+									// Menú con opciones:
+									// 1. Agregar estudiante									
+									// 2. Modificar estudiante (nombre y edad)
+									// 3. Agregar asignatura
+									// 4. Desvincular asignatura (tendrás que tocar modelo y controlador también)
+									// 5. Mostrar datos del estudiante
+									// 6. Salir
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejemplo completo con varias clases base -->
+				<section>
+					<h2>Ejemplo completo con varias clases base</h2>
+					<p>Resumen:</p>
+					<ul>
+						<li>Se define <strong>Asignatura</strong> para representar cada materia con nombre y créditos.</li>
+						<li>Se crea un objeto <strong>Estudiante</strong> con un array de asignaturas.</li>
+						<li>La clase <strong>EstudianteVista</strong> muestra los datos en la consola, incluyendo las asignaturas.</li>
+						<li>El <strong>EstudianteControlador</strong> permite modificar el modelo y actualizar la vista.</li>
+						<li>En <strong>EstudianteApp</strong>, se instancian los componentes y se manipulan los datos a través del controlador.</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ventajas</li>
+						<li>Ejemplo básico con una clase base</li>
+						<li>Ejemplo completo con varias clases base</li>
+						<li class="fragment highlight-blue">Consideraciones finales</li>
+						<li>Ejercicios</li>
+					</ol>
+				</section>
+
+				<!-- Consideraciones finales -->
+				<section>
+					<h2>Consideraciones finales</h2>
+					<h3>¿Realmente es práctico este patrón?</h3>
+					<ul>
+						<li>Los ejemplos proporcionados son muy sencillos con el objetivo de ilustrar el uso del patrón MVC, pero no son prácticos.</li>
+						<li>Para el modelo es más común tener una o varias clases que se inician sin datos, piensa en <em>EstudiantesGestion</em> o similar con un array de estudiantes (inicialmente con 0). En los siguientes ejercicios lo harás así.</li>
+						<li>Con una vista en consola estamos muy limitados, pero se le podrían añadir atributos para trabajar con diferentes colores, tema (claro u oscuro)...</li>
+						<li>Una práctica común es agrupar las clases en subpaquetes: modelo, vista o controlador.</li>
+					</ul>
+				</section>
+
+				<!-- Consideraciones finales -->
+				<section>
+					<h2>Consideraciones finales</h2>
+					<h3>¿Y podrían crearse modelo y vista directamente en el controlador?</h3>
+					<p>Sí, en aplicaciones pequeñas podrían instanciarse directamente dentro del controlador, siempre que no vayan a cambiar y usemos este patrón por motivos de organización.</p>
+					<p>Pero, en aplicaciones medianas o grandes, donde se necesita escalabilidad y facilidad de modificación, pasar el modelo y la vista ya creados al constructor del controlador, tiene muchas ventajas:</p>
+					<ul>
+						<li>Mejora la flexibilidad al permitir reutilizar diferentes vistas y modelos.</li>
+						<li>Facilita la separación de responsabilidades evitando que el controlador instancie objetos.</li>
+						<li>Simplifica las pruebas unitarias al permitir inyectar dependencias de prueba (otros modelos específicos).</li>
+						<li>Reduce el acoplamiento, haciendo que el código sea más modular y mantenible.</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ventajas</li>
+						<li>Ejemplo básico con una clase base</li>
+						<li>Ejemplo completo con varias clases base</li>
+						<li>Consideraciones finales</li>
+						<li class="fragment highlight-blue">Ejercicios</li>
+					</ol>
+				</section>
+
+				<!-- Ejercicios -->
+				<section>
+					<h2>Ejercicios</h2>
+                    <h3>Ejercicio 1: Gestor de tareas</h3>
+					<p>Implementa un gestor de tareas donde los usuarios puedan agregar, listar y marcar tareas como completadas. Utiliza las siguientes clases:</p>				
+				</section>
+
+				<!-- Ejercicios -->
+				<section>
+					<h2>Ejercicios</h2>
+                    <h3>Ejercicio 1: Gestor de tareas</h3>
+					<ul>
+						<li><strong>Modelo</strong> (Tarea.java): Atributos: id, descripcion, completada (booleano). Métodos: getters/setters, marcarComoCompletada().</li>
+						<li><strong>Modelo</strong> (GestorTareas.java): Atributos: array de Tareas. Métodos: agregar tareas, buscarla, marcarla como completada...</li>
+						<li><strong>Vista</strong> (GestorTareasVista.java): Métodos para mostrar una lista de tareas y mensajes al usuario. Atributos: emojiCompletada y emojiNoCompletada.</li>
+						<li><strong>Controlador</strong> (GestorTareasControlador.java): Métodos para agregar una tarea, marcarla como completada y mostrar la lista.</li>
+					</ul>				
+				</section>
+
+				<!-- Ejercicios -->
+				<section>
+					<h2>Ejercicios</h2>
+                    <h3>Ejercicio 1: Gestor de tareas</h3>
+					<p>Ejemplo de uso:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Main {
+								public static void main(String[] args) {
+									GestorTareas modelo = new GestorTareas();
+									GestorTareasVista vista = new GestorTareasVista("✅", "❌");
+									GestorTareasControlador controlador = new GestorTareasControlador(modelo, vista);
+							
+									controlador.agregarTarea("Estudiar Java");
+									controlador.agregarTarea("Hacer ejercicio");
+									controlador.mostrarTareas();
+									controlador.marcarTareaComoCompletada(1);
+									controlador.mostrarTareas();
+								}
+							}							
+						</code>
+					</pre>				
+				</section>
+
+				<!-- Ejercicios -->
+				<section>
+					<h2>Ejercicios</h2>
+                    <h3>Ejercicio 2: Carrito de tienda online</h3>
+					<p>Implementa un carrito para una tienda online al que se pueda añadir, quitar o listar productos. Utiliza las siguientes clases:</p>
+				</section>
+
+				<!-- Ejercicios -->
+				<section>
+					<h2>Ejercicios</h2>
+                    <h3>Ejercicio 2: Carrito de tienda online</h3>
+					<ul>
+						<li><strong>Modelo</strong> (Producto.java): Atributos id, descripcion, cantidad, precio. Métodos: getters/setters y coste (cantidad * precio).</li>
+						<li><strong>Modelo</strong> (Carrito.java): Atributos: array de Productos. Métodos: añadir o quitar productos, buscarlos, devolver precio total...</li>
+						<li><strong>Vista</strong> (CarritoVista.java): Métodos para mostrar el listado de productos y mensajes al usuario. Atributo: colorTexto.</li>
+						<li><strong>Controlador</strong> (CarritoControlador.java): Métodos para agregar un producto, quitarlo y mostrarlos.</li>
+					</ul>
+				</section>
+
+
+				<!-- Para repasar -->
+				 <!-- 
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/java_date.asp" target="_blank">Java Classes - Java Date and Time</a></li>
+					</ul>
+				</section>
+				-->
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/prog_mvc_meme.jpg">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

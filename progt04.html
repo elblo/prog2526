@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Arrays y cadenas</title>
+
+		<meta name="description" content="Estructuras de datos">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Tema 4: Arrays estáticos y cadenas</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Cadenas de caracteres</li>
+						<li>Arrays estáticos</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Con lo visto hasta ahora podemos hacer programas complejos, pero limitados por el número de datos: Número finito de usuarios, cuentas, proyectos...</p>
+					<p><strong>Solución</strong>: Estructuras de datos para almacenar datos simples y compuestos, con un número fijo o dinámico de elementos que se puedan recorrer y sobre los que realizar las operaciones <abbr title="Create Read Update Delete">CRUD</abbr>.</p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Clasificación de las estructuras de almacenamiento</h3>
+					<p>Si pueden almacenar...</p>
+					<ul>
+						<li><em>Datos del mismo tipo</em>: arrays (vectores), arrays multidimensionales (matrices), listas, colecciones, conjuntos...</li>
+						<li><em>Datos de distinto tipo</em>: clases (se verán en POO).</li>
+					</ul>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Clasificación de las estructuras de almacenamiento</h3>
+					<p>Según su tamaño...</p>
+					<ul>
+						<li><em>Fijo</em>: Su tamaño se especifica al crear la estructura y no cambia. Ejemplo: arrays o matrices.</li>
+						<li><em>Dinámico</em>: Su tamaño cambia en tiempo de ejecución según las necesidades. Ejemplo: listas, hash, colecciones...</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Cadenas de caracteres</li>
+						<li>Arrays estáticos</li>
+					</ol>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<p>Son un tipo de estructura de datos que instanciamos mediante la clase <strong>String</strong>.</p>
+					<p>Formas equivalentes de declarar e inicializar una cadena:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Como tipo primitivo
+							String cad1 = "Hola";
+							// Instanciando objeto de la clase String
+							String cad2 = new String("Hola");
+						</code>
+					</pre>
+
+					<aside class="notes"><!-- Notas orador (pulsar S) -->
+						Aunque declaremos una cadena mediante un literal (1a línea) Java crea una instancia de la clase String (2a línea)
+					</aside>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<p>Para ampliar: <a href="https://es.wikipedia.org/wiki/Codificaci%C3%B3n_de_caracteres" target="_blank">Codificación de los caracteres</a></p>
+					<p>Formato de datos <a href="https://es.wikipedia.org/wiki/JSON" target="_blank" >JSON</a> para intercambio de datos.</p>
+					<p>Ejemplo de <a href="https://newsapi.org/" target="_blank">API noticias</a> en JSON.</p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Concatenar</strong>: Une 2 cadenas. Se realiza con el operador <span class="naranja">+</span> o el método <span class="naranja">String concat(String cad)</span> de la clase String. Se puede concatenar cualquier variable a un String gracias al método <span class="rosa">.toString()</span> definido en todas las clases.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							String cad = "¡Bien".concat("venido!"); 
+							int edad = 38;
+							System.out.println(cad + " En tu " + edad + " aniversario");
+						</code>
+					</pre>
+
+					<aside class="notes"><!-- Notas orador (pulsar S) -->
+						Java convierte el número 38 a su clase envoltorio (wrapper class) correspondiente (Integer, Float, Double, etc.), y después ejecuta automáticamente el método toString() de dicha clase.
+					</aside>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Longitud</strong>: El método <span class="naranja">int length()</span> devuelve el número de caracteres de la cadena.</p>
+					<p><img src="img/progt05-01.png" alt="Ejemplo longitud cadena caracteres" /></p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Obtener caracter</strong>: El método <span class="naranja">char charAt(int pos)</span> devuelve el carácter de la posición pasada por parámetro.</p>
+					<p><img src="img/progt05-02.png" alt="Ejemplo charAt" /></p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Subcadena</strong>: El método <span class="naranja">String substring(int posInicio, int posFin)</span> devuelve la subcadena entre las posInicio y posFin (opcional).</p>
+					<p><img src="img/progt05-03.png" alt="Ejemplo substring" /></p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Convertir a número</strong>: El método <span class="naranja">.valueOf(String cad)</span> disponible en todas las clases descendientes de <span class="naranja">Number</span> (<span class="rosa">Short, Integer, Long, Float, Double</span>) convierte la cadena pasada por parámetro al número correspondiente.</p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Convertir a número</strong>. Similar a los métodos <span class="naranja">parseInt(), parseFloat()...</span>, sólo que estos devuelven tipos de datos primitivos (int, float...) y <span class="naranja">valueOf</span> devuelve objetos de clases Integer, Float...</p>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Equivalentes
+							float num1 = Float.parseFloat(numCadena);
+							float num2 = Float.valueOf(numCadena); 
+							// También así: Float num2 = Float.valueOf(num2);
+							// Firmas de ambas funciones:
+							// public static float parseFloat(String s) throws NumberFormatException
+							// public static Float valueOf(String s) throws NumberFormatException
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Convertir a número</strong>. Se suele incluir en un bloque try-catch porque puede lanzar la excepción NumberFormatException.</p>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							String numCadena = "1234.5678";
+							try { 
+								float num1 = Float.valueOf(numCadena);
+								double num2 = Double.valueOf(numCadena);
+								// Equivalentes:
+								float num1f = Float.parseFloat(numCadena);
+								double num2d = Double.parseDouble(numCadena);
+							}catch(NumberFormatException e){ 
+								// Código a ejecutar si no se puede convertir  
+							}
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Ejercicio</strong>: Realiza un programa que pida en una única cadena el nombre y apellidos del usuario y los muestre separados. Suponemos que tanto el nombre como cada apellido están formados por 1 palabra. Ejemplo: Armando Bronca Segura</p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p>Solución</p>					
+					<pre>
+						<code class="hljs" data-trim> 
+							Scanner s = new Scanner(System.in);
+							String palabra1 = "No hay palabra";
+							String palabra2 = "No hay palabra";
+							String palabra3 = "No hay palabra";
+
+							boolean terminado = false; // Para detectar cuando no hay más espacios y terminar
+							int contador = 0; // Para controlar cuántas palabras hay
+							int posEspacio;
+
+							System.out.print("Hola, introduce tu nombre completo, separado por espacios: ");
+							String nombreCompleto = s.nextLine();
+							palabra1 = nombreCompleto; // Por si no hay ningún espacio
+
+							while(!terminado) { // Mientras que siga encontrando espacios
+								for (int i=0; i < nombreCompleto.length(); i++) {
+									if (Character.isWhitespace(nombreCompleto.charAt(i))) {
+										posEspacio = i;
+										if (contador == 0) { // Primera palabra
+											palabra1 = nombreCompleto.substring(0, posEspacio); // Saco la primera palabra
+											nombreCompleto = nombreCompleto.substring(posEspacio + 1); // La quito del nombre completo
+											palabra2 = nombreCompleto; // Por si no hay más espacios
+										}
+										if (contador == 1) { // Segunda palabra
+											palabra2 = nombreCompleto.substring(0, posEspacio); // La saco
+											palabra3 = nombreCompleto.substring(posEspacio + 1); // Saco la tercera
+											terminado = true; // He terminado
+										}
+										contador++;
+										break; // No sigo el bucle for
+									}
+									if(i+1 == nombreCompleto.length()) terminado = true; // Si termino de recorrer la palabra, es que no hay más espacios
+								}
+							}
+
+							System.out.println("Palabra1 = " + palabra1);
+							System.out.println("Palabra2 = " + palabra2);
+							System.out.println("Palabra3 = " + palabra3);
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Formatear salida</strong>: Se puede utilizar el método <span class="naranja">printf()</span> de <span class="rosa">System.out</span> en lugar de <span class="naranja">print() / println()</span>.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							float velocidad = 20.785f;
+							System.out.println("Velocidad: " + velocidad + " m/s");
+							// Velocidad: 20.785 m/s
+							System.out.printf("Velocidad: %.2f m/s", velocidad);
+							// Velocidad: 20,78 m/s
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Formatear cadena</strong>: Mediante el método <span class="naranja">format()</span> de <span class="rosa">String</span> igual que se hace con <span class="naranja">printf()</span>.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							String salida = String.format("Velocidad: %.2f m/s", velocidad);
+							System.out.println(salida);
+							// Velocidad: 20,78 m/s
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Formatear cadena</strong>: Listado de conversiones.</p>				
+					<p><img src="img/progt05-05.png" alt="Listado de conversiones de format" /></p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Formatear cadena</strong>: Se pueden aplicar <span class="violeta">modificadores</span> a las conversiones para ajustar la salida, situándolos entre el carácter de escape <span class="naranja">%</span> y la letra que indica el tipo de conversión <span class="naranja">d, f, g...</span></p>				
+					<pre>
+						<code class="hljs" data-trim> 
+							%[Ancho][.Precisión]Conversión
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Formatear cadena</strong>: Ejemplo</p>				
+					<pre>
+						<code class="hljs" data-trim> 
+							String descripcion = "Lavadora";
+							int unidades = 10;
+							float precioUnidad = 302.4f;
+							float total = unidades * precioUnidad;
+							// Cada valor numérico se muestra con un ancho total de 8 espacios
+							String mensaje = String.format("Producto: %s; Unidades: %8d; Precio por unidad: %8.2f €; Total: %8.2f €", descripcion, unidades, precioUnidad, total);
+							System.out.println(mensaje); // Producto: Lavadora; Unidades:       10; Precio por unidad:   302,40 €; Total:  3024,00 €
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones</h3>
+					<p><strong>Formatear cadena</strong>: Es posible nombrar los argumentos usando su posición seguida del <span class="naranja">$</span> (empiezan en 1):</p>				
+					<pre>
+						<code class="hljs" data-trim> 
+							int i = 10;
+							int j = 20;
+							String d=String.format("%1$d multiplicado por %2$d (%1$dx%2$d) es %3$d",i,j,i*j);
+							System.out.println(d); // 10 multiplicado por 20 (10x20) es 200
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Operaciones avanzadas</h3>			
+					<p><img src="img/progt05-06.png" alt="Listado de métodos de cadenas" /></p>
+				</section>
+
+				<!-- Ejercicios Repaso Clase -->
+				<section data-background-iframe="https://www.javatpoint.com/java-string" data-background-interactive>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Leer fichero y guardarlo en String</h3>			
+					<pre>
+						<code class="hljs" data-trim> 
+							public static String leeFichero(String archivo) throws IOException {
+								String texto = "", cadena = "";
+								FileReader f = new FileReader(archivo);
+								BufferedReader b = new BufferedReader(f);
+								cadena = b.readLine();
+								while(cadena!=null){
+									//System.out.println(cadena);
+									texto = texto + cadena + "\n";
+									cadena = b.readLine();
+								}
+								b.close();
+								return texto;
+							}
+						
+							public static void main(String[] args) {
+								String contenido="";
+								try {
+									// NOTA: Ubicar "prueba.txt" en la RAÍZ DEL PROYECTO
+									contenido = leeFichero("prueba.txt");
+								} catch (IOException e) {
+									System.out.println("No he podido encontrar el fichero");
+								}
+								System.out.println(contenido);
+							}
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<p>Ejercicios de la relación de cadenas</p>
+					<p><img src="img/progt05-08.gif" alt="Ejercicios" /></p>
+				</section>
+
+				<!-- Cadenas de caracteres -->
+				<section>
+					<h2>Cadenas de caracteres</h2>
+					<h3>Expresiones regulares</h3>			
+					<iframe width="100%" height="400px" src="https://www.javatpoint.com/java-regex" title="Java reg-es" frameborder="0" ></iframe>
+				</section>
+
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Cadenas de caracteres</li>
+						<li class="fragment highlight-blue">Arrays estáticos</li>
+					</ol>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<p>Un array es una estructura que almacena datos del mismo tipo. Al crearlo se especifica su tamaño, el cual no podrá cambiar después.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							tipo[] nombre; // Declaración
+							nombre = new tipo[tamaño]; // Creación
+						</code>
+					</pre>
+					<p><img src="img/progt05-09.png" alt="Creación array" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<p>Ejemplos de declaración y creación de arrays:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							int[] edades = new int[20];
+							String[] nombres = new String[20];
+							float[] notas = new float[20];
+							boolean[] aprobados = new boolean[20];
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<p>Ejemplo de declaración y uso de array de enteros de 4 elementos:</p>
+					<p><img src="img/progt05-10.png" alt="Creación y uso de array de enteros" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p>Los datos del array están relacionados con su posición. Acceso a los datos: <em>nombre[pos]</em></p>
+					<p><img src="img/progt05-11.png" alt="Relación dato y posición en array" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p>Inicialización del array con valores a la vez que se crea:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							int[] x = {8, 33, 200, 150, 11};
+						</code>
+					</pre> 
+					<p>Su propiedad <em>.length</em> devuelve el tamaño:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							System.out.println("Longitud del array: " + x.length);
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p>Uso del índice en arrays:</p>
+					<p><img src="img/progt05-12.png" alt="Uso del índice en arrays" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p>Recorrer un array:</p>
+					<p><img src="img/progt05-13.png" alt="Recorrer un array" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p>Ejemplo notas medias:</p>
+					<p><img src="img/progt05-14.png" alt="Ejemplo notas medias" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p>Ejercicios de la relación de arrays estáticos de 1 dimensión</p>
+					<p><img src="img/progt05-57.gif" alt="Ejercicios" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p>Ordenar arrays: Método de la burbuja, shell, selección, inserción, merge, quicksort...</p>
+					<p><em>Método de la burbuja</em></p>
+					<p><img src="img/progt05-15.png" alt="Método ordenación de la burbuja" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p><em>Método de la burbuja: Explicación conceptual</em></p>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/nkPo48sHOyU?si=P7tyDRAM37Oe2Cxr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p><em>Método de la burbuja</em></p>
+					<p><img src="img/progt05-16.png" alt="Método ordenación de la burbuja" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p><em>Método de la burbuja</em></p>
+					<p><img src="img/progt05-17.png" alt="Método ordenación de la burbuja" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<p><em>Método de la burbuja</em></p>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/hf-_c7DFb3U?si=gcV2UHy0e8ktj8Z5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<h4>Ejercicios</h4>
+					<ul> 
+						<li>Modifica la función burbuja anterior para que ordene de manera descendente.</li>
+						<li>Crea una función que ordene el array usando otro método (<a href="https://es.wikipedia.org/wiki/Algoritmo_de_ordenamiento#Lista_de_algoritmos_de_ordenamiento" target="_blank">más info</a>).</li>
+					</ul>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<h4>Ejercicio Bingo</h4>
+					<p><img src="img/progt05-18.png" alt="Ejercicio Bingo" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays bidimensionales</h3>
+					<p>Estructura que almacena arrays dentro del array. Utiliza 2 índices para localizar los datos: <em>nombre[pos1][pos2]</em>.</p>
+					<p>Ejemplos de uso: Almacenamiento del valor de los píxeles de una imagen, juegos de tablero, Bingo...</p>
+					<p>Declaración y creación:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							tipo[][] nombre = new tipo[tamaño][tamaño];
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays bidimensionales</h3>
+					<h4>Recorrido</h4>
+					<p><img src="img/progt05-20.png" alt="Recorrido array bidimensional" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays bidimensionales</h3>
+					<h4>Ejemplo</h4>
+					<p><img src="img/progt05-19.png" alt="Ejemplo array bidimensional" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays bidimensionales</h3>
+					<ul>
+						<li>En el ejemplo anterior el array es de 3 filas por 2 columnas.</li>
+						<li>Un array bidimensional se recorre igual que el de una dimensión, sólo que con 2 bucles, uno para filas y otro interior para columnas.</li>
+						<li>También se puede inicializar en el momento de creación:</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							int[][] n = {{20, 4},{67, 33},{0, 7}};
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays bidimensionales</h3>
+					<p>Creación de un array con 2ª dimensión irregular:</p>
+					<p><img src="img/progt05-21.png" alt="Array bidimensional irregular" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays bidimensionales</h3>
+					<h4>Recorrido con foreach</h4>
+					<ul>
+						<li>Al recorrer arrays con for es fácil cometer errores con el iterador, accediendo por ejemplo a una posición que no existe.</li>
+						<li>Solución y simplificación con el bucle <em>foreach</em>:</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							for (tipo elemento : array){
+								// Hacer algo con elemento
+							}
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays bidimensionales</h3>
+					<h4>Recorrido con foreach</h4>
+					<p><img src="img/progt05-22.png" alt="Ejemplo foreach" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays multidimensionales</h3>
+					<p><img src="img/progt05-62.jpg" alt="Arrays multidimensionales" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays multidimensionales</h3>
+					<p><img src="img/progt05-64.png" alt="Arrays multidimensionales" /></p>
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays multidimensionales</h3>
+					<p>Ejercicios de la relación de arrays estáticos de 2 dimensiones</p>
+					<p><img src="img/progt05-63.gif" alt="Ejercicios" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Cadenas de caracteres</li>
+						<li>Arrays estáticos</li>
+						<li class="fragment highlight-blue">BONUS: Argumentos de programa</li>
+					</ol>
+				</section>
+
+				<!-- Paso de argumentos al programa -->
+				<section>
+					<h2>Argumentos del programa</h2>
+					<p>En la función main se le pasa un array <em>String[] args</em> con los argumentos que recibe nuestro programa desde fuera.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class EjemploPasoArgumentos {
+								public static void main(String[] args) {
+									for(int i=0; i < args.length; i++) System.out.println(args[i]);
+								}
+							}
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Paso de argumentos al programa -->
+				<section>
+					<h2>Argumentos del programa</h2>
+					<p>Para probarlo desde consola, hay que compilarlo y luego ejecutarlo con los argumentos que queramos:</p>
+					<ul>
+						<li><span class="naranja">javac</span> EjemploPasoArgumentos.java</li>
+						<li><span class="naranja">java</span> EjemploPasoArgumentos <em>uno dos tres</em></li>
+					</ul>
+				</section>
+
+				<!-- Paso de argumentos al programa -->
+				<section>
+					<h2>Argumentos del programa</h2>
+					<p>También podemos probarlos directamente desde IntelliJ en <em>Run</em> > <em>Edit configurations...</em></p>
+					<p><img src="img/progt04-paso-argumentos.png" alt="Paso de argumentos desde IntelliJ" /></p>
+				</section>
+
+				<!-- Paso de argumentos al programa -->
+				<section>
+					<h2>Argumentos del programa</h2>
+					<h3>Ejercicio</h3>
+					<p>Crea un programa que cualquier profesor sin conocimientos de informática pueda utilizar con sus alumnos para sacarlos a la pizarra de forma "voluntaria".</p>
+					<p>El programa recibirá el nombre de todos los alumnos y devuelverá al agraciado de forma aleatoria.</p>
+				</section>
+				
+		
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/java_strings.asp" target="_blank">Java Tutorial - Strings</a></li>
+						<li><a href="https://www.w3schools.com/java/java_arrays.asp" target="_blank">Java Tutorial - Arrays estáticos</a></li>					
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/progt05-fin.gif">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

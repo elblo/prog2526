@@ -1,0 +1,21 @@
+kbd {
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 0.1em 0.5em;
+	margin: 0 0.2em;
+	box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+	background-color: #f7f7f7;
+	color: #222;
+}
+
+/* Resaltar con el mismo azul, verde o rojo que .fragment.highlight-blue -green -red */
+.azul{ color: #1b91ff; }
+.verde { color: #17ff2e; }
+.rojo { color: #fc0606; }
+.naranja { color: #ff532c; }
+.violeta { color: #ae2cff; }
+.rosa { color: #ff2cab; }
+
+/* strong y em que no sean de la clases .fragment, para no quitarles su efecto de inicio  */
+section strong:not(.fragment), section em:not(.fragment) { color: #1b91ff; }

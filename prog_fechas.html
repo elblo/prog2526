@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Fechas y horas en Java</title>
+
+		<meta name="description" content="Fechas y horas en Java">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Fechas y horas en Java</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				  <!-- Índice -->
+				  <section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li>Parsear fechas</li>
+						<li>Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Java dispone de clases específicas para manejar datos de fechas y horas de forma correcta.</p>
+					<p>Con estas clases será más sencillo crear fechas y horas, convertirlas, realizar cálculos con ellas, "parsearlas" o mostrarlas con un formato determinado.</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li>Parsear fechas</li>
+						<li>Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- Clases obsoletas -->
+				<section>
+					<h2>Clases obsoletas</h2>
+					<p>Dos clases típicas para trabajar con fechas han sido <span class="rojo">java.util.Date</span> y <span class="rojo">java.util.Calendar</span>, pero a día de hoy se encuentran obsoletas.</p>
+					<p>Después, apareció <span class="rojo">java.sql.Date</span>, pero realmente es una subclase de la primera y tampoco se usa actualmente.</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Clases obsoletas</li>
+						<li class="fragment highlight-blue">El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li>Parsear fechas</li>
+						<li>Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- El nuevo paquete java.time -->
+				<section>
+					<h2>El nuevo paquete java.time</h2>
+					<p>Con Java 8 (2014) se crea el paquete <em>java.time</em> con las clases oficiales.</p>
+					<p>Se solucionan bastantes problemas de las clases tradicionales.</p>
+					<p>Incluyen soporte automático para años bisiestos, zonas horarias y cambio automático de zona horaria.</p>
+				</section>
+
+				<!-- El nuevo paquete java.time -->
+				<section>
+					<h2>El nuevo paquete java.time</h2>
+					<p>Clases más importantes:</p>
+					<ul>
+						<li><strong>LocalDate</strong>: Representa fechas y facilita su manejo para declararlas, compararlas, sumarlas...</li>
+						<li><strong>LocalTime</strong>: Igual que la anterior, pero para horas.</li>
+						<li><strong>LocalDateTime</strong>: Combinación de las 2 anteriores.</li>
+					</ul>
+				</section>
+
+				<!-- El nuevo paquete java.time -->
+				<section>
+					<h2>El nuevo paquete java.time</h2>
+					<p>Clases más importantes:</p>
+					<ul>
+						<li><strong>ZonedDateTime</strong>: Como LocalDateTime, pero teniendo en cuenta la zona horaria.</li>
+						<li><strong>Instant</strong>: Parecida a LocalDateTime, pero almacena número de nanosegundos desde epoch de UNIX (01/01/1970).</li>
+						<li><strong>Period</strong>: Obtener diferencias (días, horas, minutos...) entre fechas.</li>
+						<li><strong>Duration</strong>: Similar a la anterior, pero para horas exclusivamente.</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li class="fragment highlight-blue">Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li>Parsear fechas</li>
+						<li>Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- Construir fechas y horas -->
+				<section>
+					<h2>Construir fechas y horas</h2>
+					<p>Estas clases carecen de constructores públicos.</p>
+					<p>Se instancian usando métodos de tipo <em>factoría</em> que van a construir estos objetos a partir de parámetros que le pasemos.</p>
+				</section>
+
+				<!-- Construir fechas y horas -->
+				<section>
+					<h2>Construir fechas y horas</h2>
+					<p>Todas las clases de manejo de fechas y horas disponen de 3 métodos importantes:</p>
+					<ul>
+						<li><span class="violeta">now()</span>: Crean instancias nuevas a partir de la fecha y hora actual.</li>
+						<li><span class="violeta">of()</span>: Construyen fechas y horas a patir de sus partes.</li>
+						<li><span class="violeta">with()</span>: Modifican el objeto actual en función del parámetro pasado con alguna cantidad (años, días, horas...) o clase de ajuste (TemporalAdjuster).</li>
+					</ul>
+				</section>
+
+				<!-- Construir fechas y horas -->
+				<section>
+					<h2>Construir fechas y horas</h2>
+					<p>Ejemplos de fecha actual con <em>now()</em>:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							import java.time.*;
+
+							public class Fecha01now {
+								public static void main(String[] args) {
+									// Creación de distintos objetos con now()
+									System.out.println(LocalDate.now());     // 2022-11-14
+									System.out.println(LocalTime.now());     // 13:34:53.667420100
+									System.out.println(LocalDateTime.now()); // 2022-11-14T13:34:53.667420100
+									System.out.println(Instant.now());      // 2022-11-14T12:34:53.667420100Z
+									System.out.println(ZonedDateTime.now()); // 2022-11-14T13:34:53.673421800+01:00[Europe/Madrid]
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Construir fechas y horas -->
+				<section>
+					<h2>Construir fechas y horas</h2>
+					<p>Ejemplos de fechas específicas con <em>of()</em>:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							import java.time.*;
+							
+							public class Fecha02of {
+								public static void main(String[] args) {
+									// Creación de fechas con of()
+									System.out.println(LocalDate.of(1983, Month.MARCH, 24)); // 1983-03-24
+									System.out.println(LocalDateTime.of(1983, Month.MARCH, 24, 20, 01, 15, 0023)); // 1983-03-24T20:01:15.000000019
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Construir fechas y horas -->
+				<section>
+					<h2>Construir fechas y horas</h2>
+					<p>Ejemplos de fechas a partir de otras con <em>with()</em>: y ajustadores temporales <a href="https://docs.oracle.com/javase/8/docs/api/java/time/temporal/TemporalAdjusters.html" target="_blank">(más info)</a>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							LocalDate ahora = LocalDate.now();           // 2022-11-14
+
+							System.out.println(ahora.withDayOfMonth(1)); // 2022-11-01
+							System.out.println(ahora.withMonth(6));      // 2022-06-14
+							System.out.println(ahora.withYear(2050));    // 2050-11-14
+							System.out.println(ahora.with(TemporalAdjusters.lastDayOfMonth()));      // 2022-11-30
+							System.out.println(ahora.with(TemporalAdjusters.firstDayOfNextMonth())); // 2022-12-01
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li class="fragment highlight-blue">Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li>Parsear fechas</li>
+						<li>Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+				
+				<!-- Información de fechas -->
+				<section>
+					<h2>Información de fechas</h2>
+					<p>Mediante los métodos <em>get</em> de las fechas se puede extraer mucha información:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							// Fecha construida el 14/11/2022 a las 13:52:13 horas
+							LocalDateTime fecha = LocalDateTime.now();
+							System.out.println(fecha.getYear());        // 2022
+							System.out.println(fecha.getMonth());       // NOVEMBER
+							System.out.println(fecha.getMonthValue());  // 11
+							System.out.println(fecha.getDayOfWeek());   // MONDAY
+							System.out.println(fecha.getDayOfMonth());  // 14
+							System.out.println(fecha.getDayOfYear());   // 318
+							System.out.println(fecha.getHour());        // 13
+							System.out.println(fecha.getMinute());      // 52
+							System.out.println(fecha.getSecond());      // 13
+							System.out.println(fecha.getNano());        // 180998800
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li class="fragment highlight-blue">Transformar fechas y horas</li>
+						<li>Parsear fechas</li>
+						<li>Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- Transformar fechas y horas -->
+				<section>
+					<h2>Transformar fechas y horas</h2>
+					<p>Según la clase utilizada dispondremos de métodos para añadir o quitar intervalos.</p>
+					<p>Por ejemplo, LocalDateTime dispone de <em>plusDays()</em>, <em>minusDays()</em>, <em>plusHours()</em>, <em>minusHours()</em>, <em>isBefore(fecha)</em>, <em>isAfter(fecha)</em>...</p>
+					<p>Ojo, estas clases producen instancias inmutables (no pueden ser modificadas una vez que su información ha sido definida).</p>
+				</section>
+
+				<!-- Transformar fechas y horas -->
+				<section>
+					<h2>Transformar fechas y horas</h2>
+					<pre>
+						<code class="hljs" data-trim>
+							LocalDateTime fecha = LocalDateTime.of(2022, Month.NOVEMBER, 22, 14, 30, 00);
+							System.out.println(fecha.plusYears(10));    // 2032-11-22T14:30
+							System.out.println(fecha.plusMonths(3));    // 2023-02-22T14:30
+							System.out.println(fecha.minusDays(10));    // 2022-11-12T14:30
+							System.out.println(fecha.minusHours(2));    // 2022-11-22T12:30
+							System.out.println(fecha.minusMinutes(20)); // 2022-11-22T14:10
+							System.out.println(fecha.plusSeconds(50));  // 2022-11-22T14:30:50
+							System.out.println(fecha); // fecha es INMUTABLE: 2022-11-22T14:30
+						</code>
+					</pre>	
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li class="fragment highlight-blue">Parsear fechas</li>
+						<li>Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- Parsear fechas -->
+				<section>
+					<h2>Parsear fechas</h2>
+					<p>Es posible crear fechas a partir de una cadena de texto mediante <em>parse()</em>.</p>
+					<p>Opcionalmente, admite un segundo parámetro para especificar el formato.</p>
+					<p><a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns" target="_blank">Patrones para parseo y formato</a> y <a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#predefined" target="_blank">formateadores predefinidos</a>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							LocalDate hoy = LocalDate.parse("2022-11-14");
+							LocalDate seisNov = LocalDate.parse("6/11/2022", DateTimeFormatter.ofPattern("d/M/yyyy") );
+							System.out.println(hoy);    // 2022-11-14
+							System.out.println(seisNov);// 2022-11-06
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li class="fragment highlight-blue">Mostrar fechas</li>
+						<li>Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- Mostrar fechas -->
+				<section>
+					<h2>Mostrar fechas</h2>
+					<p>Podemos convertir una clase temporal en una cadena de texto (proceso inverso a parse) usando el formato que nos interese mediante <em>format()</em>.</p>
+					<p><a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns" target="_blank">Patrones para parseo y formato</a> y <a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#predefined" target="_blank">formateadores predefinidos</a>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							LocalDateTime fechaConHora = LocalDateTime.now();
+							// Formato por defecto  2022-11-14T18:08:36.957851900
+							System.out.println(fechaConHora);
+							// Formato ISO 8601     2022-11-14T18:08:36.9578519
+							System.out.println(fechaConHora.format(DateTimeFormatter.ISO_DATE_TIME));
+							// Formato manual       14/11/2022 06:08:36
+							DateTimeFormatter esDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+							System.out.println(fechaConHora.format(esDateFormat));		
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Clases obsoletas</li>
+						<li>El nuevo paquete java.time</li>
+						<li>Construir fechas y horas</li>
+						<li>Información de fechas</li>
+						<li>Transformar fechas y horas</li>
+						<li>Mostrar fechas</li>
+						<li class="fragment highlight-blue">Tiempo entre fechas</li>
+					</ol>
+				</section>
+
+				<!-- Tiempo entre fechas -->
+				<section>
+					<h2>Tiempo entre fechas</h2>
+					<p>Para obtener la diferencia entre dos instantes de tiempo exite una inferfaz <em>java.time.temporal.TemporalUnit</em>, una enumeración <em>CronoUnit</em> y una clase <em>Period</em>.</p>
+					<p>Mediante <span class="violeta">between()</span> obtenemos el tiempo transcurrido entre dos instantes y con <span class="violeta">until()</span>, el tiempo que falta hasta una fecha u hora.</p>
+				</section>
+
+				<!-- Tiempo entre fechas -->
+				<section>
+					<h2>Tiempo entre fechas</h2>
+					<p>Con LocalDateTime <em>between</em> y <em>until</em> devuelven un long.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							LocalDateTime fNacimiento = LocalDateTime.of(1983, Month.MARCH, 24, 20, 30, 15);
+							LocalDateTime hoy = LocalDateTime.now();
+							// between con LocalDateTime devuelve long
+							System.out.println(ChronoUnit.YEARS.between(fNacimiento, hoy));   // 39
+							System.out.println(ChronoUnit.MONTHS.between(fNacimiento, hoy));  // 475
+							System.out.println(ChronoUnit.DAYS.between(fNacimiento, hoy));    // 14479
+							System.out.println(ChronoUnit.SECONDS.between(fNacimiento, hoy)); // 1251065171
+							// until con LocalDateTime devuelve long
+							System.out.println(fNacimiento.until(hoy, ChronoUnit.YEARS));   // 39
+							System.out.println(fNacimiento.until(hoy, ChronoUnit.MONTHS));  // 475
+							System.out.println(fNacimiento.until(hoy, ChronoUnit.DAYS));    // 14479
+							System.out.println(fNacimiento.until(hoy, ChronoUnit.SECONDS)); // 1251065171		
+						</code>
+					</pre>
+				</section>
+
+				<!-- Tiempo entre fechas -->
+				<section>
+					<h2>Tiempo entre fechas</h2>
+					<p>Con LocalDate <em>between</em> y <em>until</em> devuelven un Period.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							LocalDate finAnio = LocalDate.of(2022, 12, 31);
+							LocalDate ahora = LocalDate.now(); // 14/11/2022
+
+							// until y between con LocalDate devuelven Period
+							Period hastaFinAnio = ahora.until(finAnio);
+							Period hastaFinAnio2 = Period.between(ahora, finAnio);
+
+							System.out.println(hastaFinAnio.getYears());    // 0
+							System.out.println(hastaFinAnio.getMonths());   // 1
+							System.out.println(hastaFinAnio.getDays());     // 17		
+						</code>
+					</pre>
+				</section>
+               
+				 <!-- Fechas y horas -->
+				 <section>
+					<h2>Trabajar con fechas y horas</h2>
+                    <p>Ejercicios???</p>
+					<p><img src="img/time.gif" alt="Ejercicios" /></p>
+				</section>
+
+				<!-- Fechas y horas -->
+				<section>
+					<h2>Trabajar con fechas y horas</h2>
+                    <h3>Ejercicio 1: Info de vida</h3>
+					<p>Implementa un programa en el que a partir de una fecha de nacimiento proporcionada, se dé información de los <em>años</em>, <em>meses</em>, <em>semanas</em>, <em>días</em>, <em>horas</em>, <em>minutos</em> y <em>segundos</em> vividos.</p>
+					<p>El programa deberá decir cuánto queda de vida, calculándolo a partir de un valor aleatorio entre el día de hoy y en el que el usuario cumpla 100 años.</p>
+				</section>
+
+				<!-- Fechas y horas -->
+				<section>
+					<h2>Trabajar con fechas y horas</h2>
+                    <h3>Ejercicio 2: Memento mori</h3>
+					<p>Se dice que una persona de media vivirá 4000 semanas (unos 80 años). Implementa un programa en el que a partir de la fecha de nacimiento, dibuje un gráfico con las semanas vividas. </p>
+					<p>Ejemplos: <a href='img/prog_fechas_lifecalendar1.webp' target='blank'>1</a>, <a href='img/prog_fechas_lifecalendar2.webp' target='blank'>2</a> y <a href='img/prog_fechas_lifecalendar3.png' target='blank'>3</a>.</p>
+				</section>
+
+				<!-- Fechas y horas -->
+				<section>
+					<h2>Trabajar con fechas y horas</h2>
+                    <h3>Ejercicio 3: Cronómetro</h3>
+					<p>Construye un cronómetro que mida el tiempo de paso por vuelta cada vez que se pulsa INTRO. Debe mostrar el número de vuelta, segundos y centésimas de segundo de cada vuelta. Para finalizar se pulsará la tecla S.</p>
+				</section>
+
+				<!-- Fechas y horas -->
+				<section>
+					<h2>Trabajar con fechas y horas</h2>
+                    <h3>Ejercicio 4: Experto en 10.000 horas</h3>
+					<p>La teoría de las 10.000 horas de Malcolm Gladwell afirma que si practicas una habilidad durante ese tiempo, acabarás siendo un experto.</p>
+					<p>Implementa una función a la que se le pase el número de horas semanales que dedicas a programar y la fecha en la que empezaste. La función devolverá la fecha en la que serás un experto.</p>
+				</section>
+
+				<!-- Fechas y horas -->
+				<section>
+					<h2>Trabajar con fechas y horas</h2>
+                    <h3>Ejercicio 5: Viernes 13</h3>
+					<p>Crea una función que detecte si existe un viernes 13 en el mes y año pasados por parámetros. La función devolverá verdadero o falso.</p>
+					<p>Crea una segunda función que use la anterior para devolver la fecha del próximo viernes 13 a partir del día actual. La función no recibe parámetros.</p>
+				</section>
+
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/java_date.asp" target="_blank">Java Classes - Java Date and Time</a></li>
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/clocks.gif">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

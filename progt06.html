@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>POO Avanzada. Herencia, polimorfismo e interfaces</title>
+
+		<meta name="description" content="Flujos">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Tema 6: POO Avanzada. Herencia, polimorfismo e interfaces</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Relaciones entre clases</li>
+						<li>Composición</li>
+						<li>Herencia</li>
+						<li>Clases abstractas</li>
+						<li>Interfaces</li>
+                        <li>Polimorfismo</li>
+					</ol>
+				</section>
+
+				<!-- Relaciones entre clases -->
+				<section>
+					<h2>Relaciones entre clases</h2>
+					<p>Es posible que no exista relación alguna entre clases, pero lo habitual es que sí, pudiendo ser la relación de:</p>
+                    <ul>
+                        <li><span class="naranja">Especialización</span>: Una clase añade características a otra clase base. Ej: Camión.</li>
+                        <li><span class="naranja">Generalización</span>: Una clase es una versión más generíca de una subclase. Ej: Vehículo.</li>
+                    </ul>
+				</section>
+
+				<!-- Relaciones entre clases -->
+				<section>
+					<h2>Relaciones entre clases</h2>
+					<p>Tipos de relaciones entre clases:</p>
+                    <ul>
+                        <li><span class="naranja">Clientela</span>: Una clase utiliza objetos de otra clase. Ej: Uso de Scanner en el main.</li>
+                        <li><span class="naranja">Composición</span>: Un atributo de una clase es un objeto de otra clase. Ej: Atributo titular de Cuenta es de tipo Cliente.</li>
+                        <li><span class="naranja">Anidamiento</span>: Se declaran clases internas dentro de clases. Menos habitual. Ej: Clase Movimiento dentro de Cuenta.</li>
+                        <li><span class="naranja">Herencia</span>: Clase base que comparte características con otras que añaden alguna funcionalidad. Ej: Clase base Cuenta de la que heredan CuentaAhorro, CuentaCorriente... </li>
+                    </ul>
+				</section>
+
+				<!-- Relaciones entre clases -->
+				<section>
+					<h2>Relaciones entre clases</h2>
+					<p>Composición</p>
+                    <ul>
+						<li>Una clase es parte de otra, es decir, un atributo de una clase es objeto de otra clase.</li>
+						<li>Ej: Clase Pais con atributos que son objetos de la clase Comunidad, que a su vez tiene atributos objetos de clase Provincia.</li>
+						<li>Para identificar la relación de composición &rarr; Usar <em>"tiene un"</em>.</li>
+						<li>Ej: Coche tiene un Motor, tiene ruedas. Persona tiene una Cuenta, tiene expedientes...</li>
+					</ul>
+				</section>
+
+				<!-- Relaciones entre clases -->
+				<section>
+					<h2>Relaciones entre clases</h2>
+					<p>Herencia</p>
+                    <ul>
+						<li>Mecanismo para crear clases a partir de otras existentes.</li>
+						<li>En Java, se sigue una jerarquía de clases partiendo de <strong>Object</strong>, de la que derivan todas las demás clases, incluidas las que nosotros definimos.</li>
+					</ul>
+				</section>
+
+				<!-- Relaciones entre clases -->
+				<section>
+					<h2>Relaciones entre clases</h2>
+					<p>Herencia</p>
+                    <ul>
+						<li>Las clases hijas heredan los atributos y métodos de la clase base, pudiendo además definir atributos y métodos propios.</li>
+						<li>Los constructores no se heredan, pero desde el constructor hijo es posible llamar al del padre con <em>super</em>.</li>
+						<li>Para identificar la relación de herencia &rarr; Usar <em>"es un"</em>.</li>
+						<li>Ej: Coche es un Vehiculo, Empleado es una Persona, Cocodrilo es un Reptil.</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Relaciones entre clases</li>
+						<li class="fragment highlight-blue">Composición</li>
+						<li>Herencia</li>
+						<li>Clases abstractas</li>
+						<li>Interfaces</li>
+						<li>Polimorfismo</li>
+					</ol>
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>Ya la hemos utilizado al declarar como atributo de una clase, objetos de otra. A tener en cuenta:</p>
+					<ul>
+						<li>Al hacer un getter sobre un int, se devuelve el <em>valor</em> de la variable. No modificable desde fuera.</li>
+						<li>Al hacer un getter sobre un objeto, se devuelve la <em>referencia</em> (puntero) a su valor. Modificable desde fuera.</li>
+					</ul>
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>Devolver referencias</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Cuenta implements Serializable {
+								private long numero;
+								private Cliente titular;
+
+								public Cliente getTitular() { 
+									return titular; // Podrían cambiarlo desde fuera
+								} 
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>Devolver objetos por valor</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Cuenta implements Serializable {
+								private long numero;
+								private Cliente titular;
+
+								public Cliente getTitular() { 
+									Cliente aux = new Cliente(this.titular.getNombre(), this.titular.getApellidos(), ...);
+									return aux; // Ya no pueden cambiar titular desde fuera
+								} 
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>Ojo en los constructores, si cambia fuera el objeto referenciado, también cambiaría en la Cuenta</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Constructor
+							public Cuenta(long numero, Cliente titular, float interes){
+								this.numero = numero;
+								this.titular = titular; // OJO!
+								this.saldo = 0;
+								this.interes = interes;
+							}
+
+							// Constructor copia
+							public Cuenta(Cuenta c){
+								this.numero = c.getNumero();
+								this.titular = c.getTitular(); // OJO!
+								this.saldo = c.getSaldo();
+								this.interes = c.getInteres();
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>Prueba y corrije el siguiente código creando las clases necesarias:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static void main(String[] args) {
+								System.out.println("Bienvenido al catálogo de coches");
+								Ruedas michelin = new Ruedas("Michelin", "Primacy", 225, 'V');
+								Ruedas dunlop = new Ruedas("Michelin", "Primacy", 225, 'V');
+
+								Coche bmw = new Coche("BMW", "320d", 177, michelin);
+
+								System.out.println(michelin);
+								System.out.println(dunlop);
+								System.out.println(bmw);
+
+								System.out.println("Cambio el ancho del objeto michelin a 245");
+								michelin.setAncho(245);
+								System.out.println("Imprimo el objeto BMW");
+								System.out.println(bmw);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>Solución, en el constructor de Coche:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Constructor
+							public Coche(String marca, String modelo, int caballos, Ruedas ruedas) {
+								this.marca = marca;
+								this.modelo = modelo;
+								this.caballos = caballos;
+								// this.ruedas = ruedas; // Composición débil o agregación
+								this.ruedas = new Ruedas(ruedas); // Composición fuerte
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>La <em>Agregación</em> es un tipo de <span class="naranja">composición débil</span> que indica que una clase es parte de otra clase.</p>
+					<p>A diferencia de la composición fuerte, las partes agregadas no serán destruidas al destruir la clase principal y además podrán ser compartidas por varios objetos complejos.</p> 
+				</section>
+
+				<!-- Composición -->
+				<section>
+					<h2>Composición</h2>
+					<p>En UML, la <em>Agregación</em> se representa con un rombo vacío, mientras que la <em>Composición</em> se representa con un rombo negro.</p>
+					<p>
+						<img src="img/progt06-agregacion.png" alt="Diagrama UML de Agregación" /> 
+						<img src="img/progt06-composicion.png" alt="Diagrama UML de Composición" />
+					</p> 
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Relaciones entre clases</li>
+						<li>Composición</li>
+						<li class="fragment highlight-blue">Herencia</li>
+						<li>Clases abstractas</li>
+						<li>Interfaces</li>
+						<li>Polimorfismo</li>
+					</ol>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<ul>
+						<li>Permite crear clases a partir de otras</li>
+						<li>Las clases hijas no tienen acceso a los atributos privados heredados de la clase padre, pero serán accesibles a través de métodos getters y setters</li>
+						<li>Las clases hijas pueden definir nuevos atributos y métodos. También sobreescribir métodos heredados</li>
+					</ul>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<h3>Visibilidad de los elementos de una clase</h3>
+					<p><img src="img/progt03-05.png" alt="Visibilidad de los elementos de una clase" /></p>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<p>Ejemplo: Alumno hereda de Persona</p>
+					<p><img src="img/progt07-03.png" alt="Herencia UML Persona Alumno" /></p>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<p>Ejemplo: Alumno y Profesor heredan de Persona</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Persona { 
+								String nombre;
+								String apellidos; 
+								LocalDate fechaNacim;
+								...
+							}
+							// Alumno hereda de Persona
+							public class Alumno extends Persona { 
+								String grupo;
+								double notaMedia;
+								...
+							}			
+							// Profesor hereda de Persona
+							public class Profesor extends Persona { 
+								String especialidad;
+								double salario;
+								...
+							}
+						</code>
+					</pre>
+				</section>
+				
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<ul>
+						<li>La clase Persona tiene 3 atributos.</li>	
+						<li>La clase Alumno tiene 5 atributos (3 heredados y 2 propios).</li>
+						<li>La clase Profesor tiene 5 atributos (3 heredados y 2 propios).</li>
+						<li>Los atributos heredados (sin modificador) son accesibles a nivel de paquete. Si la clase heredada hubiera estado en otro paquete, dichos atributos tendrían que haber sido public o protected.</li>
+					</ul>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<ul>
+						<li>Mediante <em>super</em> accedemos a la clase padre para llamar a su constructor.</li>
+						<li>Si la clase hija sobreescribe un método de la clase padre es posible acceder al método del padre mediante <em>super.método()</em> (utilizado también para ampliar funcionalidad de un método).</li>
+						<li>Al sobreescribir un método se puede cambiar su nivel de accesibilidad. Ej: protected en padre &rarr; public en hija.</li>
+					</ul>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<p>Clase Persona</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							package ejemplos.ejemplo02Personas;
+							import java.time.LocalDate;
+
+							public class Persona {
+								// Atributos accesibles desde el mismo paquete y subclases
+								protected String nombre;
+								protected String apellidos;
+								protected LocalDate fechaNacim;
+
+								// Constructor
+								public Persona(String nombre, String apellidos, LocalDate fechaNacim) {
+									this.nombre = nombre;
+									this.apellidos = apellidos;
+									this.fechaNacim = fechaNacim;
+								}
+
+								// Getters
+								protected String getNombre(){
+									return nombre; }
+								public String getApellidos(){
+									return apellidos; }
+								public LocalDate getFechaNacim(){
+									return this.fechaNacim; }
+
+								// Setters
+								public void setNombre(String nombre){
+									this.nombre = nombre; }
+								public void setApellidos(String apellidos){
+									this.apellidos = apellidos; }
+								public void setFechaNacim(LocalDate fechaNacim){
+									this.fechaNacim = fechaNacim; }
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<p>Clase Alumno</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							package ejemplos.ejemplo02Personas;
+							import java.time.LocalDate;
+
+							public class Alumno extends Persona{
+								// Atributos
+								private String grupo;
+								private double notaMedia;
+
+								// Constructor
+								public Alumno(String nombre, String apellidos, LocalDate fechaNacim, String grupo, double notaMedia) {
+									// Llamada al constructor del padre
+									super(nombre, apellidos, fechaNacim);
+									this.grupo = grupo;
+									this.notaMedia = notaMedia;
+								}
+
+								// Getters
+								public String getGrupo(){ return grupo; }
+								public double getNotaMedia (){ return notaMedia; }
+								// Setters
+								public void setGrupo(String grupo){ this.grupo = grupo; }
+								public void setNotaMedia(double notaMedia){ this.notaMedia = notaMedia; }
+
+								// Método definido en el padre y sobreescrito aquí
+								public String getNombre(){
+									return "Alumno " + nombre;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<p>Clase Profesor</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							package ejemplos.ejemplo02Personas;
+							import java.time.LocalDate;
+
+							public class Profesor extends Persona{
+								// Atributos
+								private String especialidad;
+								private double salario;
+
+								// Constructor
+								public Profesor(String nombre, String apellidos, LocalDate fechaNacim, String especialidad, double salario) {
+									// Llamada al constructor del padre
+									super(nombre, apellidos, fechaNacim);
+									this.especialidad = especialidad;
+									this.salario = salario;
+								}
+
+								// Getters y Setters
+								public String getEspecialidad() {
+									return especialidad;
+								}
+								public void setEspecialidad(String especialidad) {
+									this.especialidad = especialidad;
+								}
+								public double getSalario() {
+									return salario;
+								}
+								public void setSalario(double salario) {
+									this.salario = salario;
+								}
+
+								// Método definido en el padre y sobreescrito aquí
+								public String getNombre(){
+									return "Profesor " + nombre;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<p>Main</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							package ejemplos.ejemplo02Personas;
+
+							import java.time.LocalDate;
+							import java.time.format.DateTimeFormatter;
+
+							public class Main {
+								public static void main(String[] args) {
+									// Nuevo alumno
+									LocalDate fecha1 = LocalDate.of(2001, 11, 2);
+									Alumno alumno = new Alumno("Fran", "López", fecha1, "1DAW", 9.3);
+									// Nuevo profesor
+									LocalDate fecha2 = LocalDate.of(1983, 3, 24);
+									Profesor profesor = new Profesor("Eladio", "Blanco", fecha2, "Programación", 1245.35);
+									// Salida
+									DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+									System.out.println(alumno.getNombre() + " " + alumno.getApellidos() + " ("+ alumno.getFechaNacim().format(formatoFecha)+")");
+									System.out.println(profesor.getNombre() + " " + profesor.getApellidos() + " ("+ profesor.getFechaNacim().format(formatoFecha) +")");
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Herencia -->
+				<section>
+					<h2>Herencia</h2>
+					<p>Main</p>
+					<p><img src="img/progt07-04.png" alt="Salida programa ejemplo herencia" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Relaciones entre clases</li>
+						<li>Composición</li>
+						<li>Herencia</li>
+						<li class="fragment highlight-blue">Clases abstractas</li>
+						<li>Interfaces</li>
+						<li>Polimorfismo</li>
+					</ol>
+				</section>
+
+				<!-- Clases abstractas -->
+				<section>
+					<h2>Clases abstractas</h2>
+					<p>Son clases de las que no se van a instanciar objetos directos, pero van a servir de base para que otras clases hereden de ellas.</p>
+					<p>Persona podría ser una clase abstracta.</p>
+					<p>Además de los métodos normales, pueden tener <em>métodos abstractos</em>, lo que nos obliga a definirlos en las clases derivadas. Estos métodos sólo pueden ir en clases abstractas e interfaces.</p>
+				</section>
+
+				<!-- Clases abstractas -->
+				<section>
+					<h2>Clases abstractas</h2>
+					<p>Declaración con <em>abstract</em></p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public abstract class Persona { 
+								protected String nombre;
+								protected String apellidos; 
+								protected LocalDate fechaNacim;
+								...
+								// Método abstracto (no tienen cuerpo)
+								protected abstract void mostrar();
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Clases abstractas -->
+				<section>
+					<h2>Clases abstractas</h2>
+					<p>Definición de métodos abstractos en clases derivadas</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Alumno extends Persona{ 
+								...
+								// Método abstracto de Persona que hay que definir
+								public void mostrar(){
+									System.out.println(getNombre());
+									System.out.println("Nota media: " + this.notaMedia);
+								}
+							}
+
+							public class Profesor extends Persona{ 
+								...
+								// Método abstracto de Persona que hay que definir
+								public void mostrar(){
+									System.out.println(getNombre());
+									System.out.println("Salario: " + this.salario);
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Clases abstractas -->
+				<section>
+					<h2>Clases abstractas</h2>
+					<p>Salida en Main</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Salida métodos mostrar en Main
+							alumno.mostrar();
+							profesor.mostrar();
+						</code>
+					</pre>
+					<p><img src="img/progt07-05.png" alt="Salida programa ejemplo clases abstractas" /></p>
+				</section>
+
+				<!-- Clases abstractas -->
+				<section>
+					<h2>Clases abstractas</h2>
+					<p><em>Clases y métodos finales</em>: Las primeras no pueden ser heredadas y los segundos no pueden ser redefinidos.</p>
+					<p>Ambos se definen mediante el modificador <em>final</em>, el mismo que se utiliza para definir constantes.</p>
+				</section>
+
+				<!-- Clases abstractas -->
+				<section>
+					<h2>Clases abstractas</h2>
+					<p>Ejemplo método final no redefinible</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public abstract class Persona { 
+								...
+								// Método final
+								protected final String getNombre(){
+									return nombre; 
+								}
+							}
+						</code>
+					</pre>
+					<p>Error al sobreescribirlo en Profesor</p>
+					<p><img src="img/progt07-06.png" alt="Error al sobreescribir método final" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Relaciones entre clases</li>
+						<li>Composición</li>
+						<li>Herencia</li>
+						<li>Clases abstractas</li>
+						<li class="fragment highlight-blue">Interfaces</li>
+						<li>Polimorfismo</li>
+					</ol>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces</h2>
+					<ul>
+						<li>Clase sin atributos que declara métodos (abstractos) sin cuerpo que las clases que la implementen tendrán que definir obligatoriamente.</li>
+						<li>No es herencia. Lo que se consigue con las interfaz es definir un <em>comportamiento</em> común en las clases que la implementen.</li>
+					</ul>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces</h2>
+					<p>Una interfaz indica <em>qué</em> hay que hacer y la implementación especifica <em>cómo</em> se hace.</p>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces</h2>
+					<p>Ejemplo</p>
+					<p><img src="img/progt07-07.png" alt="Ejemplo interfaces" /></p>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces</h2>
+					<ul>
+						<li>Los nombres de las interfaces suelen acabar en <span class="naranja">-able, -or, -ente</span> para reflejar acciones: <em>Serializable, Clonable, Servidor, Buscador...</em></li>
+						<li>Ejemplo: Coche y Bici heredan de Vehículo. Coche implementa interfaz <em>Arrancable</em> con los métodos arrancarMotor y detenerMotor que Bici no necesita.</li>
+					</ul>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces</h2>
+					<p>Diferencias con las clases abstractas</p>
+					<ul>
+						<li>Una clase puede implementar varias interfaces pero solo heredar de una clase.</li>
+						<li>Una interfaz no puede definir métodos, solo los enumera (no define los cuerpos).</li>
+						<li>La jerarquía de interfaces y de herencia son totalmente	distintas.</li>
+					</ul>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Definición</h2>
+					<p>No es necesario indicar los modificadores porque van implícitos: Los métodos son abstractos.</p>
+					<p><img src="img/progt07-08.png" alt="Definición de interfaces" /></p>
+				</section>
+
+				<!-- Interfaces -->
+				<!--
+				<section>
+					<h2>Interfaces - Definición</h2>
+					<p><img src="img/progt07-09.png" alt="Ejercicio definición de interfaces" /></p>
+				</section>
+				-->
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Implementación</h2>
+					<p>Una clase puede implementar cualquier interfaz. Basta con indicar <em>implements</em> y a continuación las clases a implementar separadas por comas.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Coche implements Serializable, Arrancable { 
+								...
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Implementación</h2>
+					<ul>
+						<li>Vamos a implementar la interfaz <em>Mascota</em>.</li>
+						<li><span class="violeta">Opción 1:</span> Implementarla desde Gato y Perro y definir en ellos los métodos (seguiremos esta).</li>
+						<li><span class="violeta">Opción 2:</span> Implementarla desde Animal y ampliar la funcionalidad de sus métodos heredados en Gato y Perro.</li>
+					</ul>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Implementación</h2>
+					<p>0. Clase de la que heredan en el ejemplo</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public abstract class Animal {
+								// Atributos
+								private String sexo;
+
+								// Constructores
+								public Animal () { sexo = "MACHO"; }
+								public Animal (String s) { sexo = s; }
+
+								// Métodos
+								public String getSexo() { return sexo; }
+								public void duerme() { System.out.println("Zzzzzzz"); }
+								public String toString() { return "Sexo: " + this.sexo + "\n"; }
+							 }
+						</code>
+					</pre>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Implementación</h2>
+					<p>1. Se define la interfaz</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public interface Mascota {
+								String getCodigo();
+								void hazRuido();
+								void come(String comida);
+								void peleaCon(Animal contrincante);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Implementación</h2>
+					<p>2. Se implementa en Gato y se definen sus métodos</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Gato extends Animal implements Mascota {
+								// Atributos
+								private String codigo;
+
+								// Constructor
+								public Gato (String sexo, String codigo) { 
+									super(sexo);
+									this.codigo = codigo;
+								}
+
+								// Métodos
+								@Override
+								public String getCodigo() { return this.codigo; }								
+								@Override
+								public void hazRuido() { this.maulla(); this.ronronea(); }								
+								public void maulla() { System.out.println("Miauuuu"); }
+								public void ronronea() { System.out.println("mrrrrrr");	}
+								@Override
+								public void come(String comida) {
+									if (comida.equals("pescado")) { 
+										System.out.println("Hmmmm, gracias");
+									} else {
+										System.out.println("Lo siento, yo solo como pescado");
+									} 
+								}
+								/**
+								* Pone a pelear al gato contra otro animal.
+								* Solo se van a pelear dos machos entre sí.
+								*
+								* @param contrincante es el animal contra el que pelear */
+								@Override
+								public void peleaCon(Animal contrincante) { 
+									if (this.getSexo().equals("hembra")) {
+										System.out.println("no me gusta pelear"); 
+									} else {
+										if (contrincante.getSexo().equals("hembra")) { 
+											System.out.println("no peleo contra hembras");
+										} else {
+											System.out.println("ven aquí que te vas a enterar");
+										} 
+									}
+								} 
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Implementación</h2>
+					<p>3. Se implementa en Perro y se definen sus métodos</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Perro extends Animal implements Mascota {
+								// Atributos
+								private String codigo;
+
+								// Constructor
+								public Perro (String sexo, String codigo) { 
+									super(sexo);
+									this.codigo = codigo;
+								}
+
+								// Métodos
+								@Override
+								public String getCodigo() { return this.codigo; }
+								@Override
+								public void hazRuido() { this.ladra(); }
+								public void ladra() { System.out.println("Guau guau"); }
+								@Override
+								public void come(String comida) {
+									if (comida.equals("carne")) { 
+										System.out.println("Hmmmm, gracias");
+									} else {
+										System.out.println("Lo siento, yo solo como carne");
+									} 
+								}
+								/**
+								* Pone a pelear el perro contra otro animal.
+								* Solo se van a pelear si los dos son perros.
+								*
+								* @param contrincante es el animal contra el que pelear */
+								@Override
+								public void peleaCon(Animal contrincante) {
+									if (contrincante.getClass().getSimpleName().equals("Perro")) {
+										System.out.println("ven aquí que te vas a enterar"); 
+									} else {
+										System.out.println("no me gusta pelear"); 
+									} 
+								}
+							}						
+						</code>
+					</pre>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces - Implementación</h2>
+					<p>4. Ya se pueden utilizar desde otra clase (main)</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Main {
+								public static void main(String[] args) {
+									Gato garfield = new Gato("macho", "34569");
+									Gato lisa = new Gato("hembra", "96059");
+									Perro kuki = new Perro("hembra", "234678");
+									Perro ayo = new Perro("macho", "778950");
+							
+									garfield.come("pescado"); // Hmmmm, gracias
+									lisa.come("hamburguesa"); // Lo siento, yo solo como pescado
+									kuki.come("pescado"); // Lo siento, yo solo como carne
+							
+									lisa.peleaCon(garfield); // no me gusta pelear
+									ayo.peleaCon(kuki); // ven aquí que te vas a enterar
+								}
+							}							
+						</code>
+					</pre>
+				</section>
+
+				<!-- Interfaces -->
+				<section>
+					<h2>Interfaces</h2>
+					<h3>Ejercicio: Depredador y presa</h3>
+					<p>Implementa el siguiente diagrama de clases y pruébalo en el Main.</p>
+					<p><img src="img/progt07-07.png" alt="Ejemplo interfaces" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Relaciones entre clases</li>
+						<li>Composición</li>
+						<li>Herencia</li>
+						<li>Clases abstractas</li>
+						<li>Interfaces</li>
+						<li class="fragment highlight-blue">Polimorfismo</li>
+					</ol>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo</h2>
+					<p>Posibilidad de manipular objetos de diferentes clases como si fueran de la misma.</p>
+					<p>Se consigue mediante la herencia, redefiniendo los métodos en las clases hijas.</p>
+					<p>Vamos a tener una estructura de datos de la superclase donde se guardarán objetos de las subclases.</p>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Ligadura dinámica</h2>
+					<p>Ligadura es la vinculación de la llamada a un método con la clase a la que pertenece. Puede ser <em>estática</em> si se resuelve en tiempo de compilación o <em>dinámica</em> si lo hace en tiempo de ejecución.</em></p>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<p>Ej: Tenemos un array de Persona, lo recorremos y vamos llamando al método <em>mostrar</em>. En tiempo de ejecución se llamará al método correcto según haya un Alumno o Profesor en esa posición del array.</p>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static void main(String[] args) {
+
+								Scanner s = new Scanner(System.in);
+								Persona persona;
+						
+								System.out.println("Introduce un número: ");
+								int num = Integer.parseInt(s.nextLine());
+						
+								if(num % 2 == 0){
+									LocalDate fecha = LocalDate.of(2001, Month.JUNE, 6);
+									// persona es polimórfico
+									persona = new Alumno("Jose", "López García", fecha, "1DAW", 9.3);
+								}else{
+									LocalDate fecha = LocalDate.of(1983, Month.MARCH, 24);
+									// persona es polimórfico
+									persona = new Profesor("Antonio", "Martínez Aranda", fecha, "Programación", 1000);
+								}
+								// método definido en Persona y redefinido en Alumno y Profesor
+								persona.mostrar(); // Ligadura dinámica (resuelve la llamada al mostrar() correcto)
+						
+								// Comprobar si está instanciado un objeto de Alumno o Profesor
+								System.out.println("Objeto de clase " + persona.getClass().getSimpleName());
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<p>Salida ejemplo</p>
+					<p><img src="img/progt07-12.png" alt="Salida implementación ejemplo ligadura" /></p>
+					<p><img src="img/progt07-13.png" alt="Salida implementación ejemplo ligadura" /></p>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<h3>Ejercicio: Gestion Personal</h3>
+					<p>Continuando con las clases anteriores de Persona, Alumno y Profesor, implementa una clase <em>GestionPersonas</em> que contenga un array de Persona y un método imprimirPersonal() que llame a los métodos mostrar() de cada elemento del array.</p>
+					<p>Prueba en el Main a crear varios alumnos y profesores. Después llama a imprimirPersonal() para comprobar que la ligadura dinámica realiza su función correctamente.</p>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<p>Gracias a la <em>ligadura dinámica</em> hemos visto que se puede <span class="naranja">llamar a un método cómun</span> de las subclases en tiempo de ejecución.</p>
+					<p>Pero, ¿qué pasa si queremos llamar a un método propio de la subclase?</p>
+					<p class="fragment">Es necesario hacer <span class="violeta">casting a la subclase</span>.</p>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<p>Veamos cómo hacer <span class="violeta">casting a la subclase</span> para llamar a un método específico de ella, pero antes hay que comprobar su tipo mediante <em>instanceof</em></p>
+					<pre>
+						<code class="hljs" data-trim> 
+						Scanner s = new Scanner(System.in);
+						System.out.println("Introduce un número: ");
+						int num = Integer.parseInt(s.nextLine());
+
+						// persona es polimórfico
+						Persona persona;
+
+						// No sabemos si se va a instanciar un Alumno o un Profesor en tiempo de compilación
+						if(num % 2 == 0){
+							persona = new Alumno("David", "Galán", LocalDate.of(2005, 5, 10), "DAW", 7.2);
+						}else{
+							persona = new Profesor("Don Antonio", "Toranzo", LocalDate.of(1966, 6, 13), "LM", 2250.75);
+						}
+
+						// Comprobación de tipo y casting a Alumno para llamar a métodos específicos
+						if(persona instanceof Alumno){
+							Alumno alumno = (Alumno) persona;
+							alumno.suspender(); // Método específico de Alumno
+						}
+
+						// MEJOR! Casting directamente en el instanceof
+						if(persona instanceof Alumno alumno){
+							alumno.suspender(); // Método específico de Alumno
+						}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<p>Otra formas de comprobar el tipo de un objeto antes de hacer el casting:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+						// Forma 1
+						if(persona.getClass() == Alumno.class){
+							Alumno alumno = (Alumno) persona;
+							alumno.suspender(); // Método específico de Alumno
+						}
+				
+						// Forma 2
+						if(persona.getClass().getSimpleName().equals("Alumno")){
+							Alumno alumno = (Alumno) persona;
+							alumno.suspender(); // Método específico de Alumno
+						}
+
+						// Forma 3
+						if(persona instanceof Alumno){
+							Alumno alumno = (Alumno) persona;
+							alumno.suspender(); // Método específico de Alumno
+						}
+
+						// MEJOR! Casting directamente en el instanceof
+						if(persona instanceof Alumno alumno){
+							alumno.suspender(); // Método específico de Alumno
+						}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Polimorfismo -->
+				<section>
+					<h2>Polimorfismo y ligadura dinámica</h2>
+					<h3>Ejercicio: Gestion Personal</h3>
+					<p>Continúa con el ejercicio añadiendo un menú con diferentes opciones para:</p>
+					<ul>
+						<li>Insertar alumnos y profesores.</li>
+						<li>Mostrarlos todos.</li>
+						<li>Seleccionar una pesona del array y realizar funciones específicas según se trate de un alumno (suspender, aprobar, cambiar grupo...) o un profesor (subir el sueldo, cambiar asignatura...).</li>
+					</ul>
+				</section>
+			
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/java_abstract.asp" target="_blank">w3schools - Clases abstractas</a></li>
+						<li><a href="https://www.w3schools.com/java/java_interface.asp" target="_blank">w3schools - Interfaces</a></li>
+						<li><a href="https://www.arquitecturajava.com/java-polimorfismo-herencia-y-simplicidad/" target="_blank">arquitecturajava - Polimorfismo</a></li>
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/progt07-fin.gif">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

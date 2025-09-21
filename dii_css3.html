@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Introducción a CSS3</title>
+
+		<meta name="description" content="Introducción a CSS3">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/league.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>CSS3</h1>
+					<h3>Introducción</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Presentación -->
+				<section>
+					<h2>Estructura vs presentción</h2>
+					<p><img src="img/dii_css3_01.png" alt="Estructura y presentación en web" /></p>
+				</section>
+
+				<!-- Mejoras -->
+				<section>
+					<h2>CSS3 vs CSS2</h2>
+					<ul>
+						<li class="fragment fade-down">Mejora en los selectores</li>
+						<li class="fragment fade-down">Reduce la "clasitis" y "divitis" en html</li>
+						<li class="fragment fade-down">Nuevos estilos: sombra, opacidad, esquinas redondeadas...</li>
+						<li class="fragment fade-down">Mejoras en tipografías</li>
+						<li class="fragment fade-down">Transformaciones</li>
+						<li class="fragment fade-down">...</li>
+					</ul>
+				</section>
+
+				<!-- Mejoras -->
+				<section>
+					<h2>CSS3 vs CSS2</h2>
+					<ul>
+						<li class="fragment fade-down">Reduce peticiones de imágenes gracias al posicionamiento de fondo</li>
+						<li class="fragment fade-down">Mejora la rapidez de carga de la página</li>
+						<!-- Se carga una imagen "mapa" con todas contenidas en ella y se posicionan con la propiedad background y sus coordenadas en la imagen mapa -->
+					</ul>
+					<p class="fragment fade-down"><img src="img/dii_css3_14.png" alt="Bordes nuevos" /></p>
+				</section>
+
+				<!-- Novedades -->
+				<section>
+					<h2>Novedades</h2>
+					<ul>
+						<li class="fragment fade-down">Bordes</li>
+						<li class="fragment fade-down">Fondos</li>
+						<li class="fragment fade-down">Color</li>
+						<li class="fragment fade-down">Efectos en texto</li>
+						<li class="fragment fade-down">Layot multicolumna</li>
+						<li class="fragment fade-down">Transiciones</li>
+						<li class="fragment fade-down">Selectores</li>
+						<li class="fragment fade-down">Media queries</li>
+					</ul>
+				</section>
+
+				<!-- Novedades - Bordes -->
+				<section>
+					<h2>Bordes</h2>
+					<p><img src="img/dii_css3_04.png" alt="Bordes nuevos" /></p>
+				</section>
+
+				<!-- Novedades - Fondos -->
+				<section>
+					<h2>Fondos múltiples</h2>
+					<p><img src="img/dii_css3_05.png" alt="Fondos múltiples" /></p>
+				</section>
+
+				<!-- Novedades - Color y opacidad -->
+				<section>
+					<h2>Color y opacidad</h2>
+					<p><img src="img/dii_css3_07.png" alt="Color y opacidad" /></p>
+				</section>
+
+				<!-- Novedades - Web fonts -->
+				<section>
+					<h2>Webfonts</h2>
+					<p><img src="img/dii_css3_09.png" alt="Webfonts" /></p>
+				</section>
+
+				<!-- Novedades - Efectos en texto -->
+				<section>
+					<h2>Efectos en texto</h2>
+					<p><img src="img/dii_css3_10.png" alt="Efectos en texto" /></p>
+				</section>
+
+				<!-- Novedades - Layout multicolumna -->
+				<section>
+					<h2>Layout multicolumna</h2>
+					<p><img src="img/dii_css3_08.png" alt="Layout multicolumna" /></p>
+				</section>
+
+				<!-- Novedades - Transformaciones -->
+				<section>
+					<h2>Transformaciones</h2>
+					<p><img src="img/dii_css3_06.png" alt="Transformaciones" /></p>
+				</section>
+
+				<!-- Novedades - Pseudoclases -->
+				<section>
+					<h2>Pseudoclases</h2>
+					<p><img src="img/dii_css3_11.png" alt="Psudoclases" /></p>
+				</section>
+
+				<!-- Novedades - Selectores de atributos -->
+				<section>
+					<h2>Selectores de atributos</h2>
+					<p><img src="img/dii_css3_12.png" alt="Selectores de atributos" /></p>
+				</section>
+
+				<!-- Novedades - Media queries -->
+				<section>
+					<h2>Media queries</h2>
+					<p><img src="img/dii_css3_13.png" alt="Media queries" /></p>
+				</section>				
+
+				<!-- Prefijos navegadores -->
+				<section>
+					<h2>Prefijos navegadores</h2>
+					<p><img src="img/dii_css3_02.jpeg" alt="Prefijos reglas CSS navegadores" /></p>
+				</section>
+
+				<!-- Prefijos navegadores -->
+				<section>
+					<h2>Prefijos navegadores</h2>
+					<p><img src="img/dii_css3_03.png" alt="Ejemplo prefijos reglas CSS navegadores" /></p>
+				</section>
+
+				<!-- Web: Aprender bases css -->
+				<section data-background-iframe="https://uniwebsidad.com/libros/css" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Las bases con css 2.1</h2>
+						<p>Repaso: Capítulos 2 y 5</p>
+						<p><a href="https://uniwebsidad.com/libros/css" target="_blank">uniwebsidad.com/libros/css</a></p>
+					</div>
+				</section>
+
+				<!-- Web: Aprender css3 -->
+				<section data-background-iframe="https://www.arkaitzgarro.com/css3/" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Para aprender css3</h2>
+						<p>Implementaciones actuales.</p>
+						<p><a href="https://www.arkaitzgarro.com/css3/" target="_blank">arkaitzgarro.com/css3/</a></p>
+					</div>
+				</section>
+
+				<!-- Web: Referencia css actualizada del W3C -->
+				<section data-background-iframe="https://www.w3.org/Style/CSS/" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Referencia css del W3C</h2>
+						<p>El <strong>World Wide Web Consortium</strong> genera recomendaciones y estándares que aseguran el crecimiento de la web a largo plazo.
+						</p>
+						<p>Fundado por Tim Berners-Lee en 1994.</p>
+						<p>Para consultas específicas.</p>
+						<p><a href="https://www.w3.org/Style/CSS/" target="_blank">www.w3.org/Style/CSS/</a></p>
+					</div>
+				</section>
+
+				<!-- Web: CSS Zen Garden, para pillar ideas -->
+				<section data-background-iframe="http://www.csszengarden.com/" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>CSS Zen Garden</h2>
+						<p>De inspiración...</p>
+						<p>Cambia toda la página cambiando sólo el CSS.</p>
+						<p><a href="http://www.csszengarden.com/" target="_blank">csszengarden.com</a></p>
+					</div>
+				</section>
+
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>¿Presentación en PDF?</h2>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section>
+					<h2>A trabajar...</h2>
+					<p><img src="img/dii_css3_fin.gif" alt="gif de humor sobre CSS" /></p>
+				</section>
+				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

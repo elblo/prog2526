@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Introducción a html5</title>
+
+		<meta name="description" content="Introducción a html5">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/league.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>HTML5</h1>
+					<h3>Introducción</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Evolución -->
+				<section>
+					<h2>Evolución</h2>
+					<p><img src="img/html5_evolucion.png" alt="Evolución html5" /></p>
+				</section>
+
+				<!-- Estandarización -->
+				<section>
+					<h2>Estandarización</h2>
+					<ul>
+						<li class="fragment fade-down">video</li>
+						<li class="fragment fade-down">audio</li>
+						<li class="fragment fade-down">canvas</li>
+						<li class="fragment fade-down">geolocalización</li>
+						<li class="fragment fade-down">drag & drop</li>
+					</ul>
+				</section>
+
+				<!-- Estandarización > Multiplataforma -->
+				<section>
+					<h2>Multiplataforma</h2>
+					<p><img src="img/html5_multiplataforma.png" alt="Multiplataforma" /></p>
+
+					<aside class="notes"> <!-- Notas orador. S para mostrar. B presentación en negro -->
+						Estandarización --> Desarrollo multiplataforma
+					</aside>
+				</section>
+
+				<!-- Ventajas -->
+				<section>
+					<h2>Ventajas</h2>
+					<ul>
+						<li class="fragment fade-down">Semántica</li>
+						<li class="fragment fade-down">Accesibilidad</li>
+						<li class="fragment fade-down">Estandarización</li>
+						<li class="fragment fade-down">Multimedia</li>
+						<li class="fragment fade-down">Almacenamiento local</li>
+						<li class="fragment fade-down">Webworkers</li>
+						<li class="fragment fade-down">Geolocalización</li>
+						<li class="fragment fade-down">Gestión de formularios</li>
+						<li class="fragment fade-down">Acceso a recursos: webcams, micrófonos...</li>
+						<li class="fragment fade-down">Menor dependencia de plugins</li>
+					</ul>
+				</section>
+
+				<!-- Layout antiguo -->
+				<section>
+					<h2>Layout antiguo</h2>
+					<p><img src="img/html5_layout01.png" alt="Layout antiguo" /></p>
+				</section>
+
+				<!-- Layout html5 -->
+				<section>
+					<h2>Layout html5</h2>
+					<p><img src="img/html5_layout02.png" alt="Layout html5" /></p>
+				</section>
+
+				<!-- Web: Aprender bases xhtml -->
+				<section data-background-iframe="https://uniwebsidad.com/libros/xhtml" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Para aprender xhtml</h2>
+						<p>Las bases del lenguaje.</p>
+						<p><a href="https://uniwebsidad.com/libros/xhtml" target="_blank">uniwebsidad.com/libros/xhtml</a></p>
+					</div>
+				</section>
+
+
+				<!-- Web: Aprender html5 -->
+				<section data-background-iframe="https://www.arkaitzgarro.com/html5/index.html" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Para aprender html5</h2>
+						<p>Implementaciones actuales.</p>
+						<p>La vamos a trabajar en su mayor parte.</p>
+						<p><a href="https://www.arkaitzgarro.com/html5/index.html" target="_blank">arkaitzgarro.com/html5/index.html</a></p>
+					</div>
+				</section>
+
+				<!-- Web: Referencia html actualizada del WHATWG -->
+				<section data-background-iframe="https://html.spec.whatwg.org/multipage/" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Referencia html del WHATWG</h2>
+						<p>El <strong>Web Hypertext Application Technology Working Group</strong> es una comunidad de personas y empresas interesadas en la evolución de HTML y las tecnologías conexas.​ 
+						</p>
+						<p>Fundado por integrantes de Apple, la Fundación Mozilla y Opera Software</p>
+						<p>Para consultas específicas.</p>
+						<p><a href="https://html.spec.whatwg.org/multipage/" target="_blank">html.spec.whatwg.org</a></p>
+					</div>
+				</section>
+
+				<!-- Web: Compatibilidad del navegador con html5 -->
+				<section data-background-iframe="https://html5test.com/" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>html5 test</h2>
+						<p>Comprueba la compatibilidad de tu navegador con html5.</p>
+						<p><a href="https://html5test.com/" target="_blank">html5test.com</a></p>
+					</div>
+				</section>
+
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>¿Presentación en PDF?</h2>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section>
+					<h2>A trabajar...</h2>
+					<p><img src="img/html5_fin.gif" alt="perro programando" /></p>
+				</section>
+				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

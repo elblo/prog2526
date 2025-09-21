@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Colecciones</title>
+
+		<meta name="description" content="Estructuras de datos">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Tema 7: Colecciones</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Colecciones
+							<ul>
+								<li>Conjuntos</li>
+								<li>Listas</li>
+								<li>Diccionarios</li>
+							</ul>
+						</li>
+						<li>Otras estructuras
+							<ul>
+								<li>XML</li>
+								<li>JSON</li>
+							</ul>
+						</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Sin estructuras de datos podemos hacer programas complejos, pero limitados por el número de datos: Número finito de usuarios, cuentas, incidencias...</p>
+					<p><strong>Solución</strong>: Almacenar en estructuras datos simples y compuestos, con un número fijo o dinámico de elementos que se puedan recorrer y sobre los que realizar las operaciones <abbr title="Create Read Update Delete">CRUD</abbr>.</p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Clasificación de las estructuras de almacenamiento</h3>
+					<p>Si pueden almacenar...</p>
+					<ul>
+						<li><em>Datos del mismo tipo</em>: arrays (vectores), arrays multidimensionales (matrices), listas, colecciones, conjuntos...</li>
+						<li><em>Datos de distinto tipo</em>: clases (vistas en POO).</li>
+					</ul>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Clasificación de las estructuras de almacenamiento</h3>
+					<p>Según su tamaño...</p>
+					<ul>
+						<li><em>Fijo</em>: Su tamaño se especifica al crear la estructura y no cambia. Ejemplo: arrays o matrices.</li>
+						<li><em>Dinámico</em>: Su tamaño cambia en tiempo de ejecución según las necesidades. Ejemplo: listas, hash, colecciones...</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Colecciones
+							<ul>
+								<li>Conjuntos</li>
+								<li>Listas</li>
+								<li>Diccionarios</li>
+							</ul>
+						</li>
+						<li>Otras estructuras
+							<ul>
+								<li>XML</li>
+								<li>JSON</li>
+							</ul>
+						</li>
+					</ol>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<p>Una colección es un grupo de elementos almacenados de forma conjunta en una misma estructura.</p>
+					<p>Además de los datos, la colección recoge las funciones para interactuar con ellos.</p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<p><img src="img/progt05-27b.png" alt="Colecciones en Java" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<p>Los <span class="violeta">conjuntos</span> y <span class="violeta">listas</span> implementan una interfaz inicial <em>java.util.Collection</em> que define las operaciones comunes a todas ellas.</p>
+					<p><img src="img/progt05-26.png" alt="Operaciones de Collection" /></p>
+				</section>			
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<p>Los <span class="violeta">diccionarios</span> implementan una interfaz inicial <em>java.util.Map</em> que define las operaciones comunes a todos ellos.</p>
+					<p><img src="img/progt05-48.png" alt="Operaciones de Collection" /></p>
+				</section>	
+				
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Colecciones
+							<ul>
+								<li class="fragment highlight-blue">Conjuntos</li>
+								<li>Listas</li>
+								<li>Diccionarios</li>
+							</ul>
+						</li>
+						<li>Otras estructuras
+							<ul>
+								<li>XML</li>
+								<li>JSON</li>
+							</ul>
+						</li>
+					</ol>
+				</section>
+				
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Conjuntos</h3>
+					<p>Tipo de colección que no admite duplicados, derivados del concepto matemático de conjunto.</p>
+					<p>La interfaz <em>java.util.Set</em> define cómo deben ser los conjuntos, y extiende la interfaz Collection, aunque no añade ninguna operación nueva.</p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Conjuntos</h3>
+					<p>Las clases más utilizadas que implementan dicha interfaz son:</p>
+					<ul>
+						<li><span class="naranja">java.util.HashSet</span>: Conjunto que
+							almacena los objetos usando <abbr title="Estructura de datos formada por un array donde la posición de los datos va determinada por una función hash, permitiendo localizar la información de forma extraordinariamente rápida. Los datos están ordenados en la tabla en base a un resumen numérico de los mismos (en hexadecimal generalmente) obtenido a partir de un algoritmo para cálculo de resúmenes, denominadas funciones hash.">tablas hash</abbr>.</li>
+						<li><span class="naranja">java.util.LinkedHashSet</span>: Conjunto que almacena objetos combinando tablas hash, para un acceso rápido a los datos, y listas enlazadas.</li>
+						<li><span class="naranja">java.util.TreeSet</span>: Conjunto que almacena los objetos usando unas estructuras conocidas como <a href="https://es.wikipedia.org/wiki/%C3%81rbol_rojo-negro" target="_blank">árboles rojo-negro</a>. Son más lentas que los dos tipos anteriores. Pero tienen una gran ventaja: los datos almacenados se ordenan por valor.</li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Colecciones
+							<ul>
+								<li>Conjuntos</li>
+								<li class="fragment highlight-blue">Listas</li>
+								<li>Diccionarios</li>
+							</ul>
+						</li>
+						<li>Otras estructuras
+							<ul>
+								<li>XML</li>
+								<li>JSON</li>
+							</ul>
+						</li>
+					</ol>
+				</section>
+				
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Avance respecto a conjuntos. Añade:</p>
+					<ul>
+						<li>Almacenamiento de elementos repetidos.</li>
+						<li>Acceso a los elementos por posición.</li>
+						<li>Búsqueda de elementos (obtiene posición).</li>
+						<li>Extracción de sublistas.</li>
+					</ul>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Todas las listas implementan una interfaz inicial <em>java.util.List</em> que define las operaciones comunes a todas ellas.</p>
+					<p><img src="img/progt05-28.png" alt="Operaciones de List" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Las clases más utilizadas que implementan dicha interfaz son:</p>
+					<ul>
+						<li><span class="naranja">java.util.LinkedList</span>: Lista doblemente enlazada. Desde cada elemento se puede acceder al siguiente y al anterior. Los elementos de la lista van encapsulados en "nodos". Eliminación de datos rápida.</li>
+						<li><span class="naranja">java.util.ArrayList</span>: Arrays que se van redimensionando conforme se necesita más espacio o menos. Acceso a datos rápido.</li>
+					</ul>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>LinkedList</p>
+					<p><img src="img/progt05-29.png" alt="LinkedList" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>LinkedList</p>
+					<p><img src="img/progt05-30.png" alt="LinkedList código" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList</p>
+					<p><img src="img/progt05-31.png" alt="ArrayList métodos" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Declaración</p>
+					<p><img src="img/progt05-32.png" alt="ArrayList declaración" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Ejemplo</p>
+					<p><img src="img/progt05-33.png" alt="ArrayList ejemplo" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Recorrido</p>
+					<p><img src="img/progt05-34.png" alt="ArrayList recorrido elementos" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Borrado</p>
+					<p><img src="img/progt05-35.png" alt="ArrayList borrado elementos" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Borrado</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							ArrayList&lt;String&gt; colores = new ArrayList&lt;String&gt;();
+							
+							colores.add("violeta");
+							colores.add("blanco");
+							colores.add("negro");
+							colores.add("verde");
+
+							// Eliminar elementos que cumplan la condición de la función
+							colores.removeIf(c -> c.startsWith("v"));
+							System.out.println(colores);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Set</p>
+					<p><img src="img/progt05-36.png" alt="ArrayList set" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Add</p>
+					<p><img src="img/progt05-37.png" alt="ArrayList add" /></p>
+				</section>
+				
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Almacenar objetos</p>
+					<p><img src="img/progt05-39.png" alt="ArrayList objetos" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>ArrayList. Ordenación <span class="naranja">Collection.sort(lista)</span></p>
+					<p><img src="img/progt05-40.png" alt="ArrayList ordenación" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 1</strong>:</p>
+					<ol>
+						<li>En la clase a ordenar se implementa la interfaz <span class="rosa">Comparable</span> y se define el método <span class="violeta">compareTo</span> con el criterio de ordenación.</li>
+						<li>Utilizar <span class="naranja">Collection.sort(lista)</span> para ordenar el listado de objetos.</li>
+					</ol>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 1</strong>:</p>
+					<p>1. Implementar la interfaz y redefinir <span class="violeta">compareTo</span>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							// Implementar la interfaz Comparable para poder ordenar elementos de esta clase 
+							public class Gato implements Comparable&lt;Gato&gt; {
+								
+								// Definir en compareTo el criterio de ordenación
+								// Devuelve un número entero negativo, 0 o positivo si el 
+								// objeto actual es menor, igual o mayor que el objeto pasado como argumento								
+								public int compareTo(Gato gato) {
+									return this.peso - gato.peso;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 1</strong>:</p>
+					<p>2. Utilizar <span class="naranja">Collection.sort(lista)</span> para ordenar.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							Gato gato1 = new Gato("Garfield", "naranja", "común", 10);
+							Gato gato2 = new Gato("Mishi", "naranja", "común", 5);
+							Gato gato3 = new Gato("Hello kitty", "blanco", "japo", 7);
+
+							ArrayList&lt;Gato&gt; gatos = new ArrayList&lt;Gato&gt;();
+							gatos.add(gato1);
+							gatos.add(gato2);
+							gatos.add(gato3);
+
+							System.out.println(gatos);
+
+							// Ordenar por peso
+							Collections.sort(gatos);
+
+							System.out.println(gatos);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 1</strong>:</p>
+					<p><strong>Ejercicio</strong>: Aplica diferentes ordenaciones: Por nombre, raza y peso, tanto ascendentemente como descendentemente.</p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 2</strong>:</p>
+					<ol>
+						<li>Crear una clase que implemente la interafaz <span class="rosa">Comparator</span> y redefina el método <span class="violeta">compare</span>.</li>
+						<li>Llamar al método <span class="violeta">sort</span> de la propia lista pasándole una instancia de la clase anterior.</li>
+					</ol>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 2</strong>:</p>
+					<p>1. Crear la clase con el método <span class="violeta">compare</span>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class PesoMenosMas implements Comparator&lt;Gato&gt; {
+						
+								public int compare(Gato o1, Gato o2) {
+									return o1.getPeso() - o2.getPeso();
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 2</strong>:</p>
+					<p>2. Llamar al método <span class="violeta">sort</span> de la lista pasándole una instancia de la clase anterior.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							gatos.sort(new PesoMenosMas());
+						</code>
+					</pre>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 2</strong>:</p>
+					<p><strong>Ejercicio</strong>: Crea las clases necesarias para ordenarlos por nombre, raza y peso tanto ascendemente como descendentemente.</p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 2</strong>:</p>
+					<p><strong>Variante</strong>: Utilizar directamente una <span class="naranja">clase anónima</span> en la llamada a <span class="violeta">sort</span>. Ahorramos definir la clase.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							gatos.sort(new Comparator&lt;Gato&gt;(){
+								public int compare(Gato o1, Gato o2) {
+									return o1.getPeso() - o2.getPeso();
+								}
+							});
+						</code>
+					</pre>
+				</section>				
+				
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<p>Ordenación personalizada de objetos. <strong>Método 3</strong>:</p>
+					<p>Llamar al método <span class="violeta">sort</span> de la lista pasándole una <span class="naranja">función lambda</span>.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Los tipos de los argumentos se infieren de la lista
+							lista.sort((o1, o2) -> {
+								return o1.getPeso() - o2.getPeso();
+							});
+	
+							// Si la función tiene una sola línea, se pueden quitar las llaves y el return. Mejor así:
+							gatos.sort((o1, o2) -> o1.getPeso() - o2.getPeso());
+						</code>
+					</pre>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<h4>Consideraciones finales</h4>
+					<ul>
+						<li>Pueden almacenar objetos inmutables (String, Integer, Long...) y mutables (Clases del programador).</li>
+						<li>En el método <span class="naranja">.add</span> los objetos inmutables se pasan por copia y lo mutables por referencia.</li>
+						<li>Ateción a cómo se almacenan los objetos y qué se hace con las variables que apuntan a ellos.</li>
+					</ul>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<h4>Consideraciones finales</h4>
+					<p>¿Qué valores de la lista se imprimen en cada for?</p>
+					<pre>
+						<code class="hljs" data-trim> 
+						public class Test {
+							int num;
+							public Test(int num){ this.num = num; }
+						}
+						
+						public class TestMain {
+							public static void main(String[] args) {
+								// Cambiar el valor de p1 cambia el valor de la lista
+								Test p1 = new Test(11);
+								Test p2 = new Test(12);
+						
+								LinkedList&lt;Test&gt; lista = new LinkedList&lt;Test&gt;();
+								lista.add(p1);
+								lista.add(p2);
+						
+								p1.num = 44;
+								for(Test t : lista) System.out.println(t.num);
+						
+								// Cambiar el valor de num1 no cambia el valor de la lista
+								int num1 = 10;
+								int num2 = 20;
+								LinkedList&lt;Integer&gt; lista2 = new LinkedList&lt;Integer&gt;();
+								lista2.add(num1);
+								lista2.add(num2);
+						
+								num1 = 44;
+								for(int num: lista2) System.out.println(num);
+
+								// ¿Y lo siguiente cambiaría el valor de la lista?
+								p1 = new Test(99);
+								for(Test t : lista) System.out.println(t.num);
+							}
+						}
+						</code>
+					</pre>					
+					<aside class="notes"><!-- Notas orador (pulsar S) -->
+						El resultado de ejecutar el código anterior es que se muestran los números 44 y 12. El número ha sido modificado y no hemos tenido que volver a insertar el elemento en la lista para que en la lista se cambie también. Esto es porque en la lista no se almacena una copia del objeto Test, sino un apuntador (referencia) a dicho objeto (solo hay una copia del objeto a la que se hace referencia desde distintos lugares). 
+					</aside>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<h4>Consideraciones finales</h4>
+					<p>Otro ejemplo con los gaticos</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							Gato gato1 = new Gato("Garfield", "naranja", "común", 10);
+							Gato gato2 = new Gato("Mishi", "naranja", "común", 5);
+							Gato gato3 = new Gato("Hello kitty", "blanco", "japo", 7);
+
+							ArrayList&lt;Gato&gt; gatos = new ArrayList&lt;Gato&gt;();
+							gatos.add(gato1);
+							gatos.add(gato2);
+							gatos.add(gato3);
+
+							// Cambiar el color de gato1 cambia el color en la lista
+							gato1.setColor("verde");
+							System.out.println(gatos);
+
+							// ¿Y ahora?
+							gato1 = new Gato("Tom", "gris", "común", 8);
+							System.out.println(gatos);							
+						</code>		
+					</pre>		
+					</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<h4>Ejercicio: App Banco</h4>
+					<p><img src="img/progt05-46.png" alt="Ejercicio App Banco" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas</h3>
+					<h4>Más ejercicios para practicar</h4>
+					<p><img src="img/progt05-47.png" alt="Más ejercicios" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas. Bonus: Programación funcional</h3>
+					<p>La <span class="naranja">API Stream</span> permite trabajar con una colección como si fuese un flujo de información y así realizar operaciones de filtrado, transformación, ordenación, agrupación y presentación de información.</p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas. Bonus: Programación funcional</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+						public class ProgramacionFuncional {
+
+							// Función para ilustrar el uso de la referencia a método (::) más abajo
+							public static int multiplica10(int num){
+								return num * 10;
+							}
+						
+							public static void main(String[] args) {
+								// Declarar una colección de enteros sin tener que añadirlos 1 a 1 mediante add
+								ArrayList&lt;Integer&gt; lista = new ArrayList&lt;Integer&gt;(Arrays.asList(12,14,5,6,8,9,123,56,78));
+						
+								// 1. Imprimir todos los valores de la lista
+								lista.stream().forEach(num -> System.out.println(num));
+								// Utilizando la notación :: (referencia a método) se puede pasar la declaración de una función sin ejecutarla
+								lista.stream().forEach(System.out::println);
+						
+								System.out.println("--------");
+						
+								// 2. Filtrar mayores de 10, ordenar de mayor a menor e imprimirlos
+								lista
+										.stream()
+										.filter(num -> num>10)
+										.sorted(((o1, o2) -> o2-o1)) // .sorted(Comparator.reverseOrder())
+										.forEach(System.out::println);
+						
+								System.out.println("--------");
+						
+								// 3. Aplicar una transformación a cada elemento de la lista
+								lista
+										.stream()
+										.map(num -> num*10) // .map(ProgramacionFuncional::multiplica10)
+										.forEach(System.out::println);
+						
+								System.out.println("--------");
+						
+								// 4. Obtener un dato agregado de toda la lista
+								lista
+										.stream()
+										.reduce((num, max) -> (num>max) ? num : max)
+										.ifPresent(n -> System.out.println(n)); // .ifPresent(System.out::println);
+						
+								System.out.println("--------");
+						
+								// Copiar a otro ArrayList (mediante su constructor)
+								ArrayList&lt;Integer&gt; lista2 = new ArrayList&lt;Integer&gt;(
+										lista.stream()
+												.filter(num -> num>10)
+												.sorted(((o1, o2) -> o2-o1))
+												.toList()
+								);
+							}
+						}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas. Bonus: Programación funcional</h3>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/E3BU2fvolfY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Listas. Bonus: Programación funcional</h3>
+					<p><strong>Ejercicio:</strong> Tomando de base el ejercicio 8 de la relación, en el que se escogen aleatoriamente 10 cartas de la baraja española, mediante programación funcional:</p>
+					<ul>
+						<li>Muestra todas las cartas en orden normal e inverso.</li>
+						<li>Muestra las cartas ordenadas por palo y valor.</li>
+						<li>Muestra las cartas del palo "espadas" (filter).</li>
+						<li>Muestra el valor numérico de las cartas (map): El as vale 1, la sota 10, el caballo 11 y el rey 12.</li>
+						<li>Muestra el valor de las cartas que valgan más de 7.</li>
+						<li>Muestra la suma de todos los valores de las cartas (reduce).</li>
+						<li></li>
+					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Colecciones
+							<ul>
+								<li>Conjuntos</li>
+								<li>Listas</li>
+								<li class="fragment highlight-blue">Diccionarios</li>
+							</ul>
+						</li>
+						<li>Otras estructuras
+							<ul>
+								<li>XML</li>
+								<li>JSON</li>
+							</ul>
+						</li>
+					</ol>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios</h3>
+					<p>Almacenan pares de clave/valor</p>
+					<p>Todos los diccionarios implementan una interfaz inicial <em>java.util.Map</em> que define las operaciones comunes.</p>
+					<p><img src="img/progt05-48.png" alt="Operaciones de Map" /></p>
+					<p>Tipos: <span class="fragment highlight-blue">HashMap</span>, EnumMap, Hashtable, IdentityHashMap, LinkedHashMap</p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios</h3>
+					<p>Las clases más utilizadas que implementan dicha interfaz son <span class="fragment highlight-blue naranja">java.util.HashMap</span>, 
+						<span class="naranja">java.util.TreeMap</span> y <span class="naranja">java.util.LinkedHashMap</span>.
+						Cada una de ellas, respectivamente, tiene características similares a HashSet, TreeSet y LinkedHashSet, tanto en funcionamiento interno como en rendimiento.
+					</p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<ul>
+						<li>Colección no ordenada de elementos</li>
+						<li>Se implementa en una tabla hash</li>
+						<li>Se pasa una función hash a la clave que determina dónde se almacena</li>
+						<li>Si hay <abbr title="2 claves producen el mismo resumen hash y por tanto se deben guardar en el mismo sitio">colisión</abbr> el nuevo par clave/valor se enlaza al anterior</li>
+						<li>Acceso a través de la clave o del valor</li>
+						<li>Permite valores nulos, pero sólo 1 clave nula</li>
+					</ul>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p><img src="img/progt05-49.jpg" alt="HashMap funcionamiento" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/c3RVW3KGIIE?start=283" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p>Operaciones</p>
+					<p><img src="img/progt05-50.png" alt="HashMap operaciones" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p>Declaración e inserción</p>
+					<p><img src="img/progt05-51.png" alt="HashMap - Declaración e inserción" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p>Lectura de valores con <em>get</em></p>
+					<p><img src="img/progt05-52.png" alt="HashMap - Lectura de valores con get" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p>Lectura de todas las entradas con <em>entrySet</em> y <em>foreach</em></p>
+					<p><img src="img/progt05-53.png" alt="HashMap - Lectura de todas las entradas con entrySet y foreach" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p>Lectura de clave y valor con <em>getKey</em> y <em>getValue</em></p>
+					<p><img src="img/progt05-54.png" alt="HashMap - Lectura de clave y valor" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p>Búsqueda de clave con <em>containsKey</em></p>
+					<p><img src="img/progt05-55.png" alt="HashMap - Búsqueda de clave" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<h3>Diccionarios: HashMap</h3>
+					<p>Ejemplo de uso: En la App Banco para identificar qué cuentas
+						tienen asociado un teléfono para hacer Bizum
+					</p>
+					<p><img src="img/progt05-56.png" alt="HashMap - Ejemplo Bizum" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<p><img src="img/progt05-65.png" alt="Diagrama uso de colecciones" /></p>
+				</section>
+
+				<!-- Colecciones -->
+				<section>
+					<h2>Colecciones</h2>
+					<p>Ejercicios de la relación 1</p>
+					<p><img src="img/progt05-57.gif" alt="Ejercicios" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Colecciones
+							<ul>
+								<li>Conjuntos</li>
+								<li>Listas</li>
+								<li>Diccionarios</li>
+							</ul>
+						</li>
+						<li class="fragment highlight-blue">Otras estructuras
+							<ul>
+								<li>XML</li>
+								<li>JSON</li>
+							</ul>
+						</li>
+					</ol>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>XML</h3>
+					<ul>
+						<li>Lenguaje de etiquetado para estructurar, almacenar e intercambiar información.</li>
+						<li>La información en XML está pensada para ser leída por una máquina.</li>
+						<li>Es posible modificar la información con un editor de texto plano.</li>
+					</ul>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>XML</h3>
+					<p>Elementos</p>
+					<p><img src="img/progt05-58.png" alt="XML Elementos" /></p>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>XML</h3>
+					<ul>
+						<li>Los documentos XML están formados por nodos.</li>
+						<li>Un nodo se delimita por su etiqueta de apertura y de cierre (como en HTML), situando entre ellas su contenido, que a su vez puede ser otros nodos.</li>
+						<li>Los nodos pueden tener atributos dentro de su etiqueta de apertura.</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							<padre att1="valor" att2="valor"> 
+								texto 1
+								<ethija> texto 2 </ethija>
+							 </padre>
+						</code>
+					</pre>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>XML</h3>
+					<p>Ejemplo</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							<?xml version="1.0" encoding="ISO-8859-1"?> 
+							<pedido>
+								<cliente>Rafael López</cliente> 
+								<codCliente>1234</codCliente> 
+								...
+							</pedido>
+							<pedido>
+								<cliente>María Nadal</cliente> 
+								<codCliente>1238</codCliente> 
+								...
+							</pedido>
+						</code>
+					</pre>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<ul>
+						<li>JSON (JavaScript Object Notation) es un formato de texto para representar objetos.</li>
+						<li>Muy útil para transmitir datos a través de la red.</li>
+						<li>Para acceder a sus datos hay que convertirlo a objeto nativo de Java mediante librerías como <a href="https://github.com/google/gson" target="_blank">Gson</a>.</li>
+						<li>Permite almacenar los mismos tipos de datos primitivos que Java: cadenas, números, arrays...</li>
+					</ul>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Ejemplo</p>
+					<p><img src="img/progt05-60.jpg" alt="JSON ejemplo" /></p>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<ul>
+						<li><span class="azul">Serializar</span> (stringify): Convierte un objeto en una cadena de texto JSON &rarr; <span class="naranja">gson.toJson(objeto)</span></li>
+						<li><span class="azul">Deserializar</span> (parse): Convierte un texto como JSON en un objeto manejable por Java &rarr; <span class="naranja">gson.fromJson(cadenaJSON, clasePrincipal)</span></li>
+					</ul>
+					<p><img src="img/progt05-59.png" alt="JSON serializar" /></p>
+				</section>
+
+				<!-- PDF Importar librería Gson en proyecto -->
+				<section data-background-iframe="doc/progt07-ImportarGsonIntelliJ.pdf" data-background-interactive></section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Crear JSON</p>
+					<ul>
+						<li>Para generar un JSON a partir de nuestros objetos, se utiliza el método <span class="naranja">gson.toJson(clase)</span> de la librería <a href="https://github.com/google/gson" target="_blank">Gson</a></li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							import com.google.gson.*;
+							...
+							Gson gson = new Gson();
+							System.out.println(gson.toJson(cuentas));
+							// Guardar a fichero
+						</code>
+					</pre>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Leer o parsear JSON</p>
+					<p>Para leer un JSON y poder utilizar los datos con nuestros objetos, se utiliza el método <span class="naranja">gson.fromJson(buffer, clasePrincipal.class)</span> de la librería <a href="https://github.com/google/gson" target="_blank">Gson</a>.</p>
+					<p><em>buffer</em> es el JSON pasado a cadena (stringify) que normalmente se lee directamente desde fichero.</p>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Leer o parsear JSON</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							import com.google.gson.*;
+							...
+							Gson gson = new Gson();
+							BufferedReader buffer = new BufferedReader(new FileReader("cuentas.json"));
+							GestionCuentas gc = gson.fromJson(buffer, GestionCuentas.class);	
+							
+							// Si quisiéramos mapear un JSON a una estructura directamente de la que no tenemos clase creada por nosotros, como por ejemplo un ArrayList:
+							ArrayList&lt;Cuenta&gt; cuentas = gson.fromJson(buffer, new TypeToken&lt;ArrayList&lt;Cuenta&gt;&gt;(){}.getType());
+						</code>
+					</pre>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Escritura en fichero</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static void escribeJSONEnFichero(String json){
+								try{
+									FileWriter fichero = new FileWriter("cuentas.json");
+									PrintWriter pw = new PrintWriter(fichero);
+									pw.println(json);
+									fichero.close();
+								}catch (Exception e){
+									e.printStackTrace();
+								}
+							}		
+						</code>
+					</pre>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Instalar el plugin <em>DataGraph</em> de IntelliJ IDEA para mostrar diagramas visuales de archivos JSON.</p>
+					<p><img src="img/progt07-14.png" alt="Plugin DataGraph" /></p>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Los archivos JSON se guardarán en una sola línea. Si se abre el archivo en IntelliJ IDEA es posible reformatearlo con sus saltos de línea e indentación correcta, desde <em>Code - Reformat Code</em>.</p>
+					<p><img src="img/progt07-15.png" alt="Reformatear archivo json" /></p>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<h3>JSON</h3>
+					<p>Pasos para parsear un JSON descargado desde Java creando automáticamente las clases necesarias.</p>
+					<ol>
+						<li>Localizar una API</li>
+						<li>Probar la API en <a href="https://www.postman.com/" target="_blank">Postman</a></li>
+						<li>Generar el esquema de clases a partir del JSON mediante <a href="https://www.jsonschema2pojo.org/" target="_blank">jsonschema2pojo</a></li>
+						<li>Comprender la información del JSON y del esquema de clases para tener claro el parseo</li>
+						<li>Parsear mediante el método <span class="naranja">gson.fromJson(buffer, clasePrincipal.class)</span> de la librería <a href="https://github.com/google/gson" target="_blank">Gson</a></li>
+					</ol>
+				</section>
+
+				<!-- Otras estructuras -->
+				<section>
+					<h2>Otras estructuras</h2>
+					<p>Ejercicios de la relación 2</p>
+					<p><img src="img/progt05-63.gif" alt="Ejercicios" /></p>
+				</section>
+
+			
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/java_arraylist.asp" target="_blank">Java Tutorial - ArrayList</a></li>
+						<li><a href="https://www.w3schools.com/java/java_linkedlist.asp" target="_blank">Java Tutorial - LinkedList</a></li>
+                        <li><a href="https://www.w3schools.com/java/java_hashmap.asp" target="_blank">Java Tutorial - HashMap</a></li>
+						<li><a href="https://www.w3schools.com/java/java_iterator.asp" target="_blank">Java Tutorial - Iterator</a></li>
+						<li><a href="https://javarevisited.blogspot.com/2016/09/top-5-json-library-in-java-JEE.html?m=1" target="_blank">Javarevisited - 5 librerías JSON</a></li>
+					
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/progt05-fin.gif">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

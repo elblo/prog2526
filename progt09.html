@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Conexión a Bases de Datos</title>
+
+		<meta name="description" content="Flujos">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Tema 9: Conexión a Bases de Datos</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Drivers</li>
+						<li>API JDBC</li>
+						<li>Base de Datos con Docker</li>
+						<li>Resumen SQL</li>
+						<li>Patrón DAO</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Los lenguajes de programación y las bases de datos se relacionan mediante APIs. Nosotros vamos a trabajar con la API <strong>JDBC</strong> (Java DataBase Connectivity) para acceder desde <em>Java</em> a <em>MySQL</em>. Nos va a permitir ejecutar sentencias SQL desde Java de forma sencilla.</p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Desfase objeto-relacional</h3>
+					<p>Consiste en las <em>diferencias</em> entre la POO y las bases de datos relacionales:</p>
+					<ul>
+						<li>Lenguaje de programación (Java) distinto del de acceso a datos (SQL).</li>
+						<li>Tipos de datos complejos en POO y sencillos en BBDD.</li>
+						<li>En la fase de diseño se tendrán diagramas de clases (manejan clases y objetos) y diagramas ER (maneja tablas y registros)</li>
+					</ul>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Desfase objeto-relacional</h3>
+					<p>El modelo relacional trata con relaciones y conjuntos debido a su naturaleza matemática. El modelo de POO trata con objetos y las asociaciones entre ellos.</p>
+					<p>Las dificultades técnicas surgen cuando una base de datos relacional se usa en conjunto con un programa escrito con lenguajes de POO.</p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Desfase objeto-relacional</h3>
+					<p>La principal dificultad reside en manejar nuestras clases y pasarlas a SQL.</p>
+					<p>Ejemplo: Un equipo de fútbol, tiene como atributo una colección de jugadores y dentro de cada jugador existe un número de teléfono. Este ejemplo se maneja “fácil” en POO pero su paso a SQL es complicado, necesita muchas líneas de código y muchas sentencias SQL.</p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<h3>Desfase objeto-relacional</h3>
+					<p>Solución: <strong>ORM</strong> (Object Relational Mapping). Mapean de forma automática nuestros objetos a tablas SQL y viceversa. Algunos ORMs: Hibernate, ObjectDB, TopLink, CocoBase, OpenJPA...</p>
+					<p><img src="img/progt08-01.webp" alt="Diagrama ORM" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Drivers</li>
+						<li>API JDBC</li>
+						<li>Base de Datos con Docker</li>
+						<li>Resumen SQL</li>
+						<li>Patrón DAO</li>
+					</ol>
+				</section>
+
+				<!-- Drivers -->
+				<section>
+					<h2>Drivers</h2>
+					<p>Un conector o driver es un conjunto de clases encargadas de implementar las interfaces del API utilizado para <em>acceder a la base de datos</em>.</p>
+					<p>En nuestro caso, un fichero .jar que contiene una implementación de todas las interfaces del API JDBC que conectará con MySQL.</p>
+				</section>
+
+				<!-- Drivers -->
+				<section>
+					<h2>Drivers</h2>
+					<p><img src="img/progt08-02.png" alt="Diagrama JDBC API y drivers" /></p>
+				</section>
+
+				<!-- Drivers -->
+				<section>
+					<h2>Drivers</h2>
+					<p>Puedes descargar el driver o conector JDBC para MySQL desde <a href="https://www.mysql.com/products/connector/" target="_blank">aquí</a>. Selecciona la opción de "Independiente de la plataforma" y descarga el ZIP.</p>
+					<p><img src="img/progt08-22.png" alt="Descarga JDBC driver para MySQL" /></p>
+				</section>
+
+				<!-- Drivers -->
+				<section>
+					<h2>Drivers</h2>
+					<p>Una vez descargado, descomprime el ZIP y añade el .jar al proyecto desde "Project structure > Modules > Dependencies > + > JAR or directories".</p>
+					<p><img src="img/progt08-23.png" alt="Añadir el jar del JDBC driver para MySQL" /></p>
+				</section>
+
+				
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Drivers</li>
+						<li class="fragment highlight-blue">API JDBC</li>
+						<li>Base de Datos con Docker</li>
+						<li>Resumen SQL</li>
+						<li>Patrón DAO</li>
+					</ol>
+				</section>
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<p><strong>JDBC</strong> es el API de Java para ejecutar sentencias SQL.</p>
+					<p>Se basa en la simplicidad, la abstracción, ocultar al usuario toda la información posible sobre el acceso a la capa de datos y que pueda programar las operaciones de lectura/escritura trabajando con clases de Java.</p>
+				</section> 
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<p>JDBC proporciona las clases e interfaces para:</p>
+					<ul>
+						<li>Establecer una conexión a una base de datos.</li>
+						<li>Ejecutar una sentencia o consulta SQL.</li>
+						<li>Procesar los resultados.</li>
+					</ul>
+				</section> 
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<h3>Establecer conexión con la BDD</h3>
+					<pre>
+						<code class="hljs" data-trim> 									
+							// Cargar el driver de MySQL
+							Class.forName("com.mysql.cj.jdbc.Driver");
+
+							// Establecer servidor, puerto, BDD y usuario
+							String url = "jdbc:mysql://localhost:3306/pruebabdd";
+							String user = "root";
+							String password = "";
+
+							// Establecer la conexión a la base de datos
+							Connection conn = DriverManager.getConnection(url, user, password);
+						</code>
+					</pre>
+				</section> 
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<h3>Ejecutar sentencias</h3>
+					<p>Mediante <em>executeUpdate</em> se ejecutan sentencias INSERT, UPDATE y DELETE, devolviendo el número de filas afectadas con la sentencia.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Crear y ejecutar la sentencia									
+							Statement stmt = conn.createStatement();
+							String sql = "INSERT INTO usuarios (nombre, edad) VALUES ('Juan López', 25)";
+							int rows = stmt.executeUpdate(sql);
+							System.out.println("Filas insertadas: " + rows);
+
+							// Cerrar la sentencia
+							stmt.close();
+						</code>
+					</pre>
+				</section> 
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<h3>Ejecutar consultas</h3>
+					<p>Mediante <em>executeQuery</em> se ejecutan consultas, devolviendo los datos en un objeto <em>ResulSet</em>.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Crear y ejecutar una consulta
+							stmt = conn.createStatement();
+							String sql = "SELECT * FROM usuarios";
+							ResultSet rs = stmt.executeQuery(sql);
+
+							// Procesar los resultados de la consulta
+							while (rs.next()) {
+								int id = rs.getInt("id");
+								String nombre = rs.getString("nombre");
+								int edad = rs.getInt("edad");
+								System.out.println("ID: " + id + ", Usuario: " + nombre + ", " + edad + " años.");
+							}
+
+							// Cerrar la sentencia
+							stmt.close();
+						</code>
+					</pre>
+				</section> 
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<h3>Ejemplo - Crear BDD y tabla</h3>
+					<p>Crear base de datos <em>pruebabdd</em> con la tabla <em>usuarios</em> con la siguiente estructura:</p>
+					<p><img src="img/progt09-01.png" alt="Captura de phpmyadmin con la estructura de la tabla de prueba." /></p>
+				</section> 
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<h3>Ejemplo - Insert, Update y Delete</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							import java.sql.*;
+
+							/*
+							* En este ejemplo, se utilizan los métodos executeUpdate() del objeto Statement para realizar las operaciones INSERT, UPDATE y DELETE.
+							* El método executeUpdate() devuelve el número de filas afectadas por la operación.
+							* Se utiliza la variable filasInsertadas, filasActualizadas y filasEliminadas para mostrar el número de filas afectadas por cada operación.
+							* También se utiliza un bloque finally para cerrar la conexión y liberar los recursos después de ejecutar las operaciones.
+							* */
+
+							public class EjemploOperacionesBD {
+								public static void main(String[] args) {
+									// Definir variables de conexión
+									Connection conn = null;
+									Statement stmt = null;
+
+									try {
+										// Cargar el driver de MySQL
+										Class.forName("com.mysql.cj.jdbc.Driver");
+
+										// Establecer la conexión a la base de datos
+										String url = "jdbc:mysql://localhost:3306/pruebabdd";
+										String user = "root";
+										String password = "";
+										conn = DriverManager.getConnection(url, user, password);
+
+										// INSERT
+										stmt = conn.createStatement();
+										String insert = "INSERT INTO usuarios (nombre, edad) VALUES ('Juan López', 25)";
+										int filasInsertadas = stmt.executeUpdate(insert);
+										System.out.println("Filas insertadas: " + filasInsertadas);
+
+										// UPDATE
+										String update = "UPDATE usuarios SET edad = 26 WHERE nombre = 'Juan'";
+										int filasActualizadas = stmt.executeUpdate(update);
+										System.out.println("Filas actualizadas: " + filasActualizadas);
+
+										// DELETE
+										String delete = "DELETE FROM usuarios WHERE edad > 30";
+										int filasEliminadas = stmt.executeUpdate(delete);
+										System.out.println("Filas eliminadas: " + filasEliminadas);
+
+									} catch (SQLException e) {
+										e.printStackTrace();
+									} catch (Exception e) {
+										e.printStackTrace();
+									} finally {
+										// Cerrar la conexión y liberar recursos
+										try {
+											if(stmt != null) stmt.close();
+										} catch (SQLException e) {
+											e.printStackTrace();
+										}
+										try {
+											if(conn != null) conn.close();
+										} catch (SQLException e) {
+											e.printStackTrace();
+										}
+									}
+								}
+							}
+						</code>
+					</pre>
+				</section> 		
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<h3>Ejemplo - Select</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							import java.sql.*;
+
+							/*
+							* En este ejemplo, se utiliza el método DriverManager.getConnection() para establecer la conexión a la base de datos MySQL.
+							* Luego, se ejecuta una consulta utilizando un objeto Statement y se procesan los resultados utilizando un objeto ResultSet.
+							* Finalmente, se cierra la conexión y se liberan los recursos utilizando el bloque finally.
+							* */
+
+							public class EjemploConexionMySQL {
+								public static void main(String[] args) {
+									// Definir variables de conexión
+									Connection conn = null;
+									Statement stmt = null;
+
+									try {
+										// Cargar el driver de MySQL
+										Class.forName("com.mysql.cj.jdbc.Driver");
+
+										// Establecer la conexión a la base de datos
+										String url = "jdbc:mysql://localhost:3306/pruebabdd";
+										String user = "root";
+										String password = "";
+										conn = DriverManager.getConnection(url, user, password);
+
+										// Ejecutar una consulta
+										stmt = conn.createStatement();
+										String consulta = "SELECT * FROM usuarios";
+										ResultSet rs = stmt.executeQuery(consulta);
+
+										// Procesar los resultados de la consulta
+										while (rs.next()) {
+											int id = rs.getInt("id");
+											String nombre = rs.getString("nombre");
+											int edad = rs.getInt("edad");
+											System.out.println("ID: " + id + ", Usuario: " + nombre + ", " + edad + " años.");
+										}
+
+									} catch (SQLException e) {
+										e.printStackTrace();
+									} catch (Exception e) {
+										e.printStackTrace();
+									} finally {
+										// Cerrar la conexión y liberar recursos
+										try {
+											if(stmt != null) stmt.close();
+										} catch (SQLException e) {
+											e.printStackTrace();
+										}
+										try {
+											if(conn != null) conn.close();
+										} catch (SQLException e) {
+											e.printStackTrace();
+										}
+									}
+								}
+							}
+
+						</code>
+					</pre>
+				</section> 
+
+				<!-- API JDBC -->
+				<section>
+					<h2>API JDBC</h2>
+					<p>Ejercicios del 1 al 4</p>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/i_cVJgIz_Cs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Drivers</li>
+						<li>API JDBC</li>
+						<li class="fragment highlight-blue">Base de Datos con Docker</li>
+						<li>Resumen SQL</li>
+						<li>Patrón DAO</li>
+					</ol>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Docker es una solución de <em>virtualización ligera para correr contenedores Linux</em> de manera muy eficiente. Se puede usar en equipos de escritorio y también desplegar en nubes como Azure, AWS...</p>
+					<p>A partir de un anfitrión Linux es capaz de desplegar máquinas que comparten procesos e hilos de la máquina anfitriona.</p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p><img src="img/progt08-03.jpeg" alt="Diagrama Docker" /></p>					
+				</section>
+				
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>En Windows, a diferencia de Linux y Mac, la instalación y ejecución no es trivial porque no hay un kernel Linux funcionando en el sistema.</p>
+					<p><img src="img/progt08-04.png" alt="Diagrama Docker en sistemas no Linux" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p><img src="img/progt08-05.png" alt="Taxonomía básica de Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Vamos a desplegar y asociar 2 contenedores, uno con el <span class="naranja">SGBD MySQL</span> y otro con <span class="naranja">phpmyadmin</span>, para facilitar la interacción y visualización de los datos.</p>
+					<p>En primer lugar, <a href="https://www.docker.com/get-started/" target="_blank">instala Docker</a>. Si lo instalas en Windows, echa un ojo <a href="https://faun.pub/docker-on-windows-9bda83ca6133" target="_blank">aquí</a> o <a href="https://docs.docker.com/desktop/windows/troubleshoot/" target="_blank">aquí</a>.</p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Una vez instalado Docker, acceder a la terminal para trabajar mediante comandos, o mediante interfaz gráfica con Docker Desktop.</p>
+					<p>Nosotros trabajaremos desde la terminal.</p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p><img src="img/progt08-06.png" alt="Chuleta de comandos Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Descargar las imágenes de MySQL y phpmyadmin.</p>
+					<p><img src="img/progt08-07.png" alt="Ejemplo uso Docker" /></p>
+					<p><img src="img/progt08-08.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Comprobar las imágenes descargadas.</p>
+					<p><img src="img/progt08-09.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Crear los contenedores a partir de las imágenes descargadas.</p>
+					<ul>
+						<li><em>-d</em> o <em>--detach</em> para ejecutar un contenedor en background (normalmente porque tenga un servicio).</li>
+						<li><em>-p</em> o <em>--publish</em> para conectar puertos del contenedor con los de nuestro host.</li>
+						<li><em>--name</em> para darle nombre al contenedor.</li>
+						<li><em>-e</em> o <em>--env</em> para establecer variables de entorno en la ejecución del contenedor.</li>
+						<li><em>-v</em> o <em>--volume</em> para montar un bind mount o un volumen en nuestro contenedor.</li>
+						<li><em>--restart</em> que permite reiniciar un contenedor si este se "cae" por cualquier motivo.</li>
+						<li><em>--link</em>, en la cual vamos a especificar el nombre del contenedor que va a tener la base de datos. <em>En desuso</em>, mejor utilizar Redes Docker para asociar contenedores.</li>
+					</ul>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Crear los contenedores a partir de las imágenes descargadas.</p>
+					<p><img src="img/progt08-10.png" alt="Ejemplo uso Docker" /></p>
+					<p><img src="img/progt08-11.png" alt="Ejemplo uso Docker" /></p>
+					<p><img src="img/progt08-12.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Comprobar estado de los contenedores creados.</p>
+					<p><img src="img/progt08-13.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Acceder a phpmyadmin (root | password).</p>
+					<p><img src="img/progt08-14.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Acceder a phpmyadmin (root | password).</p>
+					<p><img src="img/progt08-15.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Ejecutar comandos en un contenedor.</p>
+					<p><img src="img/progt08-16.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Parar la ejecución de los contenedores.</p>
+					<p><img src="img/progt08-17.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Ejecutar los contenedores (creados previamente).</p>
+					<p><img src="img/progt08-18.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Base de Datos con Docker -->
+				<section>
+					<h2>Base de Datos con Docker</h2>
+					<p>Gestión desde Docker Desktop.</p>
+					<p><img src="img/progt08-19.png" alt="Ejemplo uso Docker" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Drivers</li>
+						<li>API JDBC</li>
+						<li>Base de Datos con Docker</li>
+						<li class="fragment highlight-blue">Resumen SQL</li>
+						<li>Patrón DAO</li>
+					</ol>
+				</section>
+
+				<!-- Resumen SQL -->
+				<section>
+					<h2>Resumen SQL</h2>
+					<p><a href="doc/progt08-SQL-DDL.pdf" target="_blank">Chuleta DDL</a> | <a href="doc/progt08-SQL-SELECT.pdf" target="_blank">Chuleta consultas</a></p>
+					<p><img src="img/progt08-20.png" alt="Comandos SQL" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Drivers</li>
+						<li>API JDBC</li>
+						<li>Base de Datos con Docker</li>
+						<li>Resumen SQL</li>
+						<li class="fragment highlight-blue">Patrón DAO</li>
+					</ol>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<p>El patrón <strong>Data Access Object (DAO)</strong> pretende independizar la aplicación de la forma de acceder a la base de datos.</p>
+					<p>Fuera de las clases DAO no debe haber código que acceda al repositorio de datos.</p>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>Ventajas</h3>
+					<ul>
+						<li>Separar el modelo de negocio del de acceso a datos.</li>
+						<li>Tener un código limpio de la aplicación sin mezclar con SQL.</li>
+						<li>Posibilidad de cambiar de BD con la misma lógica de negocio.</li>
+					</ul>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<p><img src="img/progt08-21.png" alt="Patrón DAO" /></p>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>Clases que utilizaremos</h3>
+					<ol>
+						<li>Manager de la conexión.</li>
+						<li>Interfaces con operaciones.</li>
+						<li>DAOs de nuestras clases con la implementación de su correspondiente interfaz.</li>
+					</ol>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<p>No olvidar añadir al proyecto el driver/conector de JDBC para MySQL.</p>
+					<p><img src="img/progt08-24.png" alt="Clases a utilizar en patrón DAO" /></p>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<p>Antes de comenzar, crear las tablas alumnos y profesores en el contenedor de phpmyadmin. Vamos a relacionarlas con las clases Alumno y Profesor del tema anterior.</p>
+					<p><img src="img/progt08-26.png" alt="Tabla alumnos" /></p>
+					<p><img src="img/progt08-27.png" alt="Tabla profesores" /></p>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>1. DAO Manager</h3>
+					<p>Clase singleton (sólo podrá instanciar 1 objeto) que gestiona la conexión (abrirla y cerrarla) con la BD y a la que enviaremos las sentencias SQL.</p>
+					<p><img src="img/progt08-25.png" alt="UML DAO Manager" /></p>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>1. DAO Manager</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class DAOManager {
+								// Atributos
+								private Connection conn;
+								private final String URL;
+								private final String USER;
+								private final String PASS;
+								private static DAOManager singlenton; // Atributo estatico que guarda una referencia al DAO
+							
+								// Constructor PRIVADO para que no se pueda utilizar desde el exterior
+								private DAOManager() {
+									this.conn = null;
+									this.URL = "jdbc:mysql://127.0.0.1:3306/prueba"; // Dirección del servidor y de BD a usar
+									this.USER = "root"; // Usuario de la BBDD
+									this.PASS = "password"; // Clave de la BBDD
+								}
+							
+								// "Constructor" PÚBLICO. Comprueba si el atributo singlenton ya tiene valor.
+								// Si no lo tiene, crea la conexión y el objeto.
+								// Si lo tiene, devuelve null para que no se creen más objetos de la clase DAOManager.
+								public static DAOManager getSinglentonInstance(){
+									if (singlenton == null) {
+										singlenton = new DAOManager();
+										return singlenton;
+									}else return null;
+								}
+							
+								// Abre la conexión con BD y la guarda en conn
+								public void open() throws Exception {
+									Class.forName("com.mysql.cj.jdbc.Driver"); //Cargo el driver de conexión JDBC
+									conn = DriverManager.getConnection(URL, USER, PASS); //Uso la clase DriverManager para crear la conexión
+								}
+							
+								// Devuelve la conexión con la BD
+								public Connection getConn() {
+									return conn;
+								}
+							
+								// Cierra la conexión con BD
+								public void close() throws Exception {
+									if(conn!=null) conn.close();
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>1. DAO Manager</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Ejemplo de uso en el main
+							DAOManager dao = DAOManager.getSinglentonInstance();
+							DAOManager dao2 = DAOManager.getSinglentonInstance();
+
+							if (dao2 == null) System.out.println("El singlenton funciona");
+							try{
+								dao.open();
+								System.out.println("Conexión establecida");
+							}catch (Exception e){
+								System.out.println("Error de conexión en la BBDD");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>2. Interfaces de operaciones</h3>
+					<ul>
+						<li>No es obligatorio, aunque sí buena práctica.</li>
+						<li>Desarrollar interfaces sobre nuestras clases con las operaciones CRUD y otras que pudiéramos necesitar.</li>
+						<li>Así, si se cambia de SGBD, sólo tendríamos que implementar la interfaz sobre el DAO del nuevo SGBD. De esta forma, no se nos olvidaría implementar ninguno de los métodos necesarios.</li>
+						</li>
+					</ul>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>2. Interfaces de operaciones</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							package ejemploBDMySQL.DAO;
+
+							import ejemploBDMySQL.modelo.Alumno;
+
+							// Interfaz operaciones Alumno
+							public interface DaoAlumno {
+								public boolean insert(Alumno alumno, DAOManager dao);
+								public boolean update(Alumno alumno, DAOManager dao);
+								public boolean delete(Alumno alumno, DAOManager dao);
+								public Alumno read(String dni, DAOManager dao);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>2. Interfaces de operaciones</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							package ejemploBDMySQL.DAO;
+
+							import ejemploBDMySQL.modelo.Profesor;
+
+							// Interfaz operaciones Profesor
+							public interface DaoProfesor {
+								public boolean insert(Profesor profesor, DAOManager dao);
+								public boolean update(Profesor profesor, DAOManager dao);
+								public boolean delete(Profesor profesor, DAOManager dao);
+								public Profesor read(String dni, DAOManager dao);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>3. DAOs de nuestras clases</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							// DAO Alumno
+							public class DaoAlumnoSQL implements DaoAlumno {
+
+								// Ejemplo de refactorización
+								// TODO hacer igual en DaoProfesorSQL
+								// Método para lanzar sentencias INSERT, UPDATE y DELETE
+								public boolean ejecutaSentencia(String sentencia, DAOManager dao){
+									System.out.println("sentencia = " + sentencia);
+									try {
+										Statement stmt = dao.getConn().createStatement();
+										stmt.executeUpdate(sentencia);
+										return true;
+									} catch (SQLException ex) {
+										return false;
+									}
+								}
+
+								@Override
+								public boolean insert(Alumno alumno, DAOManager dao) {
+									String sentencia = "INSERT INTO alumnos VALUES ('"
+											+ alumno.getDni() + "','"
+											+ alumno.getNombre() + "','"
+											+ alumno.getApellidos() + "','"
+											+ alumno.getFechaNacim().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "','"
+											+ alumno.getGrupo() + "',"
+											+ alumno.getNotaMedia() + ");";
+
+									boolean resultado = ejecutaSentencia(sentencia, dao);
+									return resultado;
+								}
+
+								@Override
+								public boolean update(Alumno alumno, DAOManager dao) {
+									String sentencia = "UPDATE alumnos SET nombre = '"
+											+ alumno.getNombre() + "', apellidos = '"
+											+ alumno.getApellidos() + "', fecha_nac = '"
+											+ alumno.getFechaNacim().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "', grupo = '"
+											+ alumno.getGrupo() + "', nota_media = "
+											+ alumno.getNotaMedia() +
+											" WHERE dni = '" + alumno.getDni() + "';";
+
+									boolean resultado = ejecutaSentencia(sentencia, dao);
+									return resultado;
+								}
+
+								@Override
+								public boolean delete(Alumno alumno, DAOManager dao) {
+									String sentencia = "DELETE FROM alumnos WHERE dni = '" + alumno.getDni() + "';";
+
+									boolean resultado = ejecutaSentencia(sentencia, dao);
+									return resultado;
+								}
+
+								@Override
+								public Alumno read(String dni, DAOManager dao) {
+									Alumno alumno = null;
+									String sentencia = "SELECT * FROM alumnos WHERE dni = ?";
+									try {
+										PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+										ps.setString(1, dni);
+										System.out.println("sentencia = " + sentencia);
+										try (ResultSet rs = ps.executeQuery()) {
+											if (rs.next()) {
+												LocalDate cal2 = LocalDate.parse(rs.getString("fecha_nac"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+												// obtener cada una de la columnas y mapearlas a la clase Alumno
+												alumno = new Alumno(dni,
+														rs.getString("nombre"),
+														rs.getString("apellidos"),
+														cal2,
+														rs.getString("grupo"),
+														rs.getDouble("nota_media"));
+											}
+										}
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+									return alumno;
+								}
+
+								// Método que lee todos los alumnos y los devuelve en un ArrayList
+								public ArrayList&lt;Alumno&gt; readAll(DAOManager dao) {
+									ArrayList&lt;Alumno&gt; alumnos = new ArrayList<>();
+									String sentencia = "SELECT * FROM alumnos";
+									try {
+										PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+										//ps.setString(1, dni);
+										System.out.println("sentencia = " + sentencia);
+										try (ResultSet rs = ps.executeQuery()) {
+											while(rs.next()) {
+												//Calendar cal = Calendar.getInstance();
+												LocalDate cal2 = LocalDate.parse(rs.getString("fecha_nac"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+												// Añadir el alumno al ArrayList
+												alumnos.add(new Alumno(rs.getString("dni"),
+														rs.getString("nombre"),
+														rs.getString("apellidos"),
+														cal2,
+														rs.getString("grupo"),
+														rs.getDouble("nota_media")));
+											}
+										}
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+									return alumnos;
+								}
+							}
+						</code>
+					</pre>
+					<aside class="notes"><!-- Notas orador (pulsar S) -->
+						try(recursos){ ... } The try-with-resources statement is a try statement that declares one or more resources. A resource is an object that must be closed after the program is finished with it. The try-with-resources statement ensures that each resource is closed at the end of the statement. Any object that implements java.lang.AutoCloseable, which includes all objects which implement java.io.Closeable, can be used as a resource.
+					</aside>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<h3>3. DAOs de nuestras clases</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							// DAO Profesor
+							public class DaoProfesorSQL implements DaoProfesor {
+
+								@Override
+								public boolean insert(Profesor profesor, DAOManager dao) {
+									String sentencia = "INSERT INTO profesores VALUES ('"
+											+ profesor.getDni() + "','"
+											+ profesor.getNombre() + "','"
+											+ profesor.getApellidos()  + "','"
+											+ profesor.getFechaNacim().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "','"
+											+ profesor.getMateria() + "',"
+											+ profesor.getSalario()+ ");";
+									System.out.println("sentencia = " + sentencia);
+									try (Statement stmt = dao.getConn().createStatement()) {
+										stmt.executeUpdate(sentencia);
+										return true;
+									} catch (SQLException ex) {
+										return false;
+									}
+								}
+
+								@Override
+								public boolean update(Profesor profesor, DAOManager dao) {
+									String sentencia = "UPDATE profesores SET nombre = '"
+											+ profesor.getNombre() + "', apellidos = '"
+											+ profesor.getApellidos() + "', fecha_nac = '"
+											+ profesor.getFechaNacim().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "', materia = '"
+											+ profesor.getMateria() + "', salario = "
+											+ profesor.getSalario() +
+											" WHERE dni = '" + profesor.getDni() + "';";
+									System.out.println("sentencia = " + sentencia);
+									try (Statement stmt = dao.getConn().createStatement()) {
+										stmt.executeUpdate(sentencia);
+										return true;
+									} catch (SQLException ex) {
+										ex.printStackTrace();
+										return false;
+									}
+								}
+
+								@Override
+								public boolean delete(Profesor profesor, DAOManager dao) {
+									String sentencia = "delete from profesores where dni = '" + profesor.getDni() + "';";
+									System.out.println("sentencia = " + sentencia);
+									try (Statement stmt = dao.getConn().createStatement()) {
+										stmt.executeUpdate(sentencia);
+										return true;
+									} catch (SQLException ex) {
+										return false;
+									}
+								}
+
+								@Override
+								public Profesor read(String dni, DAOManager dao) {
+									Profesor profesor = null;
+									String sentencia = "SELECT * FROM profesores WHERE dni = ?";
+									try {
+										PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+										ps.setString(1, dni);
+										System.out.println("sentencia = " + sentencia);
+										try (ResultSet rs = ps.executeQuery()) {
+											if (rs.next()) {
+												LocalDate cal2 = LocalDate.parse(rs.getString("fecha_nac"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+												// obtener cada una de la columnas y mapearlas a la clase Alumno
+												profesor = new Profesor(dni,
+														rs.getString("nombre"),
+														rs.getString("apellidos"),
+														cal2,
+														rs.getString("materia"),
+														rs.getDouble("salario"));
+											}
+										}
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+									return profesor;
+								}
+
+								// Método que lee todos los profesores con los apellidos indicados y los devuelve en un ArrayList
+								public ArrayList&lt;Profesor&gt; readProfesoresByApellidos(String apellidos, DAOManager dao) {
+									ArrayList&lt;Profesor&gt; profesores = new ArrayList<>();
+									String sentencia = "SELECT * FROM profesores WHERE apellidos = ?";
+									try {
+										PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+										ps.setString(1, apellidos);
+										System.out.println("sentencia = " + sentencia);
+										try (ResultSet rs = ps.executeQuery()) {
+											while(rs.next()) {
+												LocalDate cal2 = LocalDate.parse(rs.getString("fecha_nac"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+												// Añadir el profesor al ArrayList
+												profesores.add(new Profesor(rs.getString("dni"),
+														rs.getString("nombre"),
+														rs.getString("apellidos"),
+														cal2,
+														rs.getString("materia"),
+														rs.getDouble("salario"))
+												);
+											}
+										}
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+									return profesores;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<ul>
+						<li>Descarga el ejemplo completo <a href="recursos/patronDAO.zip" target="_blank">aquí</a>.</li>
+						<li>Implementa el método update del DAO Profesor</li>
+						<li>Implementa los siguientes métodos en los DAOs Profesor y Alumno</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							public ArrayList&lt;Alumno&gt; readAll(DAOManager dao);
+							public ArrayList&lt;Alumno&gt; readAlumnosByApellidos(String apellidos, DAOManager dao);
+
+							public ArrayList&lt;Profesor&gt; readAll(DAOManager dao);
+							public ArrayList&lt;Profesor&gt; readProfesoresByApellidos(String apellidos, DAOManager dao);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Patrón DAO -->
+				<section>
+					<h2>Patrón DAO</h2>
+					<p>Ejercicios hasta el final</p>
+					<p><img src="img/progt05-63.gif" alt="Ejercicios" /></p>
+				</section>
+			
+
+
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.javatpoint.com/java-jdbc" target="_blank">javaTpoint - API JDBC</a></li>
+						<li><a href="https://www.w3schools.com/sql/default.asp" target="_blank">w3schools - SQL</a></li>
+						<li><a href="https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/" target="_blank">arquitecturajava - PreparedStatement</a></li>
+						<li><a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html" target="_blank">Oracle - try-with-resources Statement</a></li>
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/progt08-fin.gif">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

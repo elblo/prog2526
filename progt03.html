@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Aleatorios y funciones</title>
+
+		<meta name="description" content="Funciones, aleatorios y excepciones">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Tema 3: Aleatorios y funciones</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li class="fragment highlight-blue">Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li>Introducción</li>
+						<li>Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+                <!-- Números aleatorios -->
+				<section>
+					<h2>Números aleatorios</h2>
+                    <p>Se utilizan para emular el comportamiento de algún fenómeno natural, el resultado de un juego de azar o para generar cualquier valor impredecible a priori.</p>
+				</section>
+
+                <!-- Números aleatorios -->
+				<section>
+					<h2>Números aleatorios</h2>
+                    <p><strong>Math.random()</strong> genera un double aleatorio tal que<br/> <span class="naranja">0 <= número < 1</span></p>
+                    <pre>
+						<code class="hljs" data-trim> 
+							public static void main(String[] args) {
+								// Declaración e inicialización de 3 números 
+								// aleatorios entre 0 y 0.9999999999999999
+								double aleatorio1 = Math.random();
+								double aleatorio2 = Math.random();
+								double aleatorio3 = Math.random();
+						
+								// En cada ejecución variará el valor devuelto
+								System.out.println(aleatorio1); // 0.7885120757570676
+								System.out.println(aleatorio2); // 0.7591427401039763
+								System.out.println(aleatorio3); // 0.5081770986579679
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Números aleatorios -->
+				<section>
+					<h2>Números aleatorios</h2>
+                    <p><em>Rangos personalizados</em>: Multiplicamos el aleatorio por el número de elementos del rango y le sumamos el <span class="naranja">Vi</span> (Valor inicial del rango) convirtiendo todo a entero.</p>
+					<p class="naranja">(int) (aleatorio * nº elementos + Vi)</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Ejemplo: Cara dado aleatoria
+							public static void main(String[] args) {
+								// Aleatorio entre 0 y 0.999999... con decimales
+								double aleatorio = Math.random();
+								// Convertimos a rango 1-6 caras posibles
+								int caraDado = (int) (aleatorio * 6 + 1);
+								System.out.println(caraDado); //
+							}
+						</code>
+					</pre>
+				</section>
+
+                <!-- Números aleatorios -->
+				<section>
+					<h2>Números aleatorios</h2>
+                    <pre>
+						<code class="hljs" data-trim> 
+                            public static void main(String[] args) {
+                                System.out.println("Veinte números aleatorios entre 1 y 10:\n"); 
+                                for (int i = 1; i < 21; i++) {
+                                    System.out.println((int) (Math.random()*10) + 1); 
+                                }
+
+                                System.out.println("Diez números aleatorios entre 51 y 60:\n"); 
+                                for (int i = 1; i < 11; i++) {
+                                    System.out.println((int) (Math.random()*10) + 51); 
+                                }
+                            }
+						</code>
+					</pre>
+				</section>
+
+                <!-- Números aleatorios -->
+				<section>
+					<h2>Números aleatorios</h2>
+                    <p>Combinados con un <em>switch</em> se pueden generar palabras aleatorias</p>
+                    <pre>
+						<code class="hljs" data-trim> 
+                            public static void main(String[] args) {
+                                System.out.println("Genera al azar piedra, papel o tijera:"); 
+                                // genera un número al azar entre 0 y 2 (ambos incluidos)
+                                int mano = (int) (Math.random() * 3); 
+
+                                switch (mano) {
+                                    case 0: System.out.println("piedra"); break;
+                                    case 1: System.out.println("papel"); break;
+                                    case 2: System.out.println("tijera"); break;
+                                    default: 
+                                }
+                            }
+						</code>
+					</pre>
+				</section>
+
+                <!-- Números aleatorios -->
+				<section>
+					<h2>Números aleatorios</h2>
+                    <p>Ejercicio: Implementa un programa que devuelva un día de la semana aleatorio.</p>
+					<p><img src="img/progt04-05.gif" alt="Ejercicios" /></p>
+				</section>
+
+                <!-- Números aleatorios -->
+				<section>
+					<h2>Números aleatorios</h2>
+                    <p>Ejercicios de la relación</p>
+					<p><img src="img/progt04-06.gif" alt="Ejercicios" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p><strong>Función</strong>: Fragmento de código que realiza una tarea muy concreta y que se puede 
+                        incluir en cualquier programa cuando hace falta resolver esa tarea.</p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p><img src="img/progt03-funciones01.png" alt="Diagrama de funciones" /></p>
+					<p>Opcionalmente aceptan una entrada (parámetros) y devuelven una salida.</p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p><img src="img/progt03-funciones02.png" alt="Diagrama de funciones" /></p>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Ejemplo de función que no recibe nada ni devuelve nada. Útil para mostrar menús.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static void muestraMenu(){
+								System.out.println("\n###### Menú ######");
+								System.out.println("1. Suma");
+								System.out.println("2. Resta");
+								System.out.println("3. Multiplicación");
+								System.out.println("4. División");
+								System.out.println("5. Salir");
+								System.out.print("Selecciona una opción: ");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Ejemplo de función que no recibe nada y devuelve un número entero. Útil para pedir datos al usuario.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static int leerNumero(){
+								Scanner s = new Scanner(System.in);
+								int opcion = Integer.parseInt(s.nextLine());
+								return opcion;
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Ejemplo de función que recibe un entero y no devuelve nada. Útil para procesar datos o hacer cálculos.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static void ejecutaOpcion(int opc){
+								int num1=0, num2=0;
+						
+								// Leer 2 números para las opciones 1 a 4
+								if(opc > 0 && opc < 5){
+									System.out.println("Introduce el primer número");
+									num1 = leerNumero();
+									System.out.println("Introduce el segundo número");
+									num2 = leerNumero();
+								}
+						
+								switch(opc){
+									case 1:
+										System.out.println("El resultado de la suma es: " + suma(num1, num2));
+										break;
+									case 2:
+										// COMPLETAR CASOS
+									case 5:
+										System.out.println("Opción 5 Salir. Hasta la próxima.");
+										break;
+									default:
+										System.out.println("Opción incorrecta.");
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Ejemplo de función que recibe por parámetros 2 valores enteros y devuelve un entero.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static int suma(int num1, int num2){
+								int resultado = num1 + num2;
+								return resultado;
+							}
+							// COMPLETAR RESTO DE FUNCIONES: resta, multiplicacion y division
+						</code>
+					</pre>
+				</section>
+
+				
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>El <em>main</em> es la función principal que tiene que tener todo código que se vaya a ejecutar.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static void main(String[] args){
+								int opcion;
+								do {
+									// Llamadas a funciones
+									muestraMenu();
+									opcion = leerNumero();
+									ejecutaOpcion(opcion);
+								}while(opcion != 5);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+				<!-- Funciones -->
+				<section>
+					<h2>Declaración y llamada</h2>
+                	<h3>Declaración</h3>
+                    <pre>
+						<code class="hljs" data-trim> 
+                            public static boolean esPrimo(int x) { 
+                                for (int i = 2; i < x; i++) {
+                                    if ((x % i) == 0) {
+                                        return false;
+                                    } 
+                                }
+                                return true;
+                            }
+						</code>
+					</pre>
+
+                    <aside class="notes"><!-- Notas orador (pulsar S) -->
+						Importante declararla como <strong>static</strong> para que pueda ser llamada directamente
+					</aside>
+				</section>
+
+                <!-- Funciones -->
+				<section>
+					<h2>Declaración y llamada</h2>
+                    <h3>Llamada</h3>
+                    <pre>
+						<code class="hljs" data-trim data-line-numbers="7"> 
+                            public static void main(String[] args) {
+                                Scanner s = new Scanner(System.in);
+
+                                System.out.print("Bienvenido, introduzca un número: ");
+                                int num1 = Integer.parseInt(s.nextLine());
+
+                                if(esPrimo(num1)) System.out.println("El número 1 es primo"); 
+                                else System.out.println("El número 1 no es primo"); 
+                            }
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li>Introducción</li>
+						<li>Declaración y llamada</li>
+						<li class="fragment highlight-blue">Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+				<!-- Sobrecarga de funciones -->
+                <section>
+                    <h2>Sobrecarga de funciones</h2>
+					<p>Java permite que varias funciones compartan el mismo identificador siempre que sus parámetros sean diferentes en número o tipo.</p>	
+					<pre>
+						<code class="hljs" data-trim> 
+							public static int suma(int a, int b){
+								return a+b;
+							}
+						
+							public static int suma(int a, int b, int c){
+								return a+b+c;
+							}
+						
+							public static float suma(float a, float b){
+								return a+b;
+							}
+						</code>
+					</pre>
+				</section>
+
+              <!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li >Introducción</li>
+						<li>Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li class="fragment highlight-blue">Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+                <!-- Ámbito de las variables -->
+                <section>
+                    <h2>Ámbito de las variables</h2>
+                    <p>Una variable actúa dentro de su ámbito o bloque donde está definida.</p>
+                    <p>Dos variables con el mismo nombre, definidas dentro y fuera de la función serán dos variables distintas.</p>
+                </section>
+
+                <!-- Ámbito de las variables -->
+                <section>
+					<h2>Ámbito de las variables</h2>
+                    <pre>
+						<code class="hljs" data-trim> 
+                            public static void main(String[] args) {
+                                Scanner s = new Scanner(System.in);
+								
+                                System.out.print("Bienvenido, introduzca un número: ");
+                                int i = Integer.parseInt(s.nextLine());
+                                if (esPrimo(i)) System.out.println("El número 1 es primo"); 
+                                else System.out.println("El número 1 no es primo"); 
+                                
+                                System.out.print("Introduzca otro número: ");
+                                int x = Integer.parseInt(s.nextLine());
+                                if (esPrimo(x)) System.out.println("El número 2 es primo"); 
+                                else System.out.println("El número 2 no es primo");
+                            }
+
+                            public static boolean esPrimo(int x) { 
+                                for (int i = 2; i < x; i++) {
+                                    if ((x % i) == 0) {
+                                        return false;
+                                    } 
+                                }
+                                return true;
+                            }
+						</code>
+					</pre>
+                </section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li>Introducción</li>
+						<li>Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li class="fragment highlight-blue">Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+				<!-- Parámetros por valor o referencia -->
+                <section>
+                    <h2>Parámetros por valor o referencia</h2>
+                    <p><span class="naranja">Valor</span>: Se pasa una copia de la variable, sólo importa su valor. Cualquier modificación que se haga a la variable dentro de la función no tendrá ningún efecto fuera. </p>
+					<p><span class="naranja">Referencia</span>: Si se modifica el valor de la variable dentro de la función, los cambios se mantienen fuera de la misma.</p>
+				</section>
+
+				<!-- Parámetros por valor o referencia -->
+                <section>
+                    <h2>Parámetros por valor o referencia</h2>
+					<p><img src="img/passByReferenceOrValue.gif" alt="Ejemplo paso por valor o referencia con tazas de café" /></p>
+				</section>
+
+				<!-- Parámetros por valor o referencia -->
+                <section>
+                    <h2>Parámetros por valor o referencia</h2>
+					<p>En muchos lenguajes es el programador quien decide cuándo se pasa un parámetro por valor o por referencia. En Java no podemos elegir. </p>
+					<p>Todos los parámetros que son de <span class="naranja">tipo primitivo</span> (int, double, float, char, String...) se pasan siempre por <em>valor</em> mientras que <span class="naranja">arrays y objetos</span> se pasan siempre por <em>referencia</em>.</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li>Introducción</li>
+						<li>Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li class="fragment highlight-blue">Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+                <!-- Bibliotecas de funciones -->
+				<section>
+					<h2>Bibliotecas de funciones</h2>
+					<p>Las funciones de un determinado tipo se pueden agrupar para crear un paquete que luego se importará desde el programa que necesite usarlas.</p>
+					<p>Cada paquete equivale a un directorio, por lo que podremos crear agrupaciones complejas mediante subpaquetes simplemente creando subdirectorios.</p>
+				</section>
+
+				<!-- Bibliotecas de funciones -->
+				<section>
+					<h2>Bibliotecas de funciones</h2>
+					<p>Declaración de las funciones en una clase dentro de un paquete.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							package bibliotecaFunciones;
+
+							public class Matematicas {
+							
+								public static int suma(int a, int b){
+									return a+b;
+								}
+							
+								public static int resta(int a, int b){
+									return a-b;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Bibliotecas de funciones -->
+				<section>
+					<h2>Bibliotecas de funciones</h2>
+					<p>Uso de las funciones</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							package funciones;
+
+							public class Funciones01 {
+								public static void main(String[] args) {
+									int resultado = bibliotecaFunciones.Matematicas.suma(5, 6);
+									System.out.println(resultado);
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				
+				<!-- Bibliotecas de funciones -->
+				<section>
+					<h2>Bibliotecas de funciones</h2>
+					<p>Uso de las funciones</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							package funciones;
+
+							import static bibliotecaFunciones.Matematicas.suma;
+							// import static bibliotecaFunciones.Matematicas.*;
+
+							public class Funciones01 {
+								public static void main(String[] args) {
+									int resultado = suma(5, 6);
+									System.out.println(resultado);
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li>Introducción</li>
+						<li>Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li class="fragment highlight-blue">Recursividad</li>
+						<li>JavaDoc</li>
+					</ol>
+				</section>
+
+				<!-- Recursividad -->
+				<section>
+					<h2>Recursividad</h2>
+					<p>La recursividad es un concepto donde una <strong>función se llama a sí misma</strong> para resolver un problema. Este enfoque resulta especialmente útil para problemas que se pueden dividir en subproblemas más pequeños de la misma naturaleza.
+					</p>
+				</section>
+
+				<!-- Recursividad -->
+				<section>
+					<h2>Recursividad</h2>
+					<h3>¿Cómo funciona la recursividad?</h3>
+					<ol>
+						<li><strong>Caso base</strong>: Condición que detiene la recursión. Sin un caso base, la función se llamaría a sí misma infinitamente.</li>
+						<li><strong>Caso recursivo</strong>: Es la parte donde la función se llama a sí misma con una versión más simple del problema original.</li>
+					</ol>
+					<p>Debemos garantizar que cada llamada se acerque al caso base.	</p>
+				</section>
+
+				<!-- Recursividad -->
+				<section>
+					<h2>Recursividad</h2>
+					<h3>Ejemplo práctico: Factorial</h3>
+					<p>El factorial de un número <strong>n</strong> (representado como <strong>n!</strong>) es el producto de todos los números enteros positivos desde 1 hata n. Matemáticamente:</p>
+					<p><img src="img/progt04-recursividad01.png" alt="Caso factorial recursivo" /></p>
+					<p>El factorial también se puede definir recursivamente:</p>
+					<p><img src="img/progt04-recursividad02.png" alt="Caso factorial recursivo" /></p>
+
+				</section>
+
+				<!-- Recursividad -->
+				<section>
+					<h2>Recursividad</h2>
+					<h3>Ejemplo práctico: Factorial</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Recursividad {
+								// Método recursivo para calcular el factorial
+								public static int factorial(int n) {
+									if (n == 0) { // Caso base
+										return 1;
+									} else { // Caso recursivo
+										return n * factorial(n - 1);
+									}
+								}
+							
+								public static void main(String[] args) {
+									int numero = 5;
+									System.out.println("El factorial de " + numero + " es: " + factorial(numero));
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<h3>Aleatorios</h3>
+					<ol>
+						<li>Generación de números aleatorios</li>
+					</ol>
+					<h3>Funciones</h3>
+					<ol>
+						<li>Introducción</li>
+						<li>Declaración y llamada</li>
+						<li>Sobrecarga de funciones</li>
+						<li>Ámbito de las variables</li>
+						<li>Parámetros por valor o referencia</li>
+						<li>Bibliotecas de funciones</li>
+						<li>Recursividad</li>
+						<li class="fragment highlight-blue">JavaDoc</li>
+					</ol>
+				</section>
+
+				  <!-- Javadoc -->
+				  <section>
+					<h2>Javadoc</h2>
+                    <p>Documentación mediante comentarios <span class="naranja">Javadoc</span>:</p>
+                    <ul>
+                        <li><strong>/**</strong>: Inicio comentario Javadoc</li>
+                        <li><strong>@author:</strong> Autor de la función</li>
+                        <li><strong>@param:</strong> Parámetros de la función</li>
+                        <li><strong>@return:</strong> Lo que devuelve la función</li>
+                    </ul>
+					<p class="rojo">Mejor con sistema de control de versiones como Git</p>
+				</section>
+
+				<!-- Javadoc -->
+				<section>
+					<h2>Javadoc</h2>
+                	<h3>Ejemplo de comentarios Javadoc</h3>
+                    <pre>
+						<code class="hljs" data-trim> 
+                            /**
+                            * Comprueba si un número entero positivo es primo o no.
+                            * Un número es primo cuando únicamente es divisible entre * él mismo y la unidad.
+                            *
+                            * @author Thomas A. Anderson
+                            * @param x un número entero positivo
+                            * @return true si el número es primo
+                            * @return false en caso contrario
+                            */
+
+                            public static boolean esPrimo(int x) { 
+                                for (int i = 2; i < x; i++) {
+                                    if ((x % i) == 0) {
+                                        return false;
+                                    } 
+                                }
+                                return true;
+                            }
+						</code>
+					</pre>
+				</section>
+
+                <!-- Javadoc -->
+				<section>
+					<h2>Javadoc</h2>
+                    <p>Comentarios Javadoc automáticos en IntelliJ</p>
+					<p><img src="img/progt04-01.gif" alt="IntelliJ comentarios automáticos" /></p>
+				</section>
+
+                <!-- Javadoc -->
+				<section>
+					<h2>Javadoc</h2>
+                    <p>Tools > Generate JavaDoc</p>
+					<p><img src="img/progt04-02.png" alt="Generar Javadoc" /></p>
+
+                    <aside class="notes"><!-- Notas orador (pulsar S) -->
+						Seleccionar el <strong>output directory</strong> y <strong>nivel de visibilidad</strong>
+                        (private, package, protected o public) de los miembros a incluir en la documentación.
+					</aside>
+				</section>
+
+                <!-- Javadoc -->
+				<section>
+					<h2>Javadoc</h2>
+                    <p>Ejemplo de documentación generada con Javadoc</p>
+					<p><img src="img/progt04-03.png" alt="Ejemplo de documentación Javadoc" /></p>
+				</section>
+
+				 <!-- Funciones -->
+				 <section>
+					<h2>Funciones</h2>
+                    <p>Ejercicios de la relación</p>
+					<p><img src="img/progt04-04.gif" alt="Ejercicios" /></p>
+				</section>
+
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/java_math.asp" target="_blank">Java Tutorial - Clase Math</a></li>
+						<li><a href="https://www.w3schools.com/java/java_methods.asp" target="_blank">Java Tutorial - Funciones</a></li>
+						<li><a href="https://www.w3schools.com/java/exercise.asp?filename=exercise_math1" target="_blank">Ejercicios interactivos - Java Math / Methods</a></li>
+						<li><a href="https://www.trevorlasn.com/blog/recursion-explained" target="_blank">Avanzado - Recursividad</a></li>
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/progt04-fin.gif">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

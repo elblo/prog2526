@@ -1,0 +1,1965 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Fundamentos básicos de la programación</title>
+
+		<meta name="description" content="Fundamentos básicos de la programación">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Tema 2: Fundamentos básicos de la programación</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>En este tema vas a aprender a utilizar variables con el tipo de dato más adecuado, a operar con ellas y a ejecutar de forma condicional un conjunto de instrucciones.</p>
+					<p class="fragment">¡Las bases de la programación!</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Salida de datos por pantalla -->
+				<section>
+					<h2>Salida de datos por pantalla</h2>
+					<h3>Funciones</h3>
+					<p>Escribir por la salida estándar (pantalla):</p>
+					<ul>
+						<li>System.out.<span class="naranja">print</span>("texto");</li>
+						<li>System.out.<span class="naranja">println</span>("texto");</li>
+						<li>System.out.<span class="naranja">printf</span>("texto %args", arg, ...);</li>
+					</ul>
+				</section>
+
+				<!-- Salida de datos por pantalla -->
+				<section>
+					<h2>Salida de datos por pantalla</h2>
+					<h3>Colorear texto</h3> 
+					<p>Mediante código ANSI de escape (<em>\033[</em> o <em>\u001B[</em>) seguido del código de color (<em>31</em>, <em>32</em>, <em>33</em>...) y la letra <em>m</em>. <a href="https://www.campusmvp.es/recursos/post/como-cambiar-los-colores-de-la-consola-con-java-y-system-out-println.aspx" target="_blank">(+info)</a></p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Colores {
+								public static void main(String[] args) {
+									System.out.print("\033[33m mandarina"); 
+									System.out.print("\033[32m hierba"); 
+									System.out.print("\033[31m tomate");
+								} 
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Salida de datos por pantalla -->
+				<section>
+					<h2>Salida de datos por pantalla</h2>
+					<h3>Caracteres especiales</h3>
+					<p>Con <em>\u</em> seguido del código Unicode como <em>266A</em> o <em>266B</em>. <a href="https://unicode-table.com/es/" target="_blank">(+info)</a></p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class CaracteresEspeciales {
+								public static void main(String[] args) {
+									System.out.print("Corchea: \u266A"); 
+									System.out.print("Doble corchea: \u266B"); 
+								} 
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Salida de datos por pantalla -->
+				<section>
+					<h2>Salida de datos por pantalla</h2>
+					<h3>Formatear salida</h3>
+					<p>Utilizando la máscara correspondiente (<em>%s</em>, <em>%d</em>, <em>%f</em>...) con la función <span class="naranja">printf</span>. <a href="https://xperti.io/blogs/formatting-with-printf-in-java/" target="_blank">(+info)</a></p>
+					<pre>
+						<code class="hljs" data-trim>
+							public class SalidaFormateada {
+								public static void main(String[] args) {
+									System.out.printf("El número %d no tiene decimales.\n", 21); 
+									System.out.printf("El número %f sale con decimales.\n", 21.0); 
+									System.out.printf("El %.3f sale exactamente con 3 decimales.\n", 21.0);
+									System.out.printf("Soy %s y tengo %d años.\n", "Eladio", 39);
+								} 
+							}
+						</code>
+					</pre>
+				</section>	
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li class="fragment highlight-blue">Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Identificadores</h3>
+					<ul>
+						<li>Es el nombre que damos a una variable.</li>
+						<li>Java distingue mayúsculas de minúsculas: (num != Num)</li>
+						<li>Se escribe según la norma <em>lowerCamelCase</em>.</li>
+						<li>Primer carácter: letra. También _ o símbolo (no recomendados).</li>
+						<li>Utilizar <em>identificadores descriptivos</em>.</li>
+						<li>Guía de estilo de Google <a href="https://google.github.io/styleguide/javaguide.html#s5-naming" target="_blank">(+info)</a>.</a></li>
+					</ul>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Identificadores</h3>
+					<p><img src="img/progt02-01.png" alt="Identificadores" /></p>
+					<p>Ojo! El nombre de funciones, mejor también en <em>lowerCamelCase</em></p>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Variables</h3>
+					<ul>
+						<li>Zona de memoria (RAM) con un valor modificable.</li>
+						<li>Tienen un nombre (identificador) y un tipo de dato asociado (que determina su rango de valores).</li>
+					</ul>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Variables</h3>
+					<p><img src="img/progt02-02.png" alt="Variables caja" /></p>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Variables</h3>
+					<p><img src="img/progt02-03.png" alt="Variables memoria RAM" /></p>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Palabras reservadas</h3>
+					<p>No pueden utilizarse para crear identificadores.</p>
+					<p><img src="img/progt02-04.png" alt="Palabras reservadas" /></p>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Tipos de variables</h3>
+					<ul>
+						<li>Variable de tipo primitivo o referenciado (punteros), según el valor que almacene.</li>
+						<li>Variable o constante, según cambie o no su valor.</li>
+						<li>Variable miembro o local, según su ámbito de actuación.</li>
+					</ul>
+				</section>
+
+				<!-- Variables e identificadores -->
+				<section>
+					<h2>Variables e identificadores</h2>
+					<h3>Tipos de variables</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class TiposVariables {
+								// Constantes: No se puede modificar su valor
+								final double PI = 3.1415926536;
+								// Estáticas: Pertenece a la clase (global)
+								static int x;
+							
+								static int obtenerX(int x){
+									// Local a la función
+									int valorAntiguo = x;
+									return valorAntiguo;
+								}
+							
+								public static void main(String[] args) {
+									x = 5;
+									System.out.println(obtenerX(x));
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li class="fragment highlight-blue">Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<p>Son la especificación de los <em>valores válidos</em> para una variable, y de las <em>operaciones</em> que se pueden realizar con ellos.</p>
+					<p>Al crear la variable, especificamos su tipo de dato.</p>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<ul>
+						<li><strong>Primitivos:</strong> Representan valores predefinidos en el lenguaje: <span class="naranja">enteros</span> (short, int, long...), <span class="naranja">reales</span> (float, double), <span class="naranja">boolean</span>...</li>
+						<li><strong>Referenciados:</strong> Se definen con un nombre o referencia (puntero) que contiene la dirección en memoria de un valor o grupo de valores: <span class="naranja">Clases</span>, <span class="naranja">interfaces</span>, <span class="naranja">arrays</span>...</li>
+					</ul>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<p><img src="img/progt02-06.png" alt="Tipos de datos primitivos" /></p>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Rangos y valores por defecto</h3>
+					<p><img src="img/progt02-48.png" alt="Rangos de datos primitivos" /></p>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Ejemplos de declaraciones</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							boolean abierto = true; 
+							byte repeticiones = 22; 
+							char letra = ‘a’; 
+							short pantalones = 22; 
+							int asistentes = 22; 
+							long poblacion = 22L; 
+							float nota = 9.5f; 
+							double precio = 22.55;
+						</code>
+					</pre>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<pre>
+						<code class="hljs" data-trim>
+							public static void main(String[] args) {
+								// Declaración de variables
+								int numero; // Guardará un entero
+								char letra; // Guardará un caracter
+								String nombre; // Guardará una caden ade texto
+						
+								int vector[]; // Guardará 10 números enteros
+								Persona usuario; // Guardará un objeto de la clase Persona
+						
+								System.out.println("Programa ejecutado");
+							}			
+						</code>
+					</pre>				
+				</section>
+
+			
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<pre>
+						<code class="hljs" data-trim>
+							public static void main(String[] args) {
+								// Declaración e inicialización de variables
+								boolean encontrado = true;
+								char letra = 'Z';
+								byte mes = 12;
+								int contador = 0;
+								float interes = 4.25e2f;
+								double pi = 3.1415926535897932384626433832795;
+						
+								// Imprimir valores
+								System.out.println(encontrado); // true
+								System.out.println(letra); // Z
+								System.out.println(mes); // 12
+								System.out.println(contador); // 0
+								System.out.println(interes); // 425.0
+								System.out.println(pi); // 3.141592653589793
+							}					
+						</code>
+					</pre>	
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Información del tipo de dato</h3>
+					<p>A continuación tienes un ejemplo para obtener información del tipo byte (Byte). En los ejercicios del tema harás el resto.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							public static void main(String[] args) {
+								System.out.println("Tipo de dato Byte");
+								System.out.println("bits: " + Byte.SIZE); // 8
+								System.out.println("Bytes: " + Byte.BYTES); // 1
+								System.out.println("Valor mínimo: " + Byte.MIN_VALUE); // -128
+								System.out.println("Valor máximo: " + Byte.MAX_VALUE); // 127
+							}				
+						</code>
+					</pre>				
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<ul>
+						<li>Declarar variable = reservar espacio en memoria RAM para alojar un dato.</li>
+						<li>Por ello, se especifica su tipo de dato: int, long, double...</li>
+						<li>Se puede declarar una variable en cualquier lugar del código.</li>
+						<li>En la misma declaración, se puede inicializar (asignar un valor).</li>
+					</ul>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<ul>
+						<li>Una <em>variable</em> se declara sólo 1 vez, pero su valor puede cambiar muchas veces.</li>
+						<li>Si su valor no cambia nunca, estamos declarando una <em>constante</em> (se le añade "final" en la declaración).</li>
+					</ul>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public static void main(String[] args) {
+								// Declaración e inicialización
+								int numeroAlumnos = 15;
+								double radio = 3.14, importe = 102.95;
+								final double PI = 3.1415926536;
+							}				
+						</code>
+					</pre>	
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<p>Se puede declarar la variable con "var" y el intérprete de Java le asignará el tipo de datos correspondiente al valor de su inicialización. <strong class="fragment highlight-blue">NO RECOMENDABLE</strong></p>
+					<pre>
+						<code class="hljs" data-trim>
+							public static void main(String[] args) {
+								// Declaración e inicialización
+								var numeroAlumnos = 15;
+								var radio = 3.14; // var no permite declaraciones compuestas (en la misma línea)
+								var importe = 102.95;
+								final var PI = 3.1415926536;
+							}			
+						</code>
+					</pre>	
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<p>A las variables con tipo de dato <strong>char</strong> se les puede hacer la asignación mediante:</p>
+					<ul>
+						<li>El carácter en sí.</li>
+						<li>El código Unicode del carácter.</li>
+						<li>El valor decimal del carácter.</li>
+					</ul>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<p>Tipo dato char</p>
+					<pre>
+						<code class="hljs" data-trim>	
+							public static void main(String[] args) {
+								// Declaración
+								char simbolo1, simbolo2, simbolo3;
+								// Inicialización
+								simbolo1 = '&';
+								simbolo2 = '\u0040';
+								simbolo3 = 63;
+						
+								System.out.println("simbolo1 = " + simbolo1); // &
+								System.out.println("simbolo2 = " + simbolo2); // @
+								System.out.println("simbolo3 = " + simbolo3); // ?
+							}
+						</code>
+					</pre>					
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<p>Tipo dato boolean</p>
+					<pre>
+						<code class="hljs" data-trim>	
+							public static void main(String[] args) {
+								boolean variableLogica = true;
+						
+								if(variableLogica){
+									System.out.println("La variable es verdadera");
+								}else{
+									System.out.println("La variable es falsa");
+								}
+							}
+						</code>
+					</pre>					
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<p>Tipo dato boolean</p>
+					<pre>
+						<code class="hljs" data-trim>	
+							public static void main(String[] args) {
+								int edad = 12;
+								boolean adulto = edad >= 18;
+						
+								if(adulto){
+									System.out.println("Eres mayor de edad");
+								}else{
+									System.out.println("Eres menor de edad");
+								}
+							}
+						</code>
+					</pre>					
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Declaración e inicialización</h3>
+					<p>Depuración de código</p>
+					<p><img src="img/progt02-15.png" alt="Usando el debugger" /></p>
+				</section>
+
+				<!-- Tipos de datos -->
+				<section>
+					<h2>Tipos de datos</h2>
+					<h3>Tipos de datos referenciados</h3>
+					<ul>
+						<li>Estructuras de datos: Arrays, listas, árboles...</li>
+						<li>Objetos de clases</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Main{
+								public static void main(String[] args){
+									Usuario usarioActivo;
+									int listaNotas[];
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li class="fragment highlight-blue">Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>	
+				
+				<!-- Lectura de datos desde teclado -->
+				<section>
+					<h2>Lectura de datos</h2>
+					<h3>Clase Scanner</h3>
+					<p>Funciona en consola e IDEs. Mediante su función <em>nextLine()</em> se lee texto <span class="naranja">hasta pulsar ENTER</span>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							// 1º) Importar la clase
+							import java.util.Scanner;
+
+							public class LeerTextoScanner {
+								public static void main(String[] args) {
+									// 2º) Declarar el objeto Scanner
+									Scanner s = new Scanner(System.in);
+
+									System.out.print("Dime tu nombre completo: ");
+									// 3º) Leer texto
+									String nombre = s.nextLine();
+								} 
+							}
+						</code>
+					</pre>
+				</section>	
+
+				<!-- Lectura de datos desde teclado -->
+				<section>
+					<h2>Lectura de datos</h2>
+					<h3>Convertir datos leídos</h3>
+					<p>El texto leído se convierte mediante las funciones <em>parseInt</em> a entero o <em>parseFloat</em> a real.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							// 1º) Importar la clase
+							import java.util.Scanner;
+
+							public class LeerNumeros {
+								public static void main(String[] args) {
+									// 2º) Declarar el objeto Scanner
+									Scanner s = new Scanner(System.in);
+
+									String respuesta;
+									System.out.print("Dime tu edad: ");
+									respuesta = s.nextLine();
+									int edad = Integer.parseInt(respuesta);	
+									
+									System.out.print("Dime tu estatura en metros: ");
+									respuesta = s.nextLine();
+									// OJO! Introducir decimal con punto: 1.87
+									float estatura = Float.parseFloat(respuesta); 
+									
+									System.out.printf("Edad: %d años. Estatura: %.2f metros.", edad, estatura);
+								} 
+							}
+						</code>
+					</pre>
+				</section>	
+
+				<!-- Lectura de datos desde teclado -->
+				<section>
+					<h2>Lectura de datos</h2>
+					<h3>Leer varios datos a la vez</h3>
+					<p>Mediante <em>next()</em>, <em>nextInt()</em>, <em>nextFloat()</em>... se lee el tipo de dato correspondiente <span class="naranja">separado por espacios</span>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							// 1º) Importar la clase
+							import java.util.Scanner;
+
+							public class LeerTextoScanner {
+								public static void main(String[] args) {
+									// 2º) Declarar el objeto Scanner
+									Scanner s = new Scanner(System.in);
+
+									System.out.print("Dime tu nombre, edad y estatura separados por espacio: ");
+									// 3º) Leer texto
+									String nombre = s.next();
+									int edad = s.nextInt();
+									// OJO! Introducir decimal con coma: 1,87 porque
+									// nextFloat intentará interpretar el número según 
+									// la configuración regional del sistema (española).
+									float estatura = s.nextFloat(); 
+								} 
+							}
+						</code>
+					</pre>
+				</section>	
+
+				<!-- Lectura de datos desde teclado -->
+				<section>
+					<h2>Lectura de datos</h2>
+					<h3>Combinar métodos de lectura</h3>
+					<p>Cuidado con combinar métodos <em>next()</em>, <em>nextInt()</em>, <em>nextFloat()</em>... con <span class="naranja">nextLine()</span>.</p>
+					<p><span class="fragment">¿Funciona?</span> <span class="fragment">Si al introducir la edad se pulsa el intro, en el nombre se guarda una cadena vacía.</span></p>
+					<pre>
+						<code class="hljs" data-trim>
+							// 1º) Importar la clase
+							import java.util.Scanner;
+
+							public class LecturaCombinada {
+								public static void main(String[] args) {
+									// 2º) Declarar el objeto Scanner
+									Scanner s = new Scanner(System.in);
+
+									System.out.println("Introduce tu edad:");
+									int edad = s.nextInt();
+
+									System.out.println("Introduce tu nombre:");
+									String nombre = s.nextLine();
+
+									System.out.println("Edad: " + edad);
+									System.out.println("Nombre: " + nombre);
+								}
+							}
+						</code>
+					</pre>
+				</section>	
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li class="fragment highlight-blue">Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<ul>
+						<li>Llevan a cabo operaciones sobre tipos de datos primitivos.</li>
+						<li>Devuelven un tipo de dato primitivo.</li>
+						<li>Una <strong>expresión</strong> es un conjunto de operadores y operandos que devuelve un resultado.</li>
+						<li>Las expresiones combiandas con palabras reservadas forman las <strong>sentencias</strong> o <strong>instrucciones</strong>.</li>
+					</ul>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<p>Ejemplo</p>
+					<ul>
+						<li>Expresión: <strong>i + 1</strong></li>
+						<li>Sentencia: <strong>suma = i + 1;</strong></li>
+					</ul>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores aritméticos</h3>
+					<p><img src="img/progt02-17.png" alt="Operadores aritméticos" /></p>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores aritméticos</h3>
+					<p><img src="img/progt02-18.png" alt="Operadores aritméticos incrementales / decrementales" /></p>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores aritméticos</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							short x = 4;
+							int y = 5;
+
+							System.out.println("El valor de x es: " + x + " y el de y: " + y);
+							System.out.println("El resultado de x + y es: " + (x+y));
+							System.out.println("El resultado de x - y es: " + (x-y));
+							System.out.println("El resultado de x * y es: " + (x*y));
+							System.out.println("El resultado x / y (división entera) es: " + (x/y));
+							System.out.println("El resto de x / y es: " + (x%y));
+						</code>
+					</pre>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores aritméticos</h3>
+					<p>Formatear la salida con printf para que tenga 2 decimales y ocupe 7 caracteres en total (incluida la coma).</p>
+					<p>¿Qué ocurre si se declaran n1 y n2 como int?</p>
+					<pre>
+						<code class="hljs" data-trim>
+							float n1 = 1, n2 = 3;
+							float resultado = n1 / n2;
+							
+							System.out.println("Resultado: " + resultado);
+							System.out.printf("Resultado: %7.2f\n", resultado);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores aritméticos</h3>
+					<p>Diferencia entre operadores pre-incremento y post-incremento:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							int x = 3, y;
+							int y = ++x;
+
+							System.out.println("x: " + x);
+							System.out.println("y: " + y); 
+
+							x = 3;
+							y = x++;
+
+							System.out.println("x: " + x);
+							System.out.println("y: " + y); 
+						</code>
+					</pre>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores de asignación</h3>
+					<p><img src="img/progt02-22.png" alt="Operadores de asignación" /></p>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores de asignación</h3>
+					
+					<pre>
+						<code class="hljs" data-trim>
+							int x=5, y=3;
+							System.out.printf("El valor de x es %d y el de y %d\n", x, y); // 5 y 3
+
+							x+=y;
+							System.out.println("Suma combinada de x + y = " + x); // 8
+
+							x-=y;
+							System.out.println("Resta combinada de x - y = " + x); // 5
+
+							x*=y;
+							System.out.println("Producto combinado de x * y = " + x); // 15
+
+							x/=y;
+							System.out.println("División combinada de x / y = " + x); // 5
+
+							x=y;
+							System.out.println("Módulo combinado de x % y = " + x); // 3
+						</code>
+					</pre>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores relacionales</h3>
+					<p>Comparan valores y devuelven un valor booleano: <strong>true</strong> o <strong>false</strong>.</p>
+					<p><img src="img/progt02-24.png" alt="Operadores relacionales" /></p>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores relacionales</h3>
+					<p>Ojo, las cadenas (String) se comparan con su método <strong>.equals()</strong>.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							String nombre = "Manolo";
+
+							Scanner s = new Scanner(System.in);
+							System.out.println("Introduce el nombre de usuario: ");
+							String nombreUsuario = s.nextLine();
+					
+							comprobacion = (nombre == nombreUsuario);
+							System.out.println(comprobacion); // false
+					
+							comprobacion = nombre.equals(nombreUsuario);
+							System.out.println(comprobacion); // true
+						</code>
+					</pre>				
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores lógicos</h3>
+					<p>Para realizar operaciones con valores booleanos. Devuelven otro booleano: <strong>true</strong> o <strong>false</strong>.</p>
+					<p><img src="img/progt02-26.png" alt="Operadores relacionales" /></p>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores lógicos</h3>
+					<p><strong>Ejercicio</strong>: Diseñar un programa que devuelva si un número está dentro de un rango establecido entre los valores 0 y 10. Debe devolver true si está en el rango y false en caso contrario.</p>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores lógicos</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							import java.util.Scanner;
+
+							public class RangoBooleano {
+								public static void main(String[] args) {
+									Scanner s = new Scanner(System.in);
+
+									System.out.print("Introduce un número entre 0 y 10: ");
+									int numero = s.nextInt();
+
+									boolean rangoCorrecto = (numero >= 0) && (numero <= 10);
+
+									System.out.println("¿El número está en rango? " + rangoCorrecto);
+								}
+							}
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-27.png" alt="Ejercicio comprobar número en rango" /></p> -->
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operador ternario</h3>
+					<ul>
+						<li>Operador que evalúa una condición y devuelve un valor u otro.</li>
+						<li>Sintáxis: variable = <span class="azul">condición</span> ? <span class="verde">valor si V</span> : <span class="rojo">valor si F</span>;</li>
+						<li class="fragment"><span class="fragment">Ejemplo:</span> <span class="fragment">String rdo =</span> <span class="fragment azul">num%2 == 0</span> <span class="fragment">?</span> <span class="fragment verde">"par"</span> <span class="fragment">:</span> <span class="fragment rojo">"impar"</span><span class="fragment">;</span></li>
+					</ul>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operador ternario</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Ternario {
+								public static void main(String[] args) {
+									int num = 5;
+									String mensaje = (num%2 == 0) ? "par" : "impar";
+												
+									System.out.printf("El número %d es %s.", num, mensaje);
+								}
+							}
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-29.png" alt="Ejemplo operador ternario" /></p> -->
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores lógicos</h3>
+					<p><strong>Ejercicio</strong>: Diseñar un programa de login que, a partir de unas variables booleanas previamente inicializadas, muestre diferentes mensajes en función de si no está logueado en el sistema, si sí lo está y si además de estarlo, es admin.</p>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Operadores lógicos</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class LoginBooleano {
+								public static void main(String[] args) {
+									boolean logueado = true;
+									boolean admin = false;
+							
+									String mensaje = "";
+							
+									mensaje = logueado ? "Estás logueado en el sistema" : "No estás logueado en el sistema";
+									mensaje += admin ? " y eres admin." : " y no eres admin.";
+							
+									System.out.println(mensaje);
+								}
+							}
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-28.png" alt="Ejercicio login" /></p> -->
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Trabajo con cadenas</h3>
+					<ul>
+						<li><strong>length()</strong>: Devuelve la longitud de una cadena</li>
+						<li><strong>concat()</strong>: Une varias cadenas</li>
+						<li><strong>equals()</strong>: Compara cadenas</li>
+						<li><strong>equalsIgnoreCase()</strong>: Compara cadenas sin distinguir mayúsculas ni minúsculas</li>
+						<li><strong>substring()</strong>: Extrae una subcadena</li>
+						<li><strong>toUpperCase()</strong>: Convierte cadena a mayúsculas</li>
+						<li><strong>toLowerCase()</strong>: Convierte cadena a minúculas</li>
+					</ul>
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Trabajo con cadenas</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Cadenas {
+								public static void main(String[] args) {
+									String cad1 = "CICLO DAW", cad2 = "ciclo daw";
+							
+									System.out.printf("La cadena cad1 es %s con %d caracteres.\n", cad1, cad1.length());
+									System.out.printf("La cadena cad2 es %s con %d caracteres.\n", cad2, cad2.length());
+							
+									System.out.println("Concatenación: " + cad1.concat(cad2));
+									System.out.println("Comparación equals: " + cad1.equals(cad2));
+									System.out.println("Comparación equalsIgnoreCase: " + cad1.equalsIgnoreCase(cad2));
+									System.out.println("Extracción de subcadena: " + cad1.substring(6));
+									System.out.println("Minúsculas: " + cad1.toLowerCase());
+									System.out.println("Mayúsculas: " + cad2.toUpperCase());
+								}
+							}
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-30.png" alt="Ejemplo de trabajo con cadenas" /></p> -->
+				</section>
+
+				<!-- Operadores y expresiones -->
+				<section>
+					<h2>Operadores y expresiones</h2>
+					<h3>Orden de precedencia de operadores</h3>
+					<p><img src="img/progt02-31.png" alt="Orden de precedencia de operadores" /></p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li class="fragment highlight-blue">Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Conversión de tipo -->
+				<section>
+					<h2>Conversión de tipo</h2>
+					<p><strong>Conversión automática o implícita</strong>: La realiza el intérprete cuando asignamos un valor (de una variable o expresión) de menor tamaño a otro de mayor.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							int numeroEntero = 10;
+							long numeroLong = 20L;
+							float numeroFloat = 5.0f;
+
+							// Conversión Implícita o automática (pequeña a grande)
+							numeroLong = numeroEntero; // 10
+							numeroFloat = numeroEntero; // 10.0
+							numeroFloat = numeroLong; // 10.0
+
+							// Revisar diapositiva 22 (en un float es posible almacenar más valores
+							// que un int o un long por operar en punto flotante
+						</code>
+					</pre>		
+					<!-- <p><img src="img/progt02-32.png" alt="Ejemplo conversión de tipo automática" /></p> -->
+				</section>
+
+				<!-- Conversión de tipo -->
+				<section>
+					<h2>Conversión de tipo</h2>
+					<p><strong>Conversión explícita</strong>: Al hacer la conversión de un tipo con más bits a uno con menos bits. La realiza el programador mediante operador cast. Se puede producir pérdida de datos.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							int numeroEntero = 10;
+							long numeroLong = 20L;
+							float numeroFloat = 5.0f;
+
+							// Conversión Explícita o casting (grande a pequeña)
+							numeroEntero = (int) numeroLong; // 20
+							numeroEntero = (int) numeroFloat; // 5
+						</code>
+					</pre>		
+					<!-- <p><img src="img/progt02-33.png" alt="Ejemplo conversión de tipo explícita" /></p> -->
+				</section>
+
+				<!-- Conversión de tipo -->
+				<section>
+					<h2>Conversión de tipo</h2>
+					<p><img src="img/progt02-34.png" alt="Tabla de conversión de tipos" /></p>
+					<ul>
+						<li>N: Conversión no permitida.</li>
+						<li>CI: Conversión implícita o automática.</li>
+						<li>C: Casting de tipos o conversión explícita.</li>
+						<li>*: Posible pérdida de datos. int usa 32 bits, float también, pero 8 son para el exponente.</li>
+					</ul>
+				</section>
+
+				<!-- Conversión de tipo -->
+				<section>
+					<h2>Conversión de tipo</h2>
+					<p>¿Qué hace el código? ¿Cómo se soluciona?</p>
+					<p class="fragment">Con el casting podemos convertir un operando a float para que el resultado de la división sea decimal y no entero.</p>
+					<p class="fragment">media = <span class="naranja">(float)</span> (nota1 + nota2 + nota3) / 3;</p>
+					<pre>
+						<code class="hljs" data-trim>
+							int nota1, nota2, nota3;
+							float media;
+							nota1 = 4;
+							nota2 = 7;
+							nota3 = 8;
+							media = (nota1 + nota2 + nota3) / 3;
+							System.out.printf("Media: %.2f", media);
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-35.png" alt="Ejemplo conversión de tipos" /></p> -->
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li class="fragment highlight-blue">Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Comentarios -->
+				<section>
+					<h2>Comentarios</h2>
+					<p>Para entender qué hace nuestro código. Para nosotros mismos y al compartirlo con otros programadores. 3 tipos:</p>
+					<ul>
+						<li><strong>//</strong> comentario de una línea</li>
+						<li><strong>/*</strong> comentario de varias líneas <strong>*/</strong></li>
+						<li><strong>/**</strong> comentario para Javadoc <strong>*/</strong></li>
+					</ul>
+				</section>
+
+				<!-- Ejercicios -->
+				<section>
+					<h2>¡¡Ejercicios!!</h2>
+					<p><img src="img/progt02-ejercicios.gif" alt="Gif ejercicios" /></p>
+					<p>Hacer relación de Operadores y expresiones.</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li class="fragment highlight-blue">Estructuras selectivas</li>
+						<li>Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<p>Las estructuras de control de flujo selectivas se emplean en los programas para ejecutar sentencias si se cumple una determinada condición. Vamos a ver las estructuras <strong>if-else</strong> y <strong>switch</strong>.</p>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<p><img src="img/progt02-37.png" alt="Estructura selectiva si" /></p>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<p>Estructura simple:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							if(expresionLogica){
+								sentenciasSiVerdadero;
+							}
+						</code>
+					</pre>
+					<p>Estructura doble:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							if(expresionLogica) {
+								sentenciasSiVerdadero;
+							}else{
+								sentenciasSiFalso;
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							if (a > b) {
+								System.out.println("a es mayor que b");
+							} else { 
+								System.out.println("a no es mayor que b");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<p>Si sólo lleva una sentencia en un bloque, se pueden omitir las llaves:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							if (a > b) 
+								System.out.println("a es mayor que b");
+							else
+								System.out.println("a no es mayor que b");
+						</code>
+					</pre>
+				</section>
+
+				<!-- Comentarios -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<p><strong>Ejercicio</strong>: Diseña un programa para determinar si un número introducido por teclado es par o impar. Muy importante utilizar comentarios.</p>
+				</section>
+
+				<!-- Comentarios -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class ParImpar {
+								public static void main(String[] args) {
+									Scanner s = new Scanner(System.in);
+									int num = Integer.parseInt(s.nextLine());
+							
+									// Es par si el resto de dividirlo entre 2 es 0
+									int resto = num % 2;
+									if(resto == 0){
+										System.out.printf("El número %d es par.", num);
+									}else{
+										System.out.printf("El número %d es impar.", num);
+									}
+								}
+							}
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-36.png" alt="Solución ejercicio número par o impar" /></p> -->
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<p><strong>Ejercicio</strong>: Diseña un programa para determinar la nota de un alumno (insuficiente, suficiente, bien, notable y sobresaliente) a partir del valor numérico.</p>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Calificaciones {
+								public static void main(String[] args) {
+									Scanner s = new Scanner(System.in);
+									System.out.println("Introduce la nota:");
+									float nota = Float.parseFloat(s.nextLine());
+							
+									if(nota<0 || nota>10){
+										System.out.println("Nota no válida, fuera de rango.");
+									}else{
+										if(nota<5){
+											System.out.println("Insuficiente");
+										}else{
+											if(nota<6){
+												System.out.println("Suficiente");
+											}else{
+												if(nota<7){
+													System.out.println("Bien");
+												}else{
+													if(nota<8.5){
+														System.out.println("Notable");
+													}else{
+														System.out.println("Sobresaliente");
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-38.png" alt="Ejercicio notas" /></p> -->
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura if-else</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Calificaciones2 {
+								public static void main(String[] args) {
+									Scanner s = new Scanner(System.in);
+									System.out.println("Introduce la nota:");
+									float nota = Float.parseFloat(s.nextLine());
+							
+									if(nota<0 || nota>10){
+										System.out.println("Nota no válida, fuera de rango.");
+									}else if(nota<5){
+										System.out.println("Insuficiente");
+									}else if(nota<6){
+										System.out.println("Suficiente");
+									}else if(nota<7){
+										System.out.println("Bien");
+									}else if(nota<8.5){
+										System.out.println("Notable");
+									}else{
+										System.out.println("Sobresaliente");
+									}
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura Switch Statement</h3>
+					<p>El switch clásico (ya admite cadenas)</p>
+					<pre>
+						<code class="hljs" data-trim>
+							switch(variable) {
+								case valor1:
+									sentencias;
+									break;
+
+								case valor2:
+									sentencias;
+									break;
+
+								...
+
+								default:
+									sentencias;
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura Switch Statement</h3>
+					<p>Completa el ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							var s = new Scanner(System.in);
+							System.out.println("Introduce el número del mes: ");
+							int mes = Integer.parseInt(s.nextLine());
+							String nombreDelMes = "";
+
+							switch(mes){
+								case 1:
+									nombreDelMes = "enero";
+									break;
+								case 2:
+									nombreDelMes = "febrero";
+									break;
+
+								// COMPLETA EL CÓDIGO QUE FALTA AQUÍ
+							}
+							System.out.println("Mes " + mes + ": " + nombreDelMes);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura Switch Statement</h3>
+					<p>Ejemplo con cadenas:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							Scanner s = new Scanner(System.in);
+							System.out.println("Introduce el mes: ");
+							String mes = s.nextLine();
+
+							// Muestra eventos pendientes hasta el final del trimestre
+							switch (mes){
+								case "enero":
+								case "febrero":
+									System.out.println("Evaluación 2º trimestre");
+								case "marzo":
+									System.out.println("Fin 2º trimestre");
+									break;
+								case "abril":
+								case "mayo":
+									System.out.println("Evaluacíon 3er trimestre");
+								case "junio":
+									System.out.println("Recuperación 3er trimestre");
+									System.out.println("Fin 3er trimestre");
+									break;
+								default:
+									System.out.println("Opción por defecto");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura Switch Expression</h3>
+					<p>Valores múltiples separados por comas y devolución de valores mediante flecha (Java 12) o yield (Java 13)</p>
+					<pre>
+						<code class="hljs" data-trim>
+							switch(variable) {
+								case valor1 -> sentencias;
+								case valor2 -> sentencias;
+								...
+								default -> sentencias;
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura Switch Expression</h3>
+					<p>Ejemplo sin asignación de valores</p>
+					<pre>
+						<code class="hljs" data-trim>
+							int numMes = 5;
+							// Ejecutar sentencias (no necesario break)
+							switch(numMes) {
+								case 9, 10, 11, 12 -> System.out.println("1er trimestre");
+								case 1, 2, 3 -> System.out.println("2o trimestre");
+								case 4, 5, 6 -> {
+									// Ejemplo bloque multilínea
+									System.out.println("Último trimestre! :)");
+									System.out.println("3er trimestre");
+								}
+								default -> System.out.println("No hay clase");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura Switch Expression</h3>
+					<p>Ejemplo asignando valores a variable</p>
+					<pre>
+						<code class="hljs" data-trim>
+							String mes = "may";
+							// Asignar valores con -> o yield (si hay bloque)
+							int trimestre = switch(mes) {
+								case "sep", "oct", "nov", "dic" -> 1;
+								case "ene", "feb", "mar" -> 2;
+								case "abr", "may", "jun" -> {
+									// Ejemplo bloque multilínea (devuelve con yield)
+									System.out.println("Último trimestre! :)");
+									yield 3;
+								}
+								default -> -1;
+							};
+							System.out.println("Trimestre número " + trimestre);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura Switch Expression</h3>
+					<p><strong>Ejercicio</strong>: Modifica el ejemplo de los 12 meses para utilizar una estructura switch expression en la que a partir del número del mes devuelva el nombre del mismo mediante flecha o yield.</p>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura switch</h3>
+					<p><strong>Ejercicio</strong>: Diseña un programa que pida el número de mes y devuelva la estación meteorológica a la que corresponde. Variante: Cambia el programa para que en vez de pedir el número del mes, se pida el nombre del mes.</p>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura switch</h3>
+					<p><strong>Ejercicio</strong>: Diseña un programa para calcular el área del cuadrado, rectángulo y triángulo. Realiza un menú para que el usuario seleccione la figura que le interese. Utiliza la estructura switch.</p>
+				</section>
+
+				<!-- Estructuras selectivas -->
+				<section>
+					<h2>Estructuras selectivas</h2>
+					<h3>Estructura switch</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public static void main(String[] args) { // Método main
+								var s = new Scanner(System.in);
+								System.out.println("CÁLCULO DE ÁREAS");
+								System.out.println("===============");
+								System.out.println("1. Cuadrado");
+								System.out.println("2. Rectángulo");
+								System.out.println("3. Triángulo");
+								System.out.print("\nElija una opción (1-3): ");
+								int opcion = Integer.parseInt(s.nextLine());
+								
+								double lado;
+								double base;
+								double altura;
+							
+								switch (opcion) {
+									case 1:
+										System.out.print("\nIntroduzca el lado del cuadrado en cm: ");
+										lado = Double.parseDouble(s.nextLine());
+										System.out.println("\nEl área del cuadrado es " + (lado * lado) + " cm²");
+										break;
+							
+									case 2:
+										System.out.print("\nIntroduzca la base del rectángulo en cm: ");
+										base = Double.parseDouble(s.nextLine());
+										System.out.print("Introduzca la altura del rectángulo en cm: ");
+										altura = Double.parseDouble(s.nextLine());
+										System.out.println("El área del rectángulo es " + (base * altura) + " cm²");
+										break;
+							
+									case 3:
+										System.out.print("\nIntroduzca la base del triángulo en cm: ");
+										base = Double.parseDouble(s.nextLine());
+										System.out.print("Introduzca la altura del triángulo en cm: ");
+										altura = Double.parseDouble(s.nextLine());
+										System.out.println("El área del triángulo es " + ((base * altura) / 2) + " cm²");
+										break;
+							
+									default:
+										System.out.println("\nLo siento, la opción elegida no es correcta.");
+								}
+							}							
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ejercicios -->
+				<section>
+					<h2>¡¡Ejercicios!!</h2>
+					<p><img src="img/progt02-ejercicios2.gif" alt="Gif ejercicios" /></p>
+					<p>Hacer relación de Estructuras selectivas.</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Salida de datos por pantalla</li>
+						<li>Variables e identificadores</li>
+						<li>Tipos de datos</li>
+						<li>Lectura de datos desde teclado</li>
+						<li>Operadores y expresiones</li>
+						<li>Conversión de tipo</li>
+						<li>Comentarios</li>
+						<li>Estructuras selectivas</li>
+						<li class="fragment highlight-blue">Estructuras repetitivas</li>
+					</ol>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<p>Las estructuras de control de flujo repetitivas se emplean en los programas para ejecutar sentencias de forma reiterada. Vamos a ver las estructuras o bucles <strong>for</strong>, <strong>while</strong> y <strong>do-while</strong>.</p>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle for</h3>
+					<p><img src="img/progt02-40.png" alt="Diagrama bucle for" /></p>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle for</h3>
+					<p>Sintáxis:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							for (inicio; termino; iteracion){
+								sentencias;
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle for</h3>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							System.out.println("Tabla de multiplicar del 5");
+							for (int i=0; i<=10; i++) {
+								System.out.println(5 + " * " + i + " = " + 5 * i);
+							}	
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle for</h3>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							System.out.println("Contando hasta el 10");
+							for (int i=0; i<=10; i++) {
+								System.out.println("i = " + i);
+							}	
+							System.out.println("Contando hacia atrás");
+							for (int i=10; i>=0; i--) {
+								System.out.println("i = " + i);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle for-in / foreach</h3>
+					<p>Para recorrer arrays de forma automática:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							String semana[] = {"lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"};
+
+							for (String dia : semana){
+								System.out.println("día = " + dia);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle while</h3>
+					<p><img src="img/progt02-41.png" alt="Diagrama bucle while" /></p>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle while</h3>
+					<p>Sintáxis:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							[inicializacion;]
+							while (expresionLogica) {
+								sentencias;
+								[iteracion;]
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle while</h3>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							System.out.println("Tabla de multiplicar del 5");
+							int i=0; // inicialización
+							while(i<=10) {
+								System.out.println(5 + " * " + i + " = " + 5 * i);
+								i++; // iteración
+							}	
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle while</h3>
+					<p>¿Qué hace este código?</p>
+					<pre>
+						<code class="hljs" data-trim>
+							boolean bloqueado = false, logueado = false;
+							String usuario = "admin", pass = "superPass1234";
+							int intentos = 3;
+
+							Scanner s = new Scanner(System.in);
+
+							while(!bloqueado && !logueado && intentos>0){
+								System.out.print("Bienvenido, introduzca su usuario: ");
+								String entradaUsuario = s.nextLine();
+								System.out.print("Introduzca su contraseña: ");
+								String entradaPass = s.nextLine();
+
+								if(entradaUsuario.equals(usuario) && entradaPass.equals(pass)){
+									logueado = true;
+								}else{
+									intentos--;
+									System.out.printf("\nDatos incorrectos. Le quedan %d intentos.\n", intentos);
+									if(intentos == 0) bloqueado = true;
+								}
+							}
+
+							if(logueado) System.out.println("Bienvenido " + usuario);
+							if(bloqueado) System.out.println("Su usuario ha sido bloqueado");
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-43.png" alt="Ejemplo bucle while" /></p> -->
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle do-while</h3>
+					<p>Sintáxis:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							[inicializacion;]
+							do{
+								sentencias;
+								[iteracion;]
+							} while(expresionLogica);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle do-while</h3>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							System.out.println("Tabla de multiplicar del 5");
+							int i=0; // inicialización
+							do{
+								System.out.println(5 + " * " + i + " = " + 5 * i);
+								i++; // iteración
+							}while(i<=10);	
+						</code>
+					</pre>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Bucle do-while</h3>
+					<p>¿Qué hace este código?</p>
+					<pre>
+						<code class="hljs" data-trim>
+							boolean bloqueado = false, logueado = false;
+							String usuario = "admin", pass = "superPass1234";
+							int intentos = 3;
+
+							Scanner s = new Scanner(System.in);
+
+							do{
+								System.out.print("Bienvenido, introduzca su usuario: ");
+								String entradaUsuario = s.nextLine();
+								System.out.print("Introduzca su contraseña: ");
+								String entradaPass = s.nextLine();
+
+								if(entradaUsuario.equals(usuario) && entradaPass.equals(pass)){
+									logueado = true;
+								}else{
+									intentos--;
+									System.out.printf("\nDatos incorrectos. Le quedan %d intentos.\n", intentos);
+									if(intentos == 0) bloqueado = true;
+								}
+							}while(!bloqueado && !logueado && intentos>0);
+
+							if(logueado) System.out.println("Bienvenido " + usuario);
+							if(bloqueado) System.out.println("Su usuario ha sido bloqueado");
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-44.png" alt="Ejemplo bucle do-while" /></p> -->
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>¿Cuándo utilizar un bucle u otro?</h3>
+					<ul>
+						<li><strong>for</strong>, sabemos el número de veces que se van a repetir las instrucciones.</li>
+						<li><strong>while</strong>, las repeticiones dependen de algo interno al bucle que no controlamos. Ejemplo: leer opción de menú de usuario.</li>
+						<li><strong>do-while</strong>, igual que el while, sólo que necesitamos que el cuerpo del bucle se ejecute al menos 1 vez.</li>
+					</ul>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Estructuras de salto</h3>
+					<ul>
+						<li><strong>break</strong> y <strong>continue</strong>.
+						<li>Rompen el esquema de programación estructurada haciendo que el flujo de ejecución "salte" a otra parte.</li>
+						<li>Hacen que el código sea más difícil de comprender y reutilizar, por lo que se suelen evitar.</li>
+						<li>Justificadas en determinados casos para ganar eficiencia. Ejemplo: Al encontrar elemento buscado en un array, no seguir recorriéndolo.</li>
+					</ul>
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Estructuras de salto</h3>
+					<p><strong>break</strong> termina la ejecución del bucle, saliendo de él.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							for(int contador=0; contador<=10; contador++){
+								if(contador == 7) break;
+								System.out.println("Contador: " + contador);
+							}
+							System.out.println("Fin de programa");
+						</code>
+					</pre>
+					<!-- <p><img src="img/progt02-45.png" alt="Ejemplo break" /></p> -->
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Estructuras de salto</h3>
+					<p><strong>continue</strong> salta a la siguiente iteración del bucle.</p>
+					<pre>
+						<code class="hljs" data-trim>
+							System.out.println("Imprimir números pares del 1 al 10.");
+
+							for(int contador=1; contador<=10; contador++){
+								if(contador % 2 != 0) continue;
+								System.out.printf("El %d es par.\n", contador);
+							}
+							System.out.println("Fin de programa");
+						</code>
+					</pre>	
+				</section>
+
+				<!-- Estructuras repetitivas -->
+				<section>
+					<h2>Estructuras repetitivas</h2>
+					<h3>Estructuras de salto</h3>
+					<p>Ejemplo:</p>
+					<pre>
+						<code class="hljs" data-trim>
+							String usuarios[] = {"Pablo", "Jose Manuel", "Ana", "Jesús", "Adrián", "Manu", "Marcos", "Andrés", "Sergio", "Alberto",
+												"Alexis", "Jose Luis", "Izan", "David", "Alejandro", "Flor", "Pedro"};
+
+							boolean logueado = false;
+							Scanner s = new Scanner(System.in);
+							
+							System.out.println("Bienvenido al programa");
+							System.out.print("Introduce tu usuario: ");
+							String user = s.nextLine();
+
+							for (String userTemp : usuarios) {
+								if (userTemp.equalsIgnoreCase(user)) {
+									logueado = true;
+									break; // terminamos el bucle (lo hemos encontrado)
+								}
+							}
+
+							if(logueado)
+								System.out.println("Bienvenido " + user);
+							else
+								System.out.println("Lo sentimos, no encontramos su usuario");
+						</code>
+					</pre>	
+				</section>
+
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/default.asp" target="_blank">Java Tutorial</a></li>
+						<li><a href="https://www.w3schools.com/java/exercise.asp" target="_blank">Ejercicios interactivos</a> (hasta Java Loops)</li>
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section>
+					<h2>A trabajar...</h2>
+					<p><img src="img/progt02-fin.gif" alt="código matrix" /></p>
+				</section>
+				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

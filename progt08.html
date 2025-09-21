@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Flujos</title>
+
+		<meta name="description" content="Flujos">
+		<meta name="author" content="Eladio Blanco">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<!-- TEMA: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+		<link rel="stylesheet" href="css/theme/whiteMIO.css" id="theme">
+
+		<!-- CSS propio -->
+		<link rel="stylesheet" href="css/micss.css">
+
+		<!-- Theme used for syntax highlighting of code. Descargar de https://highlightjs.org/download/
+			monokai, zenburn, vs2015.min.css, vs.min.css, github.min.css, github-dark.min.css ... -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- Título -->
+				<section>
+					<h1>Programación</h1>
+					<h3>Tema 8: Flujos</h3>
+					<p>
+						<small><a href="http://www.eladioblanco.es">Eladio Blanco</a></small>
+					</p>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li class="fragment highlight-blue">Introducción</li>
+						<li>Ficheros</li>
+						<li>Serialización</li>
+						<li>Archivo Properties</li>
+						<li>Argumentos</li>
+                        <li>Sockets</li>
+					</ol>
+				</section>
+
+				<!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Mediante los ficheros se consigue dar <em>persistencia</em> a las aplicaciones manteniendo los datos aunque se cierren.</p>
+					<p>A las operaciones que consituyen el flujo de información con el exterior del programa se les llama de <em>Entrada/Salida</em>. Hay de 2 tipos:</p>
+                    <ul>
+                        <li><span class="naranja">Usuario &harr; Programa</span>. Ej: Pedir datos.</li>
+                        <li><span class="naranja">Programa &harr; Software exterior</span>. Ej: Escritura a disco.</li>
+                    </ul>
+				</section>
+
+                <!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Al trabajar con ficheros, las <em>excepciones</em> más comunes son:</p>
+                    <ul>
+                        <li><span class="naranja">FileNotFoundException</span>: No se encuentra el fichero.</li>
+                        <li><span class="naranja">IOException</span>: Error en permisos, fichero corrupto...</li>
+                    </ul>
+				</section>
+
+                <!-- Introducción -->
+				<section>
+					<h2>Introducción</h2>
+					<p>Un <em>flujo de datos</em> es una abstracción de aquello que produzca o consuma información. Es una entidad lógica. Ej: Archivo, dispositivo de E/S, conector TCP/IP... Se representa mediante la clase <span class="violeta">Stream</span>.</p>
+					<p><img src="img/progt06-01.png" alt="Flujo de datos" /></p>
+				</section>
+
+                <!-- Introducción -->
+                <section>
+                    <h2>Introducción</h2>
+                    <p>La vinculación de un flujo al dispositivo físico es tarea del sistema de E/S de Java.</p>
+                    <p>Nosotros sólo trataremos con el flujo y este será el que tenga que "entendérselas" con el SO concreto.</p>
+                    <p>Con esto se consigue que la aplicación sea independiente del SO y dispositivos de almacentamiento utilizados.</p>
+                </section>
+
+                <!-- Introducción -->
+                <section>
+                    <h2>Introducción</h2>
+                    <h3>Clases relativas a flujos</h3>
+                    <p>Existen 2 tipos de flujos:</p>
+                    <ul>
+                        <li><span class="naranja">De caracteres</span>: Leen y escriben datos legibles por los humanos. Ej: Ficheros de texto. Se usan las clases abstractas <span class="violeta">Reader</span> y <span class="violeta">Writer</span> con los métodos read() y write().
+                        </li>
+                        <li><span class="naranja">De bytes</span>: Leen y escriben datos binarios legibles por las máquinas. Ej: Conexión TCP/IP. Se usan las clases abstractas <span class="violeta">InputStream</span> y <span class="violeta">OutputStream</span> con los métodos read() y write().</li> 
+                    </ul>
+                </section>
+
+				<!-- Introducción -->
+                <section>
+                    <h2>Introducción</h2>
+                    <h3>Paquete java.io</h3>
+					<p><img src="img/progt06-02.gif" alt="Paquete java.io" /></p>
+                </section>
+
+				<!-- Introducción -->
+                <section>
+                    <h2>Introducción</h2>
+                    <h3>Excepciones del paquete java.io</h3>
+					<p><img src="img/progt06-03.gif" alt="Paquete java.io" /></p>
+                </section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li class="fragment highlight-blue">Ficheros</li>
+						<li>Serialización</li>
+						<li>Archivo Properties</li>
+						<li>Argumentos</li>
+                        <li>Sockets</li>
+					</ol>
+				</section>
+
+                <!-- Ficheros -->
+                <section>
+                    <h2>Ficheros &rarr; Lectura</h2>
+                    <ul>
+						<li>Clases del paquete <em>java.io</em></li>
+						<li>Operaciones en bloques <em>try-catch</em> para capturar excepciones.</li>
+						<li><em>Manejador de ficheros</em>: objeto que hace referencia al fichero con el que trabajar. Creación:</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Ruta del archivo relativa a la raíz del proyecto
+							BufferedReader bf = new BufferedReader(new FileReader("archivo.txt"));
+							String linea = bf.readLine();
+							bf.close(); // No olvidar cerrarlo al terminar
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros &rarr; Lectura</h2>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Lee fichero mostrando su contenido
+							String linea = "";
+							try{
+								// Crear manejador de ficheros (stream)
+								BufferedReader bf = new BufferedReader(new FileReader("archivo.txt"));
+								// Leer línea a línea
+								while(linea != null){
+									System.out.println(linea);
+									linea = bf.readLine();
+								}
+								// Cerrar el stream
+								bf.close(); 
+							}catch(FileNotFoundException e){
+								System.out.println("No se encuentra el fichero");
+							}catch(IOException e){
+								System.out.println("No se puede leer el fichero");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros &rarr; Lectura</h2>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Lee notas de fichero y calcula la media
+							int notas = 0;
+							int contador_lineas = 0;
+							try{
+								// Crear manejador de ficheros (stream)
+								BufferedReader bf = new BufferedReader(new FileReader("notas.txt"));
+								// Leer línea a línea
+								String linea = bf.readLine();
+								while(linea != null){
+									contador_lineas++;
+									// Convertir línea a int eliminando antes espacios
+									notas += Integer.parseInt(linea.trim());
+									linea = bf.readLine();
+								}
+								bf.close(); // Cerrar el stream
+							}catch(FileNotFoundException e){
+								System.out.println("No se encuentra el fichero");
+							}catch(IOException e){
+								System.out.println("No se puede leer el fichero");
+							}
+
+							System.out.println("Nota media: " + notas / contador_lineas);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros &rarr; Escritura</h2>
+                    <ul>
+						<li>Mediante <em>manejador.write("texto")</em> pudiendo meter saltos de línea, tabulaciones...</li>
+						<li>Operaciones en bloques <em>try-catch</em> para capturar excepciones.</li>
+						<li>Creación y uso del manejador:</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Ruta del archivo relativa a la raíz del proyecto
+							BufferedWriter bw = new BufferedWriter(new FileWriter("archivo.txt"));
+							bw.write("Línea 1\n");
+							bw.close();
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros &rarr; Escritura</h2>
+					<pre>
+						<code class="hljs" data-trim> 
+							try {
+								BufferedWriter bw = new BufferedWriter(new FileWriter("archivo.txt"));
+								bw.write("Línea 1\n");
+								bw.write("Línea 2\n");
+								bw.write("Línea 3\n");
+								bw.close();
+								System.out.println("Escritura en archivo finalizada");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros &rarr; Escritura</h2>
+                    <ul>
+						<p>Añadir información al final del archivo.</p>
+						<p>En el constructor de FileWriter, segundo parámetro <em>append</em> a true.</p>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							BufferedWriter bw = new BufferedWriter(new FileWriter("archivo.txt", true));
+							bw.write("Línea 1\n");
+							bw.close();
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros</h2>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Ejemplo lectura y escritura sobre el mismo archivo
+							String texto = "";
+							int contador = 0;
+							try{
+								BufferedReader bf = new BufferedReader(new FileReader("archivo.txt"));
+								String linea = bf.readLine();
+								while(linea != null){
+									texto = texto + (++contador) + linea + "\n";
+									linea = bf.readLine();
+								}
+								bf.close();
+
+								// Se crea el stream de salida cuando el de entrada está cerrado
+								BufferedWriter bw = new BufferedWriter(new FileWriter("archivo.txt"));
+								bw.write(texto);
+								bw.close();
+							}catch(FileNotFoundException e){
+								System.out.println("No se encuentra el fichero");
+							}catch(IOException e){
+								System.out.println("No se puede leer el fichero");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros</h2>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Ejemplo lectura y escritura sobre distintos archivos
+							try{
+								BufferedReader bf1 = new BufferedReader(new FileReader("fichero1.txt"));
+								BufferedReader bf2 = new BufferedReader(new FileReader("fichero2.txt"));
+								BufferedWriter bw = new BufferedWriter(new FileWriter("mezcla.txt"));
+
+								String linea1 = bf1.readLine();
+								String linea2 = bf2.readLine();
+
+								while(linea1 != null || linea2 != null){
+									if(linea1 != null) bw.write(linea1 + "\n");
+									if(linea2 != null) bw.write(linea2 + "\n");
+									linea1 = bf1.readLine();
+									linea2 = bf2.readLine();
+								}
+								bf1.close();
+								bf2.close();
+								bw.close();
+							}catch(FileNotFoundException e){
+								System.out.println("No se encuentra alguno de los ficheros");
+							}catch(IOException e) {
+								System.out.println("No se puede leer alguno de los ficheros");
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros</h2>
+					<h3>Otras operaciones</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Mostrar lista de archivos del directorio actual
+							File fichero = new File(".");
+							String[] listaArchivos = fichero.list();
+							for(String f : listaArchivos) System.out.println(f);
+						</code>
+					</pre>
+				</section>
+
+				<!-- Ficheros -->
+                <section>
+                    <h2>Ficheros</h2>
+					<h3>Otras operaciones</h3>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Eliminar fichero pedido por teclado
+							Scanner s = new Scanner(System.in);
+							System.out.println("Introduce nombre de archivo a eliminar: ");
+							String nombreFichero = s.nextLine();
+
+							File fichero = new File(nombreFichero);
+							if(fichero.exists()){
+								fichero.delete();
+								System.out.println("Fichero eliminado");
+							}else{
+								System.out.println("El fichero no existe");
+							}
+						</code>
+					</pre>
+				</section>
+
+                <!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ficheros</li>
+						<li class="fragment highlight-blue">Serialización</li>
+						<li>Archivo Properties</li>
+						<li>Argumentos</li>
+                        <li>Sockets</li>
+					</ol>
+				</section>
+
+				<!-- Serialización -->
+				<section>
+					<h2>Serialización</h2>
+					<p>Transformar objetos en bytes para almacenarlos en disco.</p>
+					<p>Para serializar un objeto, su clase y la de todos los objetos dentro del mismo, deben implementar la interfaz <em>java.io.Serializable</em></p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public class Cliente implements Serializable {
+								...
+							}
+
+							public class Cuenta implements Serializable {
+								Cliente titular;
+								...
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Serialización -->
+				<section>
+					<h2>Serialización</h2>
+					<p>Escribir objeto</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							String cadena = new String("Eso es una cadena");
+							ObjectOutputStream oos;
+							try {
+								oos = new ObjectOutputStream(new FileOutputStream("cadena.out"));
+								oos.writeObject(cadena);
+								oos.close();
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Serialización -->
+				<section>
+					<h2>Serialización</h2>
+					<p>Leer objeto</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							ObjectInputStream ois;
+							try {
+								ois = new ObjectInputStream(new FileInputStream("cadena.out"));
+								String cadena = (String) ois.readObject();
+								ois.close();
+								System.out.println(cadena);
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							} catch (ClassNotFoundException e) {
+								e.printStackTrace();
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Serialización -->
+				<section>
+					<h2>Serialización</h2>
+					<p>Ejemplo en clase Persona</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// método guardar de Persona
+							oos = new ObjectOutputStream(new FileOutputStream("persona.dat"));
+							oos.writeObject(this);
+							// método recuperar de Persona
+							ois = new ObjectInputStream(new FileInputStream("persona.dat"));
+							p = (Persona) ois.readObject();
+						</code>
+					</pre>
+				</section>
+
+				<!-- Serialización -->
+				<section>
+					<h2>Serialización</h2>
+					<h3>Ejercicio: App Banco</h3>
+					<ul>
+						<li>Constructor para leer de disco el ArrayList.</li>
+						<li>Método para escribir a disco las cuentas.</li>
+						<li>Las clase Cuenta, Cliente y Movimiento implementan la interfaz Serializable.</li>
+						<li>Añadir la entrada del menú correspondiente y la creación de las cuentas de prueba en el constructor.</li>
+					</ul>
+				</section>
+
+				<!-- Serialización -->
+				<section>
+					<h2>Serialización</h2>
+					<p>Ejercicios del 1 al 5</p>
+					<p><img src="img/progt06-09.gif" alt="Ejercicios" /></p>
+				</section>
+				
+                <!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ficheros</li>
+						<li>Serialización</li>
+						<li class="fragment highlight-blue">Archivo Properties</li>
+						<li>Argumentos</li>
+                        <li>Sockets</li>
+					</ol>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties</h2>
+					<p>La clase <em>java.util.Properties</em> permite guardar parámetros o preferencias de la aplicación de forma sencilla.</p>
+					<p>Almacena pares clave-valor como un HashMap, pero ambos de tipo String.</p>
+					<p>Se pueden definir valores por defecto.</p>
+					<p>Se pueden aplicar los métodos <em>put</em> y <em>putAll</em>, ya que hereda de Hashtable.</p>
+					<p>La tabla puede ser grabada y recuperada de un stream en una única operación.</p>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties</h2>
+					<p>Métodos:</p>
+					<ul>
+						<li><span class="naranja">getProperty(String key)</span>: Devuelve un String con el valor asociado a la clave.</li>
+						<li><span class="naranja">setProperty(String key, String valor)</span>: Guarda un String asociado a la clave proporcionada.</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							# Ejemplo Properties
+							# Mon Mar 24 20:50:56 2022
+							lastAccess=139056543434
+							language=ES
+						</code>
+					</pre>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties</h2>
+					<p>El archivo Properties también se puede editar directamente desde un editor de texto plano.</p>
+					<p>Para utilizarlo desde Java hay que instanciar un objeto de la clase Properties y recuperar el contenido del archivo mediante <em>load</em>:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							Properties properties = new Properties();
+							// 3 formas de cargarlo
+							properties.load(new FileReader("archivo.properties"));
+							properties.load(new BufferedReader(new FileReader("archivo.properties")));
+							properties.load(new FileInputStream("archivo.properties"));
+						</code>
+					</pre>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties</h2>
+					<p>Para guardar los cambios en fichero del objeto Properties se puede hacer también de 3 formas mediante <em>store</em>:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							Properties properties = new Properties();
+							// 3 formas de escribir el objeto properties a fichero
+							properties.store(new FileWriter("archivo.properties"), "Comentarios");
+							properties.store(new BufferedWriter(new FileWriter("archivo.properties"), "Comentarios");
+							properties.store(new FileOutputStream("archivo.properties"), "Comentarios");
+						</code>
+					</pre>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties &rarr; Escritura</h2>
+					<p>Modificar el valor de una propiedad:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Crear objeto Properties
+							Properties properties = new Properties();
+
+							// Modificar propiedades
+							properties.setProperty("lastAccess", LocalDate.now().toString());
+							properties.setProperty("language", "ES");
+
+							// Escribir el objeto properties a fichero
+							properties.store(new FileWriter("archivo.properties"), "Fichero de configuración");
+						</code>
+					</pre>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties &rarr; Lectura</h2>
+					<p>Al obtener una pareja mediante su clave, se puede indicar un valor por defecto para devolver en el caso de que no tenga uno asociado.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							// Crear objeto Properties
+							Properties properties = new Properties();
+
+							// Cargar propiedades al objeto properties desde fichero
+							properties.load(new FileReader("archivo.properties"));
+
+							// Leer propiedades
+							String lastAccess = properties.getProperty("lastAccess");
+							String language = properties.getProperty("language", "ES");
+						</code>
+					</pre>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties</h2>
+					<h3>Ejercicio</h3>
+					<p>Crea un programa que mediante un archivo properties guarde las siguientes preferencias de usuario: color de texto e idioma.</p>
+					<p>El programa debe leer dicho archivo para mostrar la interfaz en el idioma y color correspondiente. También debe proporcionar un menú para que el usuario pueda cambiar dichas opciones.</p>
+				</section>
+
+				<!-- Properties -->
+				<section>
+					<h2>Properties</h2>
+					<p>Ejercicios del 6 al 8</p>
+					<p><img src="img/progt06-10.gif" alt="Ejercicios" /></p>
+				</section>
+
+                <!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ficheros</li>
+						<li>Serialización</li>
+						<li>Archivo Properties</li>
+						<li class="fragment highlight-blue">Argumentos</li>
+                        <li>Sockets</li>
+					</ol>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<p>Pasar argumentos por línea de comandos se utilizan en numerosos programas. Por ejemplo, en los scripts o comandos de Linux:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							# Devuelve las 5 primeras líneas del archivo de cuentas de usuario
+							$ head -5 /etc/passwd
+						</code>
+					</pre>
+					<p>En java también los podemos usar al llamar a nuestros programas:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							$ java Argumentos hola que tal 24 1.2 fin
+						</code>
+					</pre>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<p>En Java, los argumentos se pasan mediante un array de Strings en la cabecera del método main:</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							public static void main(String[] args){
+								System.out.println("Argumentos introducidos: ");
+								for(String arg : args) System.out.println(arg);
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<p>Establecer argumentos desde IntelliJ</p>
+					<p><img src="img/progt06-04.png" alt="Configurar argumentos en IntelliJ" /></p>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<p>Establecer argumentos desde IntelliJ</p>
+					<p><img src="img/progt06-05.png" alt="Configurar argumentos en IntelliJ" /></p>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<p>Establecer argumentos desde IntelliJ</p>
+					<p><img src="img/progt06-06.png" alt="Configurar argumentos en IntelliJ" /></p>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<h3>Ejercicio</h3>
+					<p>Programa que calcule la suma, media, máximo y mínimo de una serie de números pasados como argumentos del programa.</p>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<h3>Ejercicio</h3>
+					<p>Modifica el programa anterior para que reciba como argumento el nombre del fichero donde están los números.</p>
+				</section>
+
+				<!-- Argumentos -->
+				<section>
+					<h2>Argumentos</h2>
+					<p>Ejercicios del 9 al 12</p>
+					<p><img src="img/progt06-11.gif" alt="Ejercicios" /></p>
+				</section>
+
+                <!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Ficheros</li>
+						<li>Serialización</li>
+						<li>Archivo Properties</li>
+						<li>Argumentos</li>
+                        <li class="fragment highlight-blue">Sockets</li>
+					</ol>
+				</section>
+
+				<!-- Sockets -->
+				<section>
+					<h2>Sockets</h2>
+					<p>Mecanismo que nos permite establecer un enlace entre dos programas que se ejecutan independientes el uno del otro (generalmente un programa cliente y un programa servidor) mediante la librería <em>java.net</em>, la cual nos provee dos clases: </p>
+					<ul>
+						<li><span class="naranja">Socket</span>, para implementar la conexión desde el lado del cliente.</li>
+						<li><span class="naranja">ServerSocket</span>, que nos permitirá manipular la conexión desde el lado del servidor.</li>
+					</ul>
+				</section>
+
+				<!-- Sockets -->
+				<section>
+					<h2>Sockets</h2>
+					<p>Tanto el cliente como el servidor no necesariamente deben estar implementados en Java, sólo deben conocer sus <em>direcciones IP</em> y el <em>puerto</em> por el cual se comunicarán.</p>
+					<p><img src="img/progt06-07.png" alt="Sockets conexión cliente servidor" /></p>
+				</section>
+
+				<!-- Sockets -->
+				<section>
+					<h2>Sockets</h2>
+					<p>El servidor estará a la espera de una conexión. El cliente enviará un mensaje de petición al servidor y éste le responderá afirmativamente para que pueda empezar a enviarle mensajes.</p>
+					<p><img src="img/progt06-08.png" alt="Sockets conexión cliente servidor" /></p>
+				</section>
+
+				<!-- Sockets -->
+				<section>
+					<h2>Sockets</h2>
+					<h3>Ejemplo Chat Gráfico</h3>
+					<ul>
+						<li>Con Interfaz Gráfica</li>
+						<li>Cliente y servidor en Java</li>
+						<li>Se comunican por el puerto 9999</li>
+						<li>Servidor siempre a la espera de una conexión</li>
+						<li>Cuando el cliente envía mensaje, el servidor lo muestra</li>
+					</ul>
+				</section>
+
+				<!-- Sockets -->
+				<section>
+					<h2>Sockets</h2>
+					<h3>Ejemplo Chat múltiple</h3>
+					<ul>
+						<li>Con Interfaz en consola</li>
+						<li>Ejemplo más completo</li>
+						<li>El servidor responde a las peticiones del cliente</li>
+						<li>Fichero properties de configuración en los clientes</li>
+					</ul>
+				</section>
+
+				<!-- Sockets -->
+				<section>
+					<h2>Sockets</h2>
+					<h3>Ejercicio</h3>
+					<p>Modifica el programa anterior del chat para que el servidor almacene todos los mensajes recibidos junto a su remitente y fecha/hora de cada uno en un archivo.</p>
+				</section>
+
+				<!-- Sockets -->
+				<section>
+					<h2>Sockets</h2>
+					<p>Ejercicios hasta el final</p>
+					<p><img src="img/progt06-12.gif" alt="Ejercicios" /></p>
+				</section>
+			
+				<!-- Para repasar -->
+				<section>
+					<h2>Repasar</h2>
+					<ul>
+						<li><a href="https://www.w3schools.com/java/java_files.asp" target="_blank">w3schools - Ficheros</a></li>
+						<li><a href="https://www.programarya.com/Cursos-Avanzados/Java/Sockets" target="_blank">Sockets - Aplicación sencilla</a></li>
+					</ul>
+				</section>
+				
+				<!-- Presentación en PDF -->
+				<section>
+					<h2>Tips de la presentación</h2>
+					<p>¿Imprimir en PDF?</p>
+					<ol>
+						<li><a href="?print-pdf" target="_blank">Clic aquí</a></li>
+						<li><kbd>CTRL</kbd>/<kbd>CMD</kbd> + <kbd>P</kbd></li>
+						<li>Guardar como PDF</li>
+					</ol>
+					<p>Navegar por las diapositivas</p>
+					<ol>
+						<li>Pulsa <kbd>ESC</kbd></li>
+						<li>Clic a la que quieras ir</li>
+					</ol>
+				</section>
+
+				<!-- FIN -->
+				<section data-background-image="img/progt06-fin.gif">
+					<h2>A trabajar...</h2>
+				</section>				
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: true, // true/none
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Parallax background image
+				//parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+
+				// Parallax background size
+				//parallaxBackgroundSize: '2100px 900px',
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
