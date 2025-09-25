@@ -291,7 +291,36 @@
 				<!-- Fases de la programación -->
 				<section>
 					<h2>Fases de la programación</h2>
-					<p><img src="img/progt01-08.png" alt="ejemplo codificación" height="500" /></p>
+					<pre>
+						<code class="hljs" data-trim>
+							import java.util.Scanner;
+
+							public class Main {
+
+								public static void main(String[] args) {
+									int modulo, numero;
+									var scanner = new Scanner(System.in);
+									System.out.println("Introduce un número");
+									numero = Integer.parseInt(scanner.nextLine());
+
+									if (numero == 0) {
+										System.out.println("Valor incorrecto. El 0 no es un valor válido");
+									} 
+									else if (numero < 0 || numero > 100) {
+										System.out.println("Número no válido, el rango es 1-100");
+									} 
+									else {
+										modulo = numero % 2;
+										if (modulo == 0) {
+											System.out.println("El número es par");
+										} else {
+											System.out.println("El número es impar");
+										}
+									}
+								}
+							}
+						</code>
+					</pre>
 				</section>
 
 				<!-- Fases de la programación -->
