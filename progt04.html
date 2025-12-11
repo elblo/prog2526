@@ -416,8 +416,9 @@
 				<!-- Cadenas de caracteres -->
 				<section>
 					<h2>Cadenas de caracteres</h2>
-					<h3>Expresiones regulares</h3>			
-					<iframe width="100%" height="400px" src="https://4geeks.com/es/lesson/expresiones-regulares-java" title="Expresiones regulares en Java" frameborder="0" ></iframe>
+					<h3>Expresiones regulares</h3>	
+					<p>Las expresiones regulares (regex) en Java son increíblemente útiles para extraer información específica de un texto utilizando patrones de búsqueda definidos. Estos patrones coinciden con uno o más caracteres, lo que nos permite obtener únicamente la información deseada.</p>		
+					<p><a href="https://4geeks.com/es/lesson/expresiones-regulares-java" title="Expresiones regulares en Java" target="_blank">Expresiones regulares en Jav (4Geeks)</a></p>
 				</section>
 
 
@@ -462,7 +463,24 @@
 				<section>
 					<h2>Arrays estáticos</h2>
 					<p>Ejemplo de declaración y uso de array de enteros de 4 elementos:</p>
-					<p><img src="img/progt05-10.png" alt="Creación y uso de array de enteros" /></p>
+					<pre>
+						<code class="hljs" data-trim> 
+							int[] numeros; // Declaración de numeros como array de enteros
+							numeros = new int[4]; // Se reserva espacio en memoria para 4 enteros
+
+							// Asignación de valores a cada posición del array
+							numeros[0] = 26;
+							numeros[1] = -30;
+							numeros[2] = 0;
+							numeros[3] = 100;
+
+							System.out.println("Los valores del array 'numeros' son: ");
+							System.out.println(numeros[0] + ", " + numeros[1] + ", " + numeros[2] + ", " +numeros[3]);
+
+							int sumaExtremos = numeros[0] + numeros[3];
+							System.out.println("La suma de los extremos es: " + sumaExtremos);
+						</code>
+					</pre> 				
 				</section>
 
 				<!-- Arrays estáticos -->
@@ -480,13 +498,13 @@
 					<p>Inicialización del array con valores a la vez que se crea:</p>
 					<pre>
 						<code class="hljs" data-trim> 
-							int[] x = {8, 33, 200, 150, 11};
+							int[] numeros = {8, 33, 200, 150, 11};
 						</code>
 					</pre> 
 					<p>Su propiedad <em>.length</em> devuelve el tamaño:</p>
 					<pre>
 						<code class="hljs" data-trim> 
-							System.out.println("Longitud del array: " + x.length);
+							System.out.println("Longitud del array: " + numeros.length);
 						</code>
 					</pre> 
 				</section>
@@ -496,7 +514,22 @@
 					<h2>Arrays estáticos</h2>
 					<h3>Arrays de una dimensión</h3>
 					<p>Uso del índice en arrays:</p>
-					<p><img src="img/progt05-12.png" alt="Uso del índice en arrays" /></p>
+					<pre>
+						<code class="hljs" data-trim> 
+							Scanner s = new Scanner(System.in);
+
+							// Declaración de array y asignación de elementos directa
+							int[] numeros = {0, 33, 200, 250, 11};
+							
+							System.out.println("El array tiene " + numeros.length + " elementos.");
+							System.out.println("¿Cuál quieres ver?");
+
+							int indice = s.nextInt();
+
+							System.out.println("El elemento se encuentra en la posición " + (indice-1));
+							System.out.println("Y su valor es " + numeros[indice-1]);
+						</code>
+					</pre>				
 				</section>
 
 				<!-- Arrays estáticos -->
@@ -504,7 +537,26 @@
 					<h2>Arrays estáticos</h2>
 					<h3>Arrays de una dimensión</h3>
 					<p>Recorrer un array:</p>
-					<p><img src="img/progt05-13.png" alt="Recorrer un array" /></p>
+					<pre>
+						<code class="hljs" data-trim> 
+							int[] numeros = new int[10];
+							numeros[0] = 8;
+							numeros[1] = 33;
+							numeros[2] = 200;
+							numeros[3] = 150;
+							numeros[4] = 11;
+							numeros[5] = 88;
+							numeros[6] = numeros [2] * 10;
+							numeros[7] = numeros [2] / 10;
+							numeros[8] = numeros[O] + numeros[1] + numeros[2];
+							numeros[9] = numeros [8];
+
+							System.out.println("El array num contiene los siguientes elementos:");
+							for (int i=0; i<numeros.length; i++) {
+								System.out.println(numeros[i]);
+							}						
+						</code>
+					</pre> 				
 				</section>
 
 				<!-- Arrays estáticos -->
