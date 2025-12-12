@@ -632,6 +632,26 @@
 				<section>
 					<h2>Arrays estáticos</h2>
 					<h3>Arrays de una dimensión</h3>
+					<h4>Copia de arrays</h4>
+					<p>Cuidado al copiar arrays porque se copia la referencia. Si queremos una copia independente, utlizar una función propia para ello o <em>array.clone()</em>.</p>
+					<pre>
+						<code class="hljs" data-trim> 
+							int[] original = {3, 7, 8, 2};
+							int[] copia1 = original;         // se copia la referencia
+							int[] copia2 = original.clone(); // se copia el array posición por posición (por valor)
+
+							copia1[0] = 111; // Modifica la posición 0 de donde apunta "copia1" (también apunta ahí "original")
+							copia2[1] = 222; // Modifica la posición 1 de donde apunta "copia2"
+
+							mostrar(original); // 111, 7, 8, 2
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
 					<p>Ejercicios de la relación de arrays estáticos de 1 dimensión</p>
 					<p><img src="img/progt05-57.gif" alt="Ejercicios" /></p>
 				</section>
