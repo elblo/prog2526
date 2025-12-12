@@ -591,6 +591,47 @@
 				<section>
 					<h2>Arrays estáticos</h2>
 					<h3>Arrays de una dimensión</h3>
+					<h4>Recorrido con foreach</h4>
+					<ul>
+						<li>Al recorrer arrays con for es fácil cometer errores con el iterador, accediendo por ejemplo a una posición que no existe.</li>
+						<li>Solución y simplificación con el bucle <em>foreach</em>:</li>
+					</ul>
+					<pre>
+						<code class="hljs" data-trim> 
+							for (tipo elemento : array){
+								// Hacer algo con elemento
+							}
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
+					<h4>Recorrido con foreach</h4>
+					<pre>
+						<code class="hljs" data-trim> 
+							int[] numeros = {23, 45, 13, 34, 99};
+							String[] nombres = {"Jose", "María", "Juan"};
+
+							// for( tipo elemento : array )
+							for(int numero : numeros){
+								System.out.print(numero + " ");
+							}
+
+							// for( tipo elemento : array )
+							for(String nombre : nombres){
+								System.out.print(nombre + " ");
+							}
+						</code>
+					</pre> 
+				</section>
+
+				<!-- Arrays estáticos -->
+				<section>
+					<h2>Arrays estáticos</h2>
+					<h3>Arrays de una dimensión</h3>
 					<p>Ejercicios de la relación de arrays estáticos de 1 dimensión</p>
 					<p><img src="img/progt05-57.gif" alt="Ejercicios" /></p>
 				</section>
@@ -734,32 +775,6 @@
 					<h3>Arrays bidimensionales</h3>
 					<p>Creación de un array con 2ª dimensión irregular:</p>
 					<p><img src="img/progt05-21.png" alt="Array bidimensional irregular" /></p>
-				</section>
-
-				<!-- Arrays estáticos -->
-				<section>
-					<h2>Arrays estáticos</h2>
-					<h3>Arrays bidimensionales</h3>
-					<h4>Recorrido con foreach</h4>
-					<ul>
-						<li>Al recorrer arrays con for es fácil cometer errores con el iterador, accediendo por ejemplo a una posición que no existe.</li>
-						<li>Solución y simplificación con el bucle <em>foreach</em>:</li>
-					</ul>
-					<pre>
-						<code class="hljs" data-trim> 
-							for (tipo elemento : array){
-								// Hacer algo con elemento
-							}
-						</code>
-					</pre> 
-				</section>
-
-				<!-- Arrays estáticos -->
-				<section>
-					<h2>Arrays estáticos</h2>
-					<h3>Arrays bidimensionales</h3>
-					<h4>Recorrido con foreach</h4>
-					<p><img src="img/progt05-22.png" alt="Ejemplo foreach" /></p>
 				</section>
 
 				<!-- Arrays estáticos -->
