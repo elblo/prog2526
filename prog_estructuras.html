@@ -64,7 +64,8 @@
 						<li class="fragment highlight-blue">Introducción</li>
 						<li>Tipos</li>
 						<li>Ejemplos</li>
-						<li>Ejercicios</li>						
+						<li>Ejercicios</li>		
+						<li>Tipos genéricos</li>				
 					</ol>
 				</section>
 
@@ -83,7 +84,8 @@
 						<li>Introducción</li>
 						<li class="fragment highlight-blue">Tipos</li>
 						<li>Ejemplos</li>
-						<li>Ejercicios</li>						
+						<li>Ejercicios</li>	
+						<li>Tipos genéricos</li>					
 					</ol>
 				</section>
 
@@ -161,7 +163,8 @@
 						<li>Introducción</li>
 						<li>Tipos</li>
 						<li class="fragment highlight-blue">Ejemplos</li>
-						<li>Ejercicios</li>						
+						<li>Ejercicios</li>		
+						<li>Tipos genéricos</li>				
 					</ol>
 				</section>
 				
@@ -297,7 +300,9 @@
 						<li>Introducción</li>
 						<li>Tipos</li>
 						<li>Ejemplos</li>
-						<li class="fragment highlight-blue">Ejercicios</li>						
+						<li class="fragment highlight-blue">Ejercicios</li>	
+						<li>Tipos genéricos</li>						
+					
 					</ol>
 				</section>
 				
@@ -333,6 +338,148 @@
 						<li>Eliminar una tarea por su posición en la lista.</li>
 						<li>Mostrar todas las tareas en orden.</li>
 					</ul>
+				</section>
+
+				<!-- Índice -->
+				<section>
+					<h2>Índice</h2>
+					<ol>
+						<li>Introducción</li>
+						<li>Tipos</li>
+						<li>Ejemplos</li>
+						<li>Ejercicios</li>						
+						<li class="fragment highlight-blue">Tipos genéricos</li>						
+					</ol>
+				</section>
+
+				<!-- Tipos genéricos -->
+				<section>
+					<h2>Tipos genéricos</h2>
+					<p>Y si puediéramos crear estas estructuras para <em>cualquier tipo de dato</em> en lugar de tener que hacer cada vez: una pila de enteros, otra de Strings, otra de Tareas, Personas...</p>
+				</section>
+
+				<!-- Tipos genéricos -->
+				<section>
+					<h2>Tipos genéricos</h2>
+					<p>Gracias a los <strong>tipos genéricos</strong> en Java, podemos crear estructuras de datos que funcionen con cualquier tipo de dato, proporcionando flexibilidad y reutilización de código.</p>
+				</section>
+
+				<!-- Tipos genéricos -->
+				<section>
+					<h2>Tipos genéricos</h2>
+					<h3>Pila genérica</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							// Puedes sustituir, de momento, los throw por sout
+							// Anotación para suprimir warnings de castings a (T) en tiempo de compilación
+							@SuppressWarnings("unchecked")
+							public class Pila<T> {
+
+								private Object[] elementos;
+								private int cima;
+								private static final int CAPACIDAD_DEFECTO = 10;
+
+								public Pila() {
+									this(CAPACIDAD_DEFECTO);
+								}
+
+								public Pila(int capacidad) {
+									elementos = new Object[capacidad];
+									cima = 0;
+								}
+
+								// Apilar (push)
+								public void push(T elemento) {
+									if (cima == elementos.length) {
+										throw new StackOverflowError("La pila está llena");
+									}
+									elementos[cima++] = elemento;
+								}
+
+								// Desapilar (pop)
+								public T pop() {
+									if (isEmpty()) {
+										throw new EmptyStackException();
+									}
+									T elemento = (T) elementos[--cima];
+									elementos[cima] = null; // buena práctica
+									return elemento;
+								}
+
+								// Ver el elemento superior
+								public T peek() {
+									if (isEmpty()) {
+										throw new EmptyStackException();
+									}
+									return (T) elementos[cima - 1];
+								}
+
+								public boolean isEmpty() {
+									return cima == 0;
+								}
+
+								public int size() {
+									return cima;
+								}
+							}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Tipos genéricos -->
+				<section>
+					<h2>Tipos genéricos</h2>
+					<h3>Main - Pila genérica</h3>
+					<pre>
+						<code class="hljs" data-trim>
+							public class Main {
+							public static void main(String[] args) {
+
+								// Pila de Alumno
+								Pila&lt;Alumno&gt; pila1 = new Pila&lt;&gt;(5);
+								pila1.push(new Alumno("Ana", 18));
+								pila1.push(new Alumno("Luis", 19));
+								pila1.push(new Alumno("María", 20));
+
+								System.out.println(pila1.pop());   // María (20 años)
+								System.out.println(pila1.peek()); // Luis (19 años)
+								System.out.println("Tamaño Pila 1: " + pila1.size());
+								System.out.println("--------------------");
+
+								// Pila de String
+								Pila&lt;String&gt; pila2 = new Pila&lt;&gt;(10);
+								pila2.push("Eladio");
+								pila2.push("Antonio");
+								pila2.push("Jaime");
+
+								System.out.println(pila2.pop()); // Jaime
+								System.out.println(pila2.peek()); // Antonio
+								System.out.println("Tamaño Pila 2: " + pila2.size());
+								System.out.println("--------------------");
+
+								// Pila de Integer
+								Pila&lt;Integer&gt; pila3 = new Pila&lt;&gt;(20);
+								pila3.push(534);
+								pila3.push(1489);
+								pila3.push(267);
+
+								System.out.println(pila3.pop()); // 267
+								System.out.println(pila3.peek()); // 1489
+								System.out.println("Tamaño Pila 3: " + pila3.size());
+								System.out.println("--------------------");
+							}
+						}
+						</code>
+					</pre>
+				</section>
+
+				<!-- Tipos genéricos -->
+				<section>
+					<h2>Tipos genéricos</h2>
+					<h3>Ejercicio</h3>
+					<p>Implementa una <strong>Cola genérica</strong> utilizando un array circular, similar a la clase Cola que vimos antes pero con tipos genéricos.</p>
+					<p>Recuerda que debes manejar adecuadamente los índices para el frente y el fin de la cola, así como el tamaño actual de la misma.</p>
+					<p>Cuando la tengas lista, pruébala con los documentos de la cola de impresión. Te debe seguir funcionando igual.</p>	
 				</section>
 
 				<!-- Para repasar -->
