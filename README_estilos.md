@@ -24,3 +24,25 @@
 <aside class="notes">
     Texto que sólo ve el orador
 </aside>
+
+## Resaltar al hacer clic 
+
+<p class="fragment highlight-blue">Texto que se resalta después</p>
+
+.highlight-green
+.highlight-red
+
+## Colores propios (micss.css)
+
+Resaltar con el mismo azul, verde o rojo que .fragment.highlight-blue -green -red 
+
+<span class="naranja">Texto naranja</span>
+
+.azul
+.verde 
+.rojo 
+.naranja 
+.violeta 
+.rosa 
+
+strong y em --> azul
