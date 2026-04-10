@@ -663,7 +663,8 @@
 								// 3. Aplicar una transformación a cada elemento de la lista
 								lista
 										.stream()
-										.map(num -> num*10) // .map(ProgramacionFuncional::multiplica10)
+										.map(num -> num*10) 
+										// .map(ProgramacionFuncional::multiplica10) llamar a función de la propia clase
 										.forEach(System.out::println);
 						
 								System.out.println("--------");
